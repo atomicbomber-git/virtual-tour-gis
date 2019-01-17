@@ -9,6 +9,13 @@
 
     @include('shared.alert', ['state' => 'success', 'session_var' => 'message'])
 
+    <div class="my-3 text-right">
+        <a href="{{ route('layer.create') }}" class="btn btn-info">
+            Layer Baru
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-list-alt"></i>
@@ -33,6 +40,11 @@
                             <td> {{ $layer->name }} </td>
                             <td> {{ $layer->description }} </td>
                             <td>
+                                <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-info">
+                                    Sunting
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+
                                 <form action='{{ route('layer.delete', $layer) }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>

@@ -18,18 +18,40 @@ class LayerController extends Controller
     
     public function create()
     {
+        return view('layer.create');
     }
     
     public function store()
-    {   
+    {
+        $data = $this->validate(request(), [
+            'name' => 'string|required',
+            'description' => 'string|required'
+        ]);
+
+        Layer::create($data);
+
+        return redirect()
+            ->route('layer.index')
+            ->with(['message' => __('messages.create.success')]);
     }
     
     public function edit(Layer $layer)
     {
+        return view('layer.edit', compact('layer'));
     }
     
     public function update(Layer $layer)
     {
+        $data = $this->validate(request(), [
+            'name' => 'string|required',
+            'description' => 'string|required'
+        ]);
+
+        $layer->update($data);
+
+        return redirect()
+            ->route('layer.index')
+            ->with(['message' => __('messages.update.success')]);
     }
     
     public function delete(Layer $layer) {
