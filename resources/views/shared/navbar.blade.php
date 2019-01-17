@@ -12,6 +12,13 @@
                         Layer
                     </a>
                 </li>
+
+                <li class='nav-item {{ Route::is('location.*') ? 'active' : '' }}'>
+                    <a class='nav-link' href='{{ route('location.index') }}'>
+                        <i class='fa fa-map-marker'></i>
+                        Lokasi
+                    </a>
+                </li>
             </div>
         </div>
     </div>

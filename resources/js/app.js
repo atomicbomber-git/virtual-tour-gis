@@ -20,7 +20,17 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('location-index', require('./components/location/Index.vue').default);
+
+// Import vue2-google-maps
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+    load: {
+      key: 'AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU'
+    },
+})
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

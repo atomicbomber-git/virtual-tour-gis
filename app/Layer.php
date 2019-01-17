@@ -9,4 +9,9 @@ class Layer extends Model
     public $fillable = [
         'name', 'description'
     ];
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }
