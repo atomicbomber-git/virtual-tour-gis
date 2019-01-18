@@ -12,7 +12,7 @@ class LocationController extends Controller
     {
         $layers = Layer::query()
             ->select('id', 'name')
-            ->with('locations:id,layer_id,name,latitude,longitude')
+            ->with('locations:id,layer_id,name,address,description,latitude,longitude')
             ->get();
 
         return view('location.index', compact('layers'));
@@ -20,6 +20,12 @@ class LocationController extends Controller
     
     public function create()
     {
+        $layers = Layer::query()
+            ->select('id', 'name')
+            ->with('locations:id,layer_id,name,address,description,latitude,longitude')
+            ->get();
+
+        return view('location.create', compact('layers'));
     }
     
     public function store()
@@ -35,5 +41,8 @@ class LocationController extends Controller
     }
     
     public function delete(Location $location) {
+        $location->delete();
+        return back()
+            ->with('message', __('messages.delete.success'));
     }
 }

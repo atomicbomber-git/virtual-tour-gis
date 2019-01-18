@@ -21,6 +21,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('location-index', require('./components/location/Index.vue').default);
+Vue.component('location-create', require('./components/location/Create.vue').default);
 
 // Import vue2-google-maps
 import * as VueGoogleMaps from 'vue2-google-maps'
