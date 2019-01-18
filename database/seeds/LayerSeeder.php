@@ -12,9 +12,9 @@ class LayerSeeder extends Seeder
      */
     public function run()
     {
-        Layer::create(['name' => 'Kafe', 'description' => '']);
-        Layer::create(['name' => 'Ruko', 'description' => '']);
-        Layer::create(['name' => 'Toko', 'description' => '']);
-        Layer::create(['name' => 'Minimarket', 'description' => '']);
+        factory(Layer::class)->create(['name' => 'Kafe']);
+        factory(Layer::class)->create(['name' => 'Ruko']);
+        factory(Layer::class)->create(['name' => 'Toko']);
+        factory(Layer::class)->create(['name' => 'Minimarket']);
     }
 }

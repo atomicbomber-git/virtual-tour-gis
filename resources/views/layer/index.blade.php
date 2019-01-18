@@ -29,7 +29,7 @@
                         <tr>
                             <th> # </th>
                             <th> Nama </th>
-                            <th> Deskripsi </th>
+                            <th style="width: 40rem"> Deskripsi </th>
                             <th> Kendali </th>
                         </tr>
                    </thead>
@@ -39,7 +39,7 @@
                             <td> {{ $loop->iteration }}. </td>
                             <td> {{ $layer->name }} </td>
                             <td> {{ $layer->description }} </td>
-                            <td>
+                            <td class="text-center">
                                 <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-info">
                                     Sunting
                                     <i class="fa fa-pencil"></i>
