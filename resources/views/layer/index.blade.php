@@ -30,6 +30,7 @@
                             <th> # </th>
                             <th> Nama </th>
                             <th style="width: 40rem"> Deskripsi </th>
+                            <th> <em> Icon </em> </th>
                             <th> Kendali </th>
                         </tr>
                    </thead>
@@ -39,6 +40,9 @@
                             <td> {{ $loop->iteration }}. </td>
                             <td> {{ $layer->name }} </td>
                             <td> {{ $layer->description }} </td>
+                            <td class="text-center">
+                                <img src="{{ route('layer.icon', $layer) }}">
+                            </td>
                             <td class="text-center">
                                 <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-info">
                                     Sunting

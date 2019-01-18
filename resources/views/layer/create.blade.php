@@ -13,7 +13,7 @@
             Layer Baru
         </div>
         <div class="card-body">
-            <form action="{{ route('layer.store') }}" method="POST">
+            <form action="{{ route('layer.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class='form-group'>
                     <label for='name'> Nama: </label>
@@ -44,7 +44,15 @@
                     </div>
                 </div>
 
-                <div class="form-group text-right">
+                <div class="form-group">
+                    <label for="icon"> Icon: </label>
+                    <input class="d-block" id="icon" name="icon" type="file" accept="images/*">
+                    <small class='text-danger text-xs mt-3'>
+                        {{ $errors->first('icon') }}
+                    </small>
+                </div>
+
+                <div class="form-group text-right mt-5">
                     <button class="btn btn-primary">
                         Tambahkan Layer
                         <i class="fa fa-plus"></i>

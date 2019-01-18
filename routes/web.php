@@ -22,6 +22,7 @@ Route::group(['prefix' => '/layer', 'as' => 'layer.'], function() {
     Route::get('/create', 'LayerController@create')->name('create');
     Route::post('/store', 'LayerController@store')->name('store');
     Route::get('/edit/{layer}', 'LayerController@edit')->name('edit');
+    Route::get('/icon/{layer}', 'LayerController@icon')->name('icon');
     Route::post('/update/{layer}', 'LayerController@update')->name('update');
     Route::post('/delete/{layer}', 'LayerController@delete')->name('delete');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Layer;
+use Illuminate\Support\Facades\DB;
 
 class LayerController extends Controller
 {
@@ -24,11 +25,16 @@ class LayerController extends Controller
     public function store()
     {
         $data = $this->validate(request(), [
-            'name' => 'string|required',
-            'description' => 'string|required'
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'icon' => 'required|file|mimes:png,jpg,jpeg'
         ]);
-
-        Layer::create($data);
+        
+        DB::transaction(function() use($data) {
+            Layer::create($data)
+                ->addMediaFromRequest('icon')
+                ->toMediaCollection(config('media.collections.icons'));
+        });
 
         return redirect()
             ->route('layer.index')
@@ -38,6 +44,13 @@ class LayerController extends Controller
     public function edit(Layer $layer)
     {
         return view('layer.edit', compact('layer'));
+    }
+
+    public function icon(Layer $layer)
+    {
+        $image = $layer->getFirstMedia(config('media.collections.icons'));
+        if (empty($image)) { abort(404); }
+        return response()->file($image->getPath());
     }
     
     public function update(Layer $layer)
