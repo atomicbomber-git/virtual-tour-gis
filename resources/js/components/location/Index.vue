@@ -37,6 +37,7 @@
 
                                 <GmapMarker
                                     @click="location.infoWindowOpened=!location.infoWindowOpened"
+                                    :icon="`/layer/icon/${layer.id}`"
                                     :position="{lat: location.latitude, lng: location.longitude}"/>
 
                                 <GmapInfoWindow
