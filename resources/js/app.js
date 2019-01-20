@@ -32,6 +32,11 @@ Vue.use(VueGoogleMaps, {
     },
 })
 
+// Import vue-js-modal
+import VModal from 'vue-js-modal'
+
+Vue.use(VModal, { dialog: true })
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

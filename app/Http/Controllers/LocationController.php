@@ -38,11 +38,20 @@ class LocationController extends Controller
     
     public function update(Location $location)
     {
+        $data = $this->validate(request(), [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric'
+        ]);
+
+        $location->update($data);
+
+        session()->flash('message', __('messages.update.success'));
     }
     
     public function delete(Location $location) {
         $location->delete();
-        return back()
-            ->with('message', __('messages.delete.success'));
+        session()->flash('message', __('messages.delete.success'));
     }
 }
