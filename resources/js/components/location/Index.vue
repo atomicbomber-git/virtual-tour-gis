@@ -265,7 +265,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col pr-0">
                         <GmapMap
                             :center="map_center"
                             :zoom="14"
@@ -319,7 +319,7 @@
                             </span>
                         </GmapMap>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="list-group" style="height:640px; overflow-y: scroll">
                             <span v-for="layer in layers" :key="layer.id">
                                 <div
@@ -341,6 +341,10 @@
                                     </div>
 
                                     <div class="text-right mt-3">
+                                        <a class="btn btn-dark btn-sm" :href="`/location/panorama/${location.id}/index`">
+                                            Panorama
+                                            <i class="fa fa-image"></i>
+                                        </a>
                                         <button @click="onEditButtonClick(location)" class="btn btn-dark btn-sm">
                                             Edit
                                             <i class="fa fa-pencil"></i>

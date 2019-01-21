@@ -15,4 +15,9 @@ class Location extends Model
     {
         return $this->belongsTo(Layer::class);
     }
+
+    public function panoramas()
+    {
+        return $this->hasMany(Panorama::class);
+    }
 }

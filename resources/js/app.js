@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('location-index', require('./components/location/Index.vue').default);
 Vue.component('location-create', require('./components/location/Create.vue').default);
+Vue.component('location-panorama-index', require('./components/location/panorama/Index.vue').default);
 
 // Import vue2-google-maps
 import * as VueGoogleMaps from 'vue2-google-maps'

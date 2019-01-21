@@ -9,6 +9,13 @@
 
     @include('shared.alert', ['state' => 'success', 'session_var' => 'message'])
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> SIG Virtual Tour </li>
+            <li class="breadcrumb-item active"> Lokasi </li>
+        </ol>
+    </nav>
+
     <div id="app">
         <location-index/>
     </div>

@@ -59,4 +59,8 @@ class LocationController extends Controller
         $location->delete();
         session()->flash('message', __('messages.delete.success'));
     }
+
+    public function panorama(Location $location) {
+        
+    }
 }

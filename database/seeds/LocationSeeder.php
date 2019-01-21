@@ -15,7 +15,7 @@ class LocationSeeder extends Seeder
     {
         $layers = Layer::select('id')->get();
 
-        factory(\App\Location::class, 30)
+        factory(\App\Location::class, 4)
             ->make()
             ->each(function ($location) use($layers) {
                 $location->layer_id = $layers->random()->id;

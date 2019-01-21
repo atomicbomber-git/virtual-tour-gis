@@ -9,8 +9,15 @@
 
     @include('shared.alert', ['state' => 'success', 'session_var' => 'message'])
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> SIG Virtual Tour </li>
+            <li class="breadcrumb-item active"> Layer </li>
+        </ol>
+    </nav>
+
     <div class="my-3 text-right">
-        <a href="{{ route('layer.create') }}" class="btn btn-info">
+        <a href="{{ route('layer.create') }}" class="btn btn-dark btn-sm">
             Layer Baru
             <i class="fa fa-plus"></i>
         </a>
