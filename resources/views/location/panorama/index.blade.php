@@ -21,7 +21,7 @@
         <location-panorama-index/>
     </div>
 
-    <div class="card mb-4">
+    {{-- <div class="card mb-4">
         <div class="card-header">
             <i class="fa fa-plus"></i>
             Tambah Panorama Baru
@@ -56,7 +56,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <div class="card">
         <div class="card-header">

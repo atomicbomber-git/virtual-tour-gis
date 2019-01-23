@@ -1,5 +1,38 @@
 <template>
     <div class="mb-4">
+        <div class="card mb-2">
+            <div class="card-header">
+                Tambah Panorama Baru
+                <i class="fa fa-plus"></i>
+            </div>
+
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class='form-group'>
+                        <label for='name'> Nama Panorama: </label>
+                        <input
+                            v-model='name'
+                            class='form-control'
+                            :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
+                            type='text' id='name' placeholder='Nama Panorama'>
+                        <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image"> Gambar: </label>
+                        <input name="image" class="d-block" type="file" accept="image/*">
+                    </div>
+
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary">
+                            Tambah Panorama
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col p-0">
                 <GmapMap
@@ -21,7 +54,6 @@
                 <div ref="pano" style="width: 100%; border: thin solid black; height: 600px"></div>
             </div>
         </div>
-        
     </div>
 </template>
 
@@ -37,30 +69,23 @@ export default {
             var streetviewService = new google.maps.StreetViewService;
             this.initPanorama()
 
-            // streetviewService.getPanorama(
-            //     { location: {lat: this.location.latitude, lng: this.location.longitude} },
-            //     (result, status) => {
-            //         if (status === 'OK') {
-            //             this.location_street_view = result
-            //             console.log("TETS TETSTS TSTSTTS")
-                        
-            //         }
-            //         console.log(status)
-            //     }
-            // );
         })
     },
 
     data() {
         return {
+            name: '',
             map: null,
             google: gmapApi,
             location: window.p_location,
             location_street_view: null,
+            error_data: null,
         }
     },
 
     methods: {
+        get: _.get,
+
         getPanoramaData(panorama_id) {
 
             let panoramas = this.location.panoramas 
