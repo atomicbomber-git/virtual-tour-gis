@@ -1,61 +1,91 @@
 <template>
     <div class="mb-4">
-        <div class="card mb-2">
-            <div class="card-header">
+        <modal name="create-panorama-form" height="auto">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-plus"></i>
+                    Tambah Panorama Baru
+                </div>
+                <div class="card-body" style="max-height: 30rem; overflow-y: auto">
+                    <form @submit="onCreatePanoramaFormSubmit">
+                        <div class='form-group'>
+                            <label for='name'> Name: </label>
+                            <input
+                                v-model='new_panorama.name'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
+                                type='text' id='name' placeholder='Name'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class='form-group'>
+                                    <label for='latitude'> Latitude: </label>
+                                    <input
+                                        v-model.number='new_panorama.latitude'
+                                        class='form-control'
+                                        :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
+                                        type='text' id='latitude' placeholder='Latitude'>
+                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class='form-group'>
+                                    <label for='longitude'> Longitude: </label>
+                                    <input
+                                        v-model.number='new_panorama.longitude'
+                                        class='form-control'
+                                        :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
+                                        type='text' id='longitude' placeholder='Longitude'>
+                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <GmapMap
+                            @click="onCreatePanoramaMapClick"
+                            class="my-3"
+                            style="height: 300px; width: 100%"
+                            :center="{lat: location.latitude, lng: location.longitude}"
+                            :zoom="18"
+                            map-type-id="terrain">
+
+                            <GmapMarker
+                                :icon="`/layer/icon/${location.layer_id}`"
+                                :position="{lat: location.latitude, lng: location.longitude}"/>
+
+                            <GmapMarker
+                                :position="{lat: new_panorama.latitude, lng: new_panorama.longitude}"/>
+
+                        </GmapMap>
+
+                        <div class="form-group">
+                            <label for="image"> Gambar: </label>
+                            <input class="d-block" ref="createPanoramaImageInputRef" id="image" name="image" type="file" accept="images/*">
+                            <small v-if="get(this.error_data, 'errors.image[0]', false)" class='text-danger text-xs mt-3'>
+                                {{ get(this.error_data, 'errors.image[0]', false) }}
+                            </small>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button class="btn btn-primary">
+                                Tambah Panorama
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </modal>
+
+        <div class="my-3 text-right">
+            <button
+                @click="onCreatePanoramaButtonClick"
+                class="btn btn-dark btn-sm">
                 Tambah Panorama Baru
                 <i class="fa fa-plus"></i>
-            </div>
-
-            <div class="card-body">
-                <form method="POST" enctype="multipart/form-data">
-                    <div class='form-group'>
-                        <label for='name'> Nama Panorama: </label>
-                        <input
-                            v-model='new_panorama.name'
-                            class='form-control'
-                            :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
-                            type='text' id='name' placeholder='Nama Panorama'>
-                        <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col">
-                            <div class='form-group'>
-                                <label for='latitude'> Latitude: </label>
-                                <input
-                                    v-model='new_panorama.latitude'
-                                    class='form-control'
-                                    :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
-                                    type='text' id='latitude' placeholder='Latitude'>
-                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class='form-group'>
-                                <label for='longitude'> Longitude: </label>
-                                <input
-                                    v-model='new_panorama.longitude'
-                                    class='form-control'
-                                    :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
-                                    type='text' id='longitude' placeholder='Longitude'>
-                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image"> Gambar: </label>
-                        <input name="image" class="d-block" type="file" accept="image/*">
-                    </div>
-
-                    <div class="form-group text-right">
-                        <button class="btn btn-primary">
-                            Tambah Panorama
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
+            </button>
         </div>
 
         <div class="row">
@@ -90,10 +120,8 @@ export default {
     mounted() {
         this.$refs.mapRef.$mapPromise.then((map) => {
             this.map = map
-
             var streetviewService = new google.maps.StreetViewService;
             this.initPanorama()
-
         })
     },
 
@@ -114,6 +142,36 @@ export default {
 
     methods: {
         get: _.get,
+
+        onCreatePanoramaFormSubmit(e) {
+            e.preventDefault()
+
+            let newPanoramaFormData = new FormData()
+            Object.keys(this.new_panorama).forEach(key => {
+                this.new_panorama[key] && newPanoramaFormData.append(key, this.new_panorama[key])
+            })
+
+            newPanoramaFormData.append('image', this.$refs.createPanoramaImageInputRef.files[0])
+
+            axios.post(`/location/panorama/${this.location.id}/store`, newPanoramaFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
+               .then(response => {
+                   window.location.reload(true)
+               })
+               .catch(error => {
+                   this.error_data = error.response.data
+               })
+        },
+
+        onCreatePanoramaButtonClick() {
+            this.new_panorama.latitude = this.location.latitude,
+            this.new_panorama.longitude = this.location.longitude,
+            this.$modal.show('create-panorama-form')
+        },
+
+        onCreatePanoramaMapClick(e) {
+            this.new_panorama.latitude = e.latLng.lat()
+            this.new_panorama.longitude = e.latLng.lng()
+        },
 
         getPanoramaData(panorama_id) {
 

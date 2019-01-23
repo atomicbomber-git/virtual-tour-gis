@@ -37,7 +37,6 @@ Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
 
     Route::group(['prefix' => '/panorama/{location}', 'as' => 'panorama.'], function() {
         Route::get('/index', 'LocationPanoramaController@index')->name('index');
-        Route::get('/create', 'LocationPanoramaController@create')->name('create');
         Route::post('/store', 'LocationPanoramaController@store')->name('store');
         Route::get('/edit/{panorama}', 'LocationPanoramaController@edit')->name('edit');
         Route::get('/image/{panorama}', 'LocationPanoramaController@image')->name('image');

@@ -14,16 +14,14 @@ class LocationPanoramaController extends Controller
         $location->load('panoramas');
         return view('location.panorama.index', compact('location'));
     }
-    
-    public function create(Location $location)
-    {
-    }
-    
+
     public function store(Location $location)
     {
         $data = $this->validate(request(), [
-            'name' => 'string|required',
-            'image' => 'file|required'
+            'name' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'image' => 'required|file'
         ]);
 
         $data['location_id'] = $location->id;
@@ -34,8 +32,7 @@ class LocationPanoramaController extends Controller
                 ->toMediaCollection(config('media.collections.panoramas'));
         });
 
-        return back()
-            ->with('message.success', __('messages.create.success'));
+        session()->flash('message.success', __('messages.create.success'));
     }
 
     public function image(Location $location, Panorama $panorama)
