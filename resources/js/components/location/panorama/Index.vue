@@ -11,11 +11,36 @@
                     <div class='form-group'>
                         <label for='name'> Nama Panorama: </label>
                         <input
-                            v-model='name'
+                            v-model='new_panorama.name'
                             class='form-control'
                             :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
                             type='text' id='name' placeholder='Nama Panorama'>
                         <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col">
+                            <div class='form-group'>
+                                <label for='latitude'> Latitude: </label>
+                                <input
+                                    v-model='new_panorama.latitude'
+                                    class='form-control'
+                                    :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
+                                    type='text' id='latitude' placeholder='Latitude'>
+                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class='form-group'>
+                                <label for='longitude'> Longitude: </label>
+                                <input
+                                    v-model='new_panorama.longitude'
+                                    class='form-control'
+                                    :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
+                                    type='text' id='longitude' placeholder='Longitude'>
+                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -74,7 +99,11 @@ export default {
 
     data() {
         return {
-            name: '',
+            new_panorama: {
+                name: null,
+                latitude: null,
+                longitude: null
+            },
             map: null,
             google: gmapApi,
             location: window.p_location,
