@@ -22,22 +22,23 @@ class Panorama extends Model implements HasMedia
     {
         $image = Image::load($this->getFirstMediaPath("panoramas"));
 
-        $zoom_level = 3;
+        $max_zoom_level = 2;
 
         $this->addMediaConversion("tile_0_0_0");
 
-        // for ($zoom_level = 1; $zoom_level <= $max_zoom_level; ++$zoom_level) {
-        $n_tiles = pow(4, $zoom_level);
-        
-        $tile_size_x = $image->getWidth() / sqrt($n_tiles);
-        $tile_size_y = $image->getHeight() / sqrt($n_tiles);
+        for ($zoom_level = 1; $zoom_level <= $max_zoom_level; ++$zoom_level) {
+            $n_tiles = pow(4, $zoom_level);
+            
+            $n_sqrt_tiles = sqrt($n_tiles);
+            $tile_size_x = $image->getWidth() / $n_sqrt_tiles;
+            $tile_size_y = $image->getHeight() / $n_sqrt_tiles;
 
-        for ($i = 0; $i < sqrt($n_tiles); ++$i) {
-            for ($j = 0; $j < sqrt($n_tiles); ++$j) {
-                $this->addMediaConversion("tile_${zoom_level}_${i}_${j}")
-                    ->manualCrop($tile_size_x, $tile_size_y, $tile_size_x * $i, $tile_size_y * $j);
+            for ($i = 0; $i < $n_sqrt_tiles; ++$i) {
+                for ($j = 0; $j < $n_sqrt_tiles; ++$j) {
+                    $this->addMediaConversion("tile_${zoom_level}_${i}_${j}")
+                        ->manualCrop($tile_size_x, $tile_size_y, $tile_size_x * $i, $tile_size_y * $j);
+                }
             }
         }
-        // }
     }
 }

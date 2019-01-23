@@ -2451,13 +2451,30 @@ __webpack_require__.r(__webpack_exports__);
     getPanoramaData: function getPanoramaData(panorama_id) {
       var _this2 = this;
 
+      var panoramas = this.location.panoramas;
+      var panorama = panoramas.find(function (panorama) {
+        return panorama.id == panorama_id;
+      });
+      var nextId = null;
+
+      if (panorama_id == panoramas[0].id) {
+        nextId = panoramas[1].id;
+      } else {
+        nextId = panoramas[0].id;
+      }
+
       return {
         location: {
           pano: panorama_id,
           // The ID for this custom panorama.
           description: 'Google Sydney - Reception',
-          latLng: new google.maps.LatLng(-33.86684, 151.19583)
+          latLng: new google.maps.LatLng(panorama.latitude, panorama.longitude)
         },
+        links: [{
+          heading: 180,
+          description: 'Whatever',
+          pano: nextId
+        }],
         copyright: 'Imagery (c) 2010 Google',
         tiles: {
           tileSize: new google.maps.Size(128, 64),

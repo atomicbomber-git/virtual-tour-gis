@@ -62,12 +62,29 @@ export default {
 
     methods: {
         getPanoramaData(panorama_id) {
+
+            let panoramas = this.location.panoramas 
+            let panorama = panoramas.find(panorama => panorama.id == panorama_id)
+            
+            let nextId = null
+            if (panorama_id == panoramas[0].id) {
+                nextId = panoramas[1].id
+            }
+            else {
+                nextId = panoramas[0].id
+            }
+
             return {
                 location: {
                     pano: panorama_id,  // The ID for this custom panorama.
                     description: 'Google Sydney - Reception',
-                    latLng: new google.maps.LatLng(-33.86684, 151.19583)
+                    latLng: new google.maps.LatLng(panorama.latitude, panorama.longitude)
                 },
+                links: [{
+                    heading: 180,
+                    description: 'Whatever',
+                    pano: nextId
+                }],
                 copyright: 'Imagery (c) 2010 Google',
                 tiles: {
                     tileSize: new google.maps.Size(128, 64),
