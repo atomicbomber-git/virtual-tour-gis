@@ -49,7 +49,7 @@
                         Edit Lokasi
                     </div>
 
-                    <div class="card-body" style="height: 40rem; overflow-y: scroll">
+                    <div class="card-body" style="height: 30rem; overflow-y: scroll">
                         <form @submit="onEditFormSubmit" v-if="edited_location">
                             <div class='form-group'>
                                 <label for='name'> Nama: </label>
@@ -150,7 +150,7 @@
                         Tambah Lokasi
                     </div>
 
-                    <div class="card-body" style="height: 40rem; overflow-y: scroll">
+                    <div class="card-body" style="height: 30rem; overflow-y: scroll">
                         <form @submit="onCreateFormSubmit" v-if="created_location">
                             <div class='form-group'>
                                 <label for='name'> Nama: </label>
