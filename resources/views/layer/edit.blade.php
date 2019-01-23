@@ -13,7 +13,7 @@
             Sunting Layer '{{ $layer->name }}'
         </div>
         <div class="card-body">
-            <form action="{{ route('layer.update', $layer) }}" method="POST">
+            <form action="{{ route('layer.update', $layer) }}" enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class='form-group'>
                     <label for='name'> Nama: </label>
@@ -41,6 +41,19 @@
                     <div class='invalid-feedback'>
                         {{ $errors->first('description') }}
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="icon"> Icon Lama: </label>
+                    <img class="d-block" src="{{ route('layer.icon', $layer) }}" alt="{{ $layer->name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="icon"> Icon: </label>
+                    <input class="d-block" id="icon" name="icon" type="file" accept="images/*">
+                    <small class='text-danger text-xs mt-3'>
+                        {{ $errors->first('icon') }}
+                    </small>
                 </div>
 
                 <div class="form-group text-right">

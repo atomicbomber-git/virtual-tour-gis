@@ -57,8 +57,13 @@ class LayerController extends Controller
     {
         $data = $this->validate(request(), [
             'name' => 'string|required',
-            'description' => 'string|required'
+            'description' => 'string|required',
+            'icon' => 'nullable|file'
         ]);
+
+        $layer->clearMediaCollection(config('media.collections.icons'));
+        $layer->addMediaFromRequest('icon')
+            ->toMediaCollection(config('media.collections.icons'));
 
         $layer->update($data);
 
