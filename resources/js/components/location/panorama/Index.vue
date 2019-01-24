@@ -3,7 +3,7 @@
         <modal
             name="create-panorama-form"
             height="auto"
-            @before-close="beforeCreatePanoramaModalClose">
+            @before-close="(e) => { is_submitting && e.stop() }">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-plus"></i>
@@ -51,7 +51,7 @@
                             class="my-3"
                             style="height: 300px; width: 100%"
                             :center="{lat: location.latitude, lng: location.longitude}"
-                            :zoom="18"
+                            :zoom="20"
                             map-type-id="terrain">
 
                             <GmapMarker
@@ -87,6 +87,127 @@
             </div>
         </modal>
 
+        <modal
+            height="auto"
+            @before-close="(e) => { is_submitting && e.stop() }"
+            name="delete-panorama-form">
+            <div v-if="selected_panorama" class="card bg-danger text-white">
+                <div class="card-header">
+                    <i class="fa fa-warning"></i>
+                    Anda Yakin Anda Hendak Menghapus Panorama Ini?
+                </div>
+                <div class="card-body">
+
+                    <h5> {{ selected_panorama.name }} </h5>
+                    ({{ selected_panorama.latitude }}, {{ selected_panorama.longitude }})
+                    <hr/>
+
+                    <img
+                        style="width: 100%; height: auto; object-fit: cover"
+                        :src="`/location/panorama/${selected_panorama.location_id}/image/${selected_panorama.id}`"/>
+
+                    <div class="mt-3 text-right">
+                        <button @click="onConfirmPanoramaDeleteButtonClick(selected_panorama)" class="btn btn-primary">
+                            Konfimasi Penghapusan
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </modal>
+
+        <modal
+            height="auto"
+            name="edit-panorama-form">
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-pencil"></i>
+                    Edit Panorama
+                </div>
+
+                <div class="card-body">
+                    <form @submit="onEditPanoramaFormSubmit" v-if="selected_panorama && edited_panorama">
+                        <div class='form-group'>
+                            <label for='name'> Name: </label>
+                            <input
+                                v-model='edited_panorama.name'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
+                                type='text' id='name' placeholder='Name'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class='form-group'>
+                                    <label for='latitude'> Latitude: </label>
+                                    <input
+                                        v-model.number='edited_panorama.latitude'
+                                        class='form-control'
+                                        :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
+                                        type='text' id='latitude' placeholder='Latitude'>
+                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class='form-group'>
+                                    <label for='longitude'> Longitude: </label>
+                                    <input
+                                        v-model.number='edited_panorama.longitude'
+                                        class='form-control'
+                                        :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
+                                        type='text' id='longitude' placeholder='Longitude'>
+                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <GmapMap
+                            @click="onEditPanoramaMapClick"
+                            class="my-3"
+                            style="height: 300px; width: 100%"
+                            :center="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
+                            :zoom="18"
+                            map-type-id="terrain">
+
+                            <GmapMarker
+                                :icon="`/layer/icon/${location.layer_id}`"
+                                :position="{lat: location.latitude, lng: location.longitude}"/>
+
+                            <GmapMarker
+                                :position="{lat: edited_panorama.latitude, lng: edited_panorama.longitude}"/>
+
+                            <GmapMarker
+                                icon="/png/panorama.png"
+                                :position="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"/>
+
+                        </GmapMap>
+
+                        <div class="form-group">
+                            <label for="image"> Gambar: </label>
+                            <input class="d-block" ref="editPanoramaImageInputRef" id="image" name="image" type="file" accept="images/*">
+                            <small v-if="get(this.error_data, 'errors.image[0]', false)" class='text-danger text-xs mt-3'>
+                                {{ get(this.error_data, 'errors.image[0]', false) }}
+                            </small>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button v-if="!is_submitting" class="btn btn-primary">
+                                Perbarui Panorama
+                                <i class="fa fa-check"></i>
+                            </button>
+
+                            <button v-if="is_submitting" class="btn btn-primary">
+                                Mengirim Data
+                                <i class="fa fa-spinner fa-spin fa-fw"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </modal>
+
         <div class="my-3 text-right">
             <button
                 @click="onCreatePanoramaButtonClick"
@@ -98,19 +219,31 @@
 
         <div class="row">
             <div class="col">
-                <GmapMap
-                    :center="{lat: location.latitude, lng: location.longitude}"
-                    :zoom="14"
-                    map-type-id="terrain"
-                    style="height: 300px; width: 100%"
-                    class="p-0">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-map"></i>
+                        Peta Lokasi Panoram
+                    </div>
+                    <div class="card-body p-0">
+                        <GmapMap
+                            :center="{lat: location.latitude, lng: location.longitude}"
+                            :zoom="20"
+                            map-type-id="terrain"
+                            style="height: 600px; width: 100%">
 
-                    <GmapMarker
-                        v-for="panorama in location.panoramas" :key="panorama.id"
-                        :position="{lat: panorama.latitude, lng: panorama.longitude}"
-                        />
+                            <GmapMarker
+                                :position="{lat: location.latitude, lng: location.longitude}"
+                                :icon="`/layer/icon/${location.layer_id}`"/>
 
-                </GmapMap>
+                            <GmapMarker
+                                icon="/png/panorama.png"
+                                v-for="panorama in location.panoramas" :key="panorama.id"
+                                :position="{lat: panorama.latitude, lng: panorama.longitude}"/>
+
+                        </GmapMap>
+                    </div>
+                </div>
+                
             </div>
 
             <div class="col-3">
@@ -121,32 +254,27 @@
                         :key="panorama.id">
                         {{ panorama.name  }}
                         <hr class="m-1"/>
-                        ({{ panorama.latitude }}, {{ panorama.longitude }})
+                        ({{ panorama.latitude.toFixed(4) }}, {{ panorama.longitude.toFixed(4) }})
                         
-                        <div class="text-right">
-                        <div>
+                        <div class="text-right mt-3">
+                            <button @click="onEditPanoramaButtonClick(panorama)" class="btn btn-dark btn-sm">
+                                Edit
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button @click="onDeletePanoramaButtonClick(panorama)" class="btn btn-danger btn-sm">
+                                Hapus
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
 
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-image"></i>
-                Panorama
-            </div>
-
-            <div class="card-body">
-                <table>
-                    <thead class="thead thead-dark">
-                        <th> Nama Panorama </th>
-                        <th> Latitude </th>
-                        <th> Lon </th>
-                        <th> Awesome </th>
-                        <th> Awesome </th>
-                    </thead>
-                </table>
+                <div v-if="location.panoramas.length == 0" class="alert alert-warning">
+                    <i class="fa fa-warning"></i>
+                    Belum Terdapa Panorama Sama Sekali.
+                </div>
             </div>
         </div>
 
@@ -194,7 +322,11 @@ export default {
                 latitude: null,
                 longitude: null
             },
+
             is_submitting: false,
+            
+            edited_panorama: null,
+            selected_panorama: null,
 
             map: null,
             google: gmapApi,
@@ -223,15 +355,9 @@ export default {
                    window.location.reload(true)
                })
                .catch(error => {
+                   this.is_submitting = false
                    this.error_data = error.response.data
                })
-        },
-
-        beforeCreatePanoramaModalClose(e) {
-            if (!this.is_submitting) {
-                return
-            }
-            e.stop();
         },
 
         onCreatePanoramaButtonClick() {
@@ -243,6 +369,54 @@ export default {
         onCreatePanoramaMapClick(e) {
             this.new_panorama.latitude = e.latLng.lat()
             this.new_panorama.longitude = e.latLng.lng()
+        },
+
+        onDeletePanoramaButtonClick(panorama) {
+            this.selected_panorama = {...panorama}
+            this.$modal.show('delete-panorama-form')
+        },
+
+        onEditPanoramaButtonClick(panorama) {
+            this.edited_panorama = {...panorama}
+            this.selected_panorama = {...panorama}
+            this.$modal.show('edit-panorama-form')
+        },
+
+        onEditPanoramaMapClick(e) {
+            this.edited_panorama.latitude = e.latLng.lat() 
+            this.edited_panorama.longitude = e.latLng.lng() 
+        },
+
+        onEditPanoramaFormSubmit(e) {
+            e.preventDefault()
+
+            let editedPanoramaFormData = new FormData()
+            
+            Object.keys(this.edited_panorama).forEach(key => {
+                this.edited_panorama[key] && editedPanoramaFormData.append(key, this.edited_panorama[key])
+            })
+
+            this.$refs.editPanoramaImageInputRef.files[0] &&
+                editedPanoramaFormData.append('image', this.$refs.editPanoramaImageInputRef.files[0])
+
+            this.is_submitting = true
+            axios.post(`/location/panorama/${this.location.id}/update/${this.edited_panorama.id}`, editedPanoramaFormData,
+                    { headers: { 'Content-Type': 'multipart/form-data' } }
+                )
+               .then(response => {
+                   window.location.reload(true)
+               })
+               .catch(error => {
+                   this.is_submitting = false
+                   this.error_data = error.response.data
+               })
+        },
+
+        onConfirmPanoramaDeleteButtonClick(panorama) {
+            axios.post(`/location/panorama/${this.location.id}/delete/${panorama.id}`)
+               .then(response => {
+                   window.location.reload(true)
+               })
         },
 
         getPanoramaData(panorama_id) {

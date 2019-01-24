@@ -49,12 +49,28 @@ class LocationPanoramaController extends Controller
         return response()->file($image->getPath("tile_${zoom}_${tile_x}_${tile_y}"));
     }
 
-    public function edit(Location $location, Panorama $panorama)
-    {
-    }
-    
     public function update(Location $location, Panorama $panorama)
     {
+        $data = $this->validate(request(), [
+            'name' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'image' => 'sometimes|nullable|file'
+        ]);
+
+        $data['location_id'] = $location->id;
+
+        DB::transaction(function() use($data, $panorama) {
+            $panorama->update($data);
+
+            if (isset($data['image'])) {
+                $panorama->clearMediaCollection(config('media.collections.panoramas'));
+                $panorama->addMediaFromRequest('image')
+                    ->toMediaCollection(config('media.collections.panoramas'));
+            }
+        });
+
+        session()->flash('message.success', __('messages.update.success'));
     }
     
     public function delete(Location $location, Panorama $panorama) {
