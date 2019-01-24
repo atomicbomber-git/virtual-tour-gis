@@ -43,5 +43,9 @@ Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
         Route::get('/tile/{panorama}/{zoom}/{tile_x}/{tile_y}', 'LocationPanoramaController@tile')->name('tile');
         Route::post('/update/{panorama}', 'LocationPanoramaController@update')->name('update');
         Route::post('/delete/{panorama}', 'LocationPanoramaController@delete')->name('delete');
+
+        Route::post('/link/{panorama}/create', 'LinkController@create')->name('create');
+        Route::post('/link/{panorama}/update/{link}', 'LinkController@update')->name('create');
+        Route::post('/link/{panorama}/delete/{link}', 'LinkController@delete')->name('create');
     });
 });

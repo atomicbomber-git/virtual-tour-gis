@@ -4,7 +4,7 @@
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-image'></i>
-        Panorama Lokasi
+        Panorama Lokasi '{{ $location->name }}'
     </h1>
 
     <nav aria-label="breadcrumb">

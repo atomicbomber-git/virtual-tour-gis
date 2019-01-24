@@ -41,4 +41,9 @@ class Panorama extends Model implements HasMedia
             }
         }
     }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class, 'origin_id');
+    }
 }

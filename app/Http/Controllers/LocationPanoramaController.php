@@ -6,19 +6,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Panorama;
+use App\Link;
 
 class LocationPanoramaController extends Controller
 {
     public function index(Location $location)
     {
-        $location->load('panoramas');
+        $location->load('panoramas.links.destination');
         return view('location.panorama.index', compact('location'));
     }
 
     public function store(Location $location)
     {
         $data = $this->validate(request(), [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:panoramas',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'image' => 'required|file'
@@ -74,6 +75,13 @@ class LocationPanoramaController extends Controller
     }
     
     public function delete(Location $location, Panorama $panorama) {
+        
+        Link::where('origin_id', $panorama->id)
+            ->delete();
+
+        Link::where('destination_id', $panorama->id)
+            ->delete();
+
         $panorama->delete();
 
         return back()

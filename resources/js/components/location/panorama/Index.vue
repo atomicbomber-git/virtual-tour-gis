@@ -208,6 +208,111 @@
             </div>
         </modal>
 
+        <modal
+            height="auto"
+            name="manage-links-modal">
+
+            <div class="card" v-if="selected_panorama">
+                <div class="card-header">
+                    <i class="fa fa-link"></i>
+                    Kelola Link
+                </div>
+                <div class="card-body">
+                    <h5> Daftar Link: </h5>
+                    <div class="alert alert-warning" v-if="!selected_panorama.links.length">
+                        <i class="fa fa-warning"></i>
+                        Belum terdapat link pada panorama ini
+                    </div>
+
+                    <table v-if="selected_panorama.links.length" class="table table-bordered table-sm">
+                        <thead class="thead thead-dark">
+                            <tr>
+                                <th> Panorama </th>
+                                <th> Heading </th>
+                                <th class="text-center"> Aksi </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="link in selected_pano_links" :key="link.id" :class="{ 'table-info': link.heading != link.original_heading }">
+                                <td> {{ link.destination.name }} </td>
+                                <td>
+                                    <input
+                                        class="form-control form-control-sm"
+                                        type="number"
+                                        v-model.number="link.heading"/>
+                                </td>
+                                <td class="text-center">
+                                    <button
+                                        @click="onUpdateLinkHeadingButtonClick(link)"
+                                        class="btn btn-dark btn-sm"
+                                        :disabled="link.heading == link.original_heading">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+
+                                    <button @click="onDeleteLinkButtonClick(link)" v-if="!is_submitting" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+
+                                    <button v-if="is_submitting" class="btn btn-danger btn-sm">
+                                        Mengirim Data
+                                        <i class="fa fa-spinner fa-spin fa-fw"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <hr/>
+
+                    <h5 class="mb-3"> Tambah Link dengan Panorama Lain: </h5>
+
+                    <div>
+                        <form v-if="possible_links.length > 0" @submit="onCreateNewLinkFormSubmit">
+                            <div class="form-group">
+                                <label> Panorama Tujuan: </label>
+                                <select v-model="destination_id" class="form-control" :class="{'is-invalid': get(this.error_data, 'errors.destination_id[0]', false)}">
+                                    <option
+                                        v-for="panorama in possible_links"
+                                        :key="panorama.id"
+                                        :value="panorama.id">
+                                        {{ panorama.name }}
+                                    </option>
+                                </select>
+                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.destination_id[0]', false) }}</div>
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='heading'> Heading: </label>
+                                <input
+                                    v-model.number='heading'
+                                    class='form-control'
+                                    :class="{'is-invalid': get(this.error_data, 'errors.heading[0]', false)}"
+                                    type='text' id='heading' placeholder='Heading'>
+                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.heading[0]', false) }}</div>
+                            </div>
+
+                            <div class="form-group text-right mt-2">
+                                <button v-if="!is_submitting" class="btn btn-primary">
+                                    Tambah Link
+                                    <i class="fa fa-check"></i>
+                                </button>
+
+                                <button v-if="is_submitting" class="btn btn-primary">
+                                    Mengirim Data
+                                    <i class="fa fa-spinner fa-spin fa-fw"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="alert alert-warning" v-if="possible_links.length == 0">
+                            <i class="fa fa-warning"></i>
+                            Tidak terdapat link yang dapat ditambahkan
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal>
+
         <div class="my-3 text-right">
             <button
                 @click="onCreatePanoramaButtonClick"
@@ -222,7 +327,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-map"></i>
-                        Peta Lokasi Panoram
+                        Peta Lokasi Panorama
                     </div>
                     <div class="card-body p-0">
                         <GmapMap
@@ -235,10 +340,21 @@
                                 :position="{lat: location.latitude, lng: location.longitude}"
                                 :icon="`/layer/icon/${location.layer_id}`"/>
 
+
+                            <span v-for="panorama in location.panoramas" :key="panorama.id">
+
                             <GmapMarker
                                 icon="/png/panorama.png"
-                                v-for="panorama in location.panoramas" :key="panorama.id"
+                                
                                 :position="{lat: panorama.latitude, lng: panorama.longitude}"/>
+
+                                <GmapPolyline
+                                    v-for="link in panorama.links"
+                                    :key="link.id"
+                                    :path="[{lat: panorama.latitude, lng: panorama.longitude}, {lat: link.destination.latitude, lng: link.destination.longitude}]">
+                                </GmapPolyline>
+
+                            </span>
 
                         </GmapMap>
                     </div>
@@ -246,7 +362,7 @@
                 
             </div>
 
-            <div class="col-3">
+            <div class="col-4">
                 <div class="list-group">
                     <div
                         class="list-group-item"
@@ -257,6 +373,11 @@
                         ({{ panorama.latitude.toFixed(4) }}, {{ panorama.longitude.toFixed(4) }})
                         
                         <div class="text-right mt-3">
+                            <button @click="onManageLinksButtonClick(panorama)" class="btn btn-dark btn-sm">
+                                Link
+                                <i class="fa fa-link"></i>
+                            </button>
+
                             <button @click="onEditPanoramaButtonClick(panorama)" class="btn btn-dark btn-sm">
                                 Edit
                                 <i class="fa fa-edit"></i>
@@ -333,11 +454,95 @@ export default {
             location: window.p_location,
             location_street_view: null,
             error_data: null,
+
+            heading: 0,
+            destination_id: null,
+        }
+    },
+
+    computed: {
+        selected_pano_links() {
+            if (this.selected_panorama == null) {
+                return []
+            }
+
+            return this.selected_panorama.links.map(link => {
+                return {...link, original_heading: link.heading}
+            })
+        },
+
+        possible_links() {
+            return this.location.panoramas
+                .filter(panorama =>
+                    (panorama.id != this.selected_panorama.id) &&
+                    (this.selected_panorama.links.find(link => link.destination_id == panorama.id) === undefined)
+                )
         }
     },
 
     methods: {
         get: _.get,
+
+        onManageLinksButtonClick(panorama)
+        {
+            this.error_data = null
+            this.destination_id = null
+            this.heading = 0
+            this.selected_panorama = {...panorama}
+            this.$modal.show('manage-links-modal')
+        },
+
+        onDeleteLinkButtonClick(link) {
+            axios.post(`/location/panorama/${this.location.id}/link/${this.selected_panorama.id}/delete/${link.id}`,)
+               .then(response => {
+                    this.location.panoramas = this.location.panoramas.filter(panorama => {
+                        if (panorama.id == this.selected_panorama.id) {
+                            panorama.links = panorama.links.filter(l => l.id != link.id)
+                            return panorama
+                        }
+                        return panorama;
+                    })
+
+                    this.selected_panorama.links = this.selected_panorama.links.filter(l => l.id != link.id)
+                    this.error_data = null
+                    this.is_submitting = false
+               })
+               .catch(error => {
+                   this.is_submitting = false
+                   this.error_data = error.response.data
+               })
+        },
+
+        onUpdateLinkHeadingButtonClick(link) {
+            axios.post(`/location/panorama/${this.location.id}/link/${this.selected_panorama.id}/update/${link.id}`, { heading: link.heading })
+               .then(response => {
+                    let panorama = this.location.panoramas.find(pano => pano.id == this.selected_panorama.id)
+                    
+                    let links = []
+                    this.location.panoramas = this.location.panoramas.map(panorama => {
+                        if (panorama.id != this.selected_panorama.id) {
+                            return panorama
+                        }
+
+                        links = panorama.links.map(l => {
+                            if (l.id != link.id) {
+                                return l
+                            }
+
+                            return {...l, heading: link.heading}
+                        })
+
+                        return {...panorama, links: links}
+                    })
+
+                    this.selected_panorama.links = links
+               })
+
+
+               .catch(error => {
+                   this.error_data = error.response.data
+               })
+        },
 
         onCreatePanoramaFormSubmit(e) {
             e.preventDefault()
@@ -367,6 +572,7 @@ export default {
         },
 
         onCreatePanoramaMapClick(e) {
+            this.error_data = null
             this.new_panorama.latitude = e.latLng.lat()
             this.new_panorama.longitude = e.latLng.lng()
         },
@@ -377,6 +583,7 @@ export default {
         },
 
         onEditPanoramaButtonClick(panorama) {
+            this.error_data = null
             this.edited_panorama = {...panorama}
             this.selected_panorama = {...panorama}
             this.$modal.show('edit-panorama-form')
@@ -385,6 +592,32 @@ export default {
         onEditPanoramaMapClick(e) {
             this.edited_panorama.latitude = e.latLng.lat() 
             this.edited_panorama.longitude = e.latLng.lng() 
+        },
+
+        onCreateNewLinkFormSubmit(e) {
+            e.preventDefault()
+            
+            this.is_submitting = true
+            axios.post(`/location/panorama/${this.location.id}/link/${this.selected_panorama.id}/create`,
+                    { destination_id: this.destination_id, heading: this.heading }
+                )
+               .then(response => {
+                    this.location.panoramas = this.location.panoramas.map(panorama => {
+                        if (panorama.id == this.selected_panorama.id) {
+                            panorama.links = [...panorama.links, response.data]
+                            return panorama
+                        }
+                        return panorama;
+                    })
+
+                    this.selected_panorama.links = [...this.selected_panorama.links, response.data]
+                    this.error_data = null
+                    this.is_submitting = false
+               })
+               .catch(error => {
+                   this.is_submitting = false
+                   this.error_data = error.response.data
+               })
         },
 
         onEditPanoramaFormSubmit(e) {
