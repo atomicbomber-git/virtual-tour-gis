@@ -1,6 +1,9 @@
 <template>
     <div class="mb-4">
-        <modal name="create-panorama-form" height="auto">
+        <modal
+            name="create-panorama-form"
+            height="auto"
+            @before-close="beforeCreatePanoramaModalClose">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-plus"></i>
@@ -69,9 +72,14 @@
                         </div>
 
                         <div class="form-group text-right">
-                            <button class="btn btn-primary">
+                            <button v-if="!is_submitting" class="btn btn-primary">
                                 Tambah Panorama
                                 <i class="fa fa-plus"></i>
+                            </button>
+
+                            <button v-if="is_submitting" class="btn btn-primary">
+                                Mengirim Data
+                                <i class="fa fa-spinner fa-spin fa-fw"></i>
                             </button>
                         </div>
                     </form>
@@ -86,6 +94,17 @@
                 Tambah Panorama Baru
                 <i class="fa fa-plus"></i>
             </button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-image"></i>
+                Panorama
+            </div>
+
+            <div class="card-body">
+
+            </div>
         </div>
 
         <div class="row">
@@ -132,6 +151,8 @@ export default {
                 latitude: null,
                 longitude: null
             },
+            is_submitting: false,
+
             map: null,
             google: gmapApi,
             location: window.p_location,
@@ -153,6 +174,7 @@ export default {
 
             newPanoramaFormData.append('image', this.$refs.createPanoramaImageInputRef.files[0])
 
+            this.is_submitting = true
             axios.post(`/location/panorama/${this.location.id}/store`, newPanoramaFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
                .then(response => {
                    window.location.reload(true)
@@ -160,6 +182,13 @@ export default {
                .catch(error => {
                    this.error_data = error.response.data
                })
+        },
+
+        beforeCreatePanoramaModalClose(e) {
+            if (!this.is_submitting) {
+                return
+            }
+            e.stop();
         },
 
         onCreatePanoramaButtonClick() {
