@@ -96,6 +96,41 @@
             </button>
         </div>
 
+        <div class="row">
+            <div class="col">
+                <GmapMap
+                    :center="{lat: location.latitude, lng: location.longitude}"
+                    :zoom="14"
+                    map-type-id="terrain"
+                    style="height: 300px; width: 100%"
+                    class="p-0">
+
+                    <GmapMarker
+                        v-for="panorama in location.panoramas" :key="panorama.id"
+                        :position="{lat: panorama.latitude, lng: panorama.longitude}"
+                        />
+
+                </GmapMap>
+            </div>
+
+            <div class="col-3">
+                <div class="list-group">
+                    <div
+                        class="list-group-item"
+                        v-for="panorama in location.panoramas"
+                        :key="panorama.id">
+                        {{ panorama.name  }}
+                        <hr class="m-1"/>
+                        ({{ panorama.latitude }}, {{ panorama.longitude }})
+                        
+                        <div class="text-right">
+                        <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-image"></i>
@@ -103,11 +138,19 @@
             </div>
 
             <div class="card-body">
-
+                <table>
+                    <thead class="thead thead-dark">
+                        <th> Nama Panorama </th>
+                        <th> Latitude </th>
+                        <th> Lon </th>
+                        <th> Awesome </th>
+                        <th> Awesome </th>
+                    </thead>
+                </table>
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col p-0">
                 <GmapMap
                     ref="mapRef"
@@ -127,7 +170,7 @@
             <div class="col">
                 <div ref="pano" style="width: 100%; border: thin solid black; height: 600px"></div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

@@ -2523,6 +2523,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -40195,413 +40238,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "mb-4" },
-    [
-      _c(
-        "modal",
-        {
-          attrs: { name: "create-panorama-form", height: "auto" },
-          on: { "before-close": _vm.beforeCreatePanoramaModalClose }
-        },
-        [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("i", { staticClass: "fa fa-plus" }),
-              _vm._v("\n                Tambah Panorama Baru\n            ")
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "card-body",
-                staticStyle: { "max-height": "30rem", "overflow-y": "auto" }
-              },
-              [
-                _c(
-                  "form",
-                  { on: { submit: _vm.onCreatePanoramaFormSubmit } },
-                  [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v(" Name: ")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.new_panorama.name,
-                            expression: "new_panorama.name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid": _vm.get(
-                            this.error_data,
-                            "errors.name[0]",
-                            false
-                          )
-                        },
-                        attrs: {
-                          type: "text",
-                          id: "name",
-                          placeholder: "Name"
-                        },
-                        domProps: { value: _vm.new_panorama.name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.new_panorama,
-                              "name",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm.get(this.error_data, "errors.name[0]", false)
-                          )
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-row" }, [
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "latitude" } }, [
-                            _vm._v(" Latitude: ")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.new_panorama.latitude,
-                                expression: "new_panorama.latitude",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.get(
-                                this.error_data,
-                                "errors.latitude[0]",
-                                false
-                              )
-                            },
-                            attrs: {
-                              type: "text",
-                              id: "latitude",
-                              placeholder: "Latitude"
-                            },
-                            domProps: { value: _vm.new_panorama.latitude },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.new_panorama,
-                                  "latitude",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                _vm.$forceUpdate()
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm.get(
-                                  this.error_data,
-                                  "errors.latitude[0]",
-                                  false
-                                )
-                              )
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "longitude" } }, [
-                            _vm._v(" Longitude: ")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.new_panorama.longitude,
-                                expression: "new_panorama.longitude",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.get(
-                                this.error_data,
-                                "errors.longitude[0]",
-                                false
-                              )
-                            },
-                            attrs: {
-                              type: "text",
-                              id: "longitude",
-                              placeholder: "Longitude"
-                            },
-                            domProps: { value: _vm.new_panorama.longitude },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.new_panorama,
-                                  "longitude",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                _vm.$forceUpdate()
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm.get(
-                                  this.error_data,
-                                  "errors.longitude[0]",
-                                  false
-                                )
-                              )
-                            )
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "GmapMap",
-                      {
-                        staticClass: "my-3",
-                        staticStyle: { height: "300px", width: "100%" },
-                        attrs: {
-                          center: {
-                            lat: _vm.location.latitude,
-                            lng: _vm.location.longitude
-                          },
-                          zoom: 18,
-                          "map-type-id": "terrain"
-                        },
-                        on: { click: _vm.onCreatePanoramaMapClick }
-                      },
-                      [
-                        _c("GmapMarker", {
-                          attrs: {
-                            icon: "/layer/icon/" + _vm.location.layer_id,
-                            position: {
-                              lat: _vm.location.latitude,
-                              lng: _vm.location.longitude
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("GmapMarker", {
-                          attrs: {
-                            position: {
-                              lat: _vm.new_panorama.latitude,
-                              lng: _vm.new_panorama.longitude
-                            }
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "image" } }, [
-                        _vm._v(" Gambar: ")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        ref: "createPanoramaImageInputRef",
-                        staticClass: "d-block",
-                        attrs: {
-                          id: "image",
-                          name: "image",
-                          type: "file",
-                          accept: "images/*"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.get(this.error_data, "errors.image[0]", false)
-                        ? _c(
-                            "small",
-                            { staticClass: "text-danger text-xs mt-3" },
-                            [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(
-                                    _vm.get(
-                                      this.error_data,
-                                      "errors.image[0]",
-                                      false
-                                    )
-                                  ) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group text-right" }, [
-                      !_vm.is_submitting
-                        ? _c("button", { staticClass: "btn btn-primary" }, [
-                            _vm._v(
-                              "\n                            Tambah Panorama\n                            "
-                            ),
-                            _c("i", { staticClass: "fa fa-plus" })
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.is_submitting
-                        ? _c("button", { staticClass: "btn btn-primary" }, [
-                            _vm._v(
-                              "\n                            Mengirim Data\n                            "
-                            ),
-                            _c("i", {
-                              staticClass: "fa fa-spinner fa-spin fa-fw"
-                            })
-                          ])
-                        : _vm._e()
-                    ])
-                  ],
-                  1
-                )
-              ]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "my-3 text-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-dark btn-sm",
-            on: { click: _vm.onCreatePanoramaButtonClick }
-          },
-          [
-            _vm._v("\n            Tambah Panorama Baru\n            "),
-            _c("i", { staticClass: "fa fa-plus" })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col p-0" },
-          [
-            _c(
-              "GmapMap",
-              {
-                ref: "mapRef",
-                staticStyle: { width: "100%", height: "600px" },
-                attrs: {
-                  center: {
-                    lat: _vm.location.latitude,
-                    lng: _vm.location.longitude
-                  },
-                  "map-type-id": "terrain",
-                  zoom: 24
-                }
-              },
-              [
-                _c("GmapMarker", {
-                  attrs: {
-                    icon: "/layer/icon/" + _vm.location.layer_id,
-                    position: {
-                      lat: _vm.location.latitude,
-                      lng: _vm.location.longitude
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm._l(_vm.location.panoramas, function(panorama) {
-                  return _c("GmapMarker", {
-                    key: panorama.id,
-                    attrs: {
-                      position: {
-                        lat: panorama.latitude,
-                        lng: panorama.longitude
-                      }
-                    }
-                  })
-                })
-              ],
-              2
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("div", {
-            ref: "pano",
-            staticStyle: {
-              width: "100%",
-              border: "thin solid black",
-              height: "600px"
-            }
-          })
-        ])
-      ])
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("i", { staticClass: "fa fa-image" }),
-        _vm._v("\n            Panorama\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" })
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 
@@ -54737,8 +54375,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
