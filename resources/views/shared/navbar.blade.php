@@ -5,7 +5,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav mr-auto">
+                @auth
                 <li class='nav-item {{ Route::is('layer.*') ? 'active' : '' }}'>
                     <a class='nav-link' href='{{ route('layer.index') }}'>
                         <i class='fa fa-list-alt'></i>
@@ -19,7 +20,18 @@
                         Lokasi
                     </a>
                 </li>
+                @endauth
             </div>
+
+            @auth
+            <form action='{{ route('logout') }}' method='POST' class='d-inline-block'>
+                @csrf
+                <button type='submit' class='btn btn-danger'>
+                    Log Out
+                    <i class='fa fa-sign-out'></i>
+                </button>
+            </form>
+            @endauth
         </div>
     </div>
 </nav>

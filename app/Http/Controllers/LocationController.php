@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Location;
+use App\Panorama;
 use App\Layer;
+use App\Link;
 
 class LocationController extends Controller
 {
@@ -56,7 +59,24 @@ class LocationController extends Controller
     }
     
     public function delete(Location $location) {
-        $location->delete();
+        
+
+        DB::transaction(function() use($location) {
+            $location->load(['panoramas:id,location_id']);
+            $panorama_ids = $location->panoramas->pluck('id');
+
+            Link::whereIn('origin_id', $panorama_ids)
+                ->delete();
+
+            Link::whereIn('destination_id', $panorama_ids)
+                ->delete();
+
+            Panorama::where('location_id', $location->id)
+                ->delete();
+
+            $location->delete();
+        });
+
         session()->flash('message', __('messages.delete.success'));
     }
 

@@ -8,14 +8,14 @@
         </div>
 
         <div class="card">
-            <modal name="delete-location-modal">
+            <modal name="delete-location-modal" height="auto">
                 <div v-if="selected_location">
                     <div class="card text-white bg-danger">
                         <div class="card-header">
                             <i class="fa fa-warning"></i>
                             Anda yakin Anda Ingin Menghapus Berkas Ini?
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="max-height: 30rem; overflow-y: scroll">
                             <div class="card text-dark">
                                 <div class="card-body">
                                     <h4> {{ selected_location.name }} </h4>
