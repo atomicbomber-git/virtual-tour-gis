@@ -14,8 +14,7 @@
 
 Auth::routes();
 
-Route::redirect('/', '/login');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@show')->name('home.show');
 
 Route::group(['prefix' => '/layer', 'as' => 'layer.', 'middleware' => ['auth']], function() {
     Route::get('/index', 'LayerController@index')->name('index');
