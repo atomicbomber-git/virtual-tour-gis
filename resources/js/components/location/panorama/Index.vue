@@ -3,7 +3,8 @@
         <modal
             name="create-panorama-form"
             height="auto"
-            @before-close="(e) => { is_submitting && e.stop() }">
+            @before-close="(e) => { is_submitting && e.stop() }"
+        >
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-plus"></i>
@@ -11,37 +12,52 @@
                 </div>
                 <div class="card-body" style="max-height: 30rem; overflow-y: auto">
                     <form @submit="onCreatePanoramaFormSubmit">
-                        <div class='form-group'>
-                            <label for='name'> Name: </label>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
                             <input
-                                v-model='new_panorama.name'
-                                class='form-control'
+                                v-model="new_panorama.name"
+                                class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
-                                type='text' id='name' placeholder='Name'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                                type="text"
+                                id="name"
+                                placeholder="Name"
+                            >
+                            <div
+                                class="invalid-feedback"
+                            >{{ get(this.error_data, 'errors.name[0]', false) }}</div>
                         </div>
 
                         <div class="form-row">
                             <div class="col">
-                                <div class='form-group'>
-                                    <label for='latitude'> Latitude: </label>
+                                <div class="form-group">
+                                    <label for="latitude">Latitude:</label>
                                     <input
-                                        v-model.number='new_panorama.latitude'
-                                        class='form-control'
+                                        v-model.number="new_panorama.latitude"
+                                        class="form-control"
                                         :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
-                                        type='text' id='latitude' placeholder='Latitude'>
-                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                                        type="text"
+                                        id="latitude"
+                                        placeholder="Latitude"
+                                    >
+                                    <div
+                                        class="invalid-feedback"
+                                    >{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
                                 </div>
                             </div>
                             <div class="col">
-                                <div class='form-group'>
-                                    <label for='longitude'> Longitude: </label>
+                                <div class="form-group">
+                                    <label for="longitude">Longitude:</label>
                                     <input
-                                        v-model.number='new_panorama.longitude'
-                                        class='form-control'
+                                        v-model.number="new_panorama.longitude"
+                                        class="form-control"
                                         :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
-                                        type='text' id='longitude' placeholder='Longitude'>
-                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                                        type="text"
+                                        id="longitude"
+                                        placeholder="Longitude"
+                                    >
+                                    <div
+                                        class="invalid-feedback"
+                                    >{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
                                 </div>
                             </div>
                         </div>
@@ -52,23 +68,32 @@
                             style="height: 300px; width: 100%"
                             :center="{lat: location.latitude, lng: location.longitude}"
                             :zoom="20"
-                            map-type-id="terrain">
-
+                            map-type-id="terrain"
+                        >
                             <GmapMarker
                                 :icon="`/layer/icon/${location.layer_id}`"
-                                :position="{lat: location.latitude, lng: location.longitude}"/>
+                                :position="{lat: location.latitude, lng: location.longitude}"
+                            />
 
                             <GmapMarker
-                                :position="{lat: new_panorama.latitude, lng: new_panorama.longitude}"/>
-
+                                :position="{lat: new_panorama.latitude, lng: new_panorama.longitude}"
+                            />
                         </GmapMap>
 
                         <div class="form-group">
-                            <label for="image"> Gambar: </label>
-                            <input class="d-block" ref="createPanoramaImageInputRef" id="image" name="image" type="file" accept="images/*">
-                            <small v-if="get(this.error_data, 'errors.image[0]', false)" class='text-danger text-xs mt-3'>
-                                {{ get(this.error_data, 'errors.image[0]', false) }}
-                            </small>
+                            <label for="image">Gambar:</label>
+                            <input
+                                class="d-block"
+                                ref="createPanoramaImageInputRef"
+                                id="image"
+                                name="image"
+                                type="file"
+                                accept="images/*"
+                            >
+                            <small
+                                v-if="get(this.error_data, 'errors.image[0]', false)"
+                                class="text-danger text-xs mt-3"
+                            >{{ get(this.error_data, 'errors.image[0]', false) }}</small>
                         </div>
 
                         <div class="form-group text-right">
@@ -90,24 +115,28 @@
         <modal
             height="auto"
             @before-close="(e) => { is_submitting && e.stop() }"
-            name="delete-panorama-form">
+            name="delete-panorama-form"
+        >
             <div v-if="selected_panorama" class="card bg-danger text-white">
                 <div class="card-header">
                     <i class="fa fa-warning"></i>
                     Anda Yakin Anda Hendak Menghapus Panorama Ini?
                 </div>
                 <div class="card-body">
-
-                    <h5> {{ selected_panorama.name }} </h5>
+                    <h5>{{ selected_panorama.name }}</h5>
                     ({{ selected_panorama.latitude }}, {{ selected_panorama.longitude }})
-                    <hr/>
+                    <hr>
 
                     <img
                         style="width: 100%; height: auto; object-fit: cover"
-                        :src="`/location/panorama/${selected_panorama.location_id}/image/${selected_panorama.id}`"/>
+                        :src="`/location/panorama/${selected_panorama.location_id}/image/${selected_panorama.id}`"
+                    >
 
                     <div class="mt-3 text-right">
-                        <button @click="onConfirmPanoramaDeleteButtonClick(selected_panorama)" class="btn btn-primary">
+                        <button
+                            @click="onConfirmPanoramaDeleteButtonClick(selected_panorama)"
+                            class="btn btn-primary"
+                        >
                             Konfimasi Penghapusan
                             <i class="fa fa-trash"></i>
                         </button>
@@ -116,10 +145,7 @@
             </div>
         </modal>
 
-        <modal
-            height="auto"
-            name="edit-panorama-form">
-
+        <modal height="auto" name="edit-panorama-form">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-pencil"></i>
@@ -127,38 +153,56 @@
                 </div>
 
                 <div class="card-body">
-                    <form @submit="onEditPanoramaFormSubmit" v-if="selected_panorama && edited_panorama">
-                        <div class='form-group'>
-                            <label for='name'> Name: </label>
+                    <form
+                        @submit="onEditPanoramaFormSubmit"
+                        v-if="selected_panorama && edited_panorama"
+                    >
+                        <div class="form-group">
+                            <label for="name">Name:</label>
                             <input
-                                v-model='edited_panorama.name'
-                                class='form-control'
+                                v-model="edited_panorama.name"
+                                class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
-                                type='text' id='name' placeholder='Name'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                                type="text"
+                                id="name"
+                                placeholder="Name"
+                            >
+                            <div
+                                class="invalid-feedback"
+                            >{{ get(this.error_data, 'errors.name[0]', false) }}</div>
                         </div>
 
                         <div class="form-row">
                             <div class="col">
-                                <div class='form-group'>
-                                    <label for='latitude'> Latitude: </label>
+                                <div class="form-group">
+                                    <label for="latitude">Latitude:</label>
                                     <input
-                                        v-model.number='edited_panorama.latitude'
-                                        class='form-control'
+                                        v-model.number="edited_panorama.latitude"
+                                        class="form-control"
                                         :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
-                                        type='text' id='latitude' placeholder='Latitude'>
-                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                                        type="text"
+                                        id="latitude"
+                                        placeholder="Latitude"
+                                    >
+                                    <div
+                                        class="invalid-feedback"
+                                    >{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
                                 </div>
                             </div>
                             <div class="col">
-                                <div class='form-group'>
-                                    <label for='longitude'> Longitude: </label>
+                                <div class="form-group">
+                                    <label for="longitude">Longitude:</label>
                                     <input
-                                        v-model.number='edited_panorama.longitude'
-                                        class='form-control'
+                                        v-model.number="edited_panorama.longitude"
+                                        class="form-control"
                                         :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
-                                        type='text' id='longitude' placeholder='Longitude'>
-                                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                                        type="text"
+                                        id="longitude"
+                                        placeholder="Longitude"
+                                    >
+                                    <div
+                                        class="invalid-feedback"
+                                    >{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
                                 </div>
                             </div>
                         </div>
@@ -169,27 +213,37 @@
                             style="height: 300px; width: 100%"
                             :center="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
                             :zoom="18"
-                            map-type-id="terrain">
-
+                            map-type-id="terrain"
+                        >
                             <GmapMarker
                                 :icon="`/layer/icon/${location.layer_id}`"
-                                :position="{lat: location.latitude, lng: location.longitude}"/>
+                                :position="{lat: location.latitude, lng: location.longitude}"
+                            />
 
                             <GmapMarker
-                                :position="{lat: edited_panorama.latitude, lng: edited_panorama.longitude}"/>
+                                :position="{lat: edited_panorama.latitude, lng: edited_panorama.longitude}"
+                            />
 
                             <GmapMarker
                                 icon="/png/panorama.png"
-                                :position="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"/>
-
+                                :position="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
+                            />
                         </GmapMap>
 
                         <div class="form-group">
-                            <label for="image"> Gambar: </label>
-                            <input class="d-block" ref="editPanoramaImageInputRef" id="image" name="image" type="file" accept="images/*">
-                            <small v-if="get(this.error_data, 'errors.image[0]', false)" class='text-danger text-xs mt-3'>
-                                {{ get(this.error_data, 'errors.image[0]', false) }}
-                            </small>
+                            <label for="image">Gambar:</label>
+                            <input
+                                class="d-block"
+                                ref="editPanoramaImageInputRef"
+                                id="image"
+                                name="image"
+                                type="file"
+                                accept="images/*"
+                            >
+                            <small
+                                v-if="get(this.error_data, 'errors.image[0]', false)"
+                                class="text-danger text-xs mt-3"
+                            >{{ get(this.error_data, 'errors.image[0]', false) }}</small>
                         </div>
 
                         <div class="form-group text-right">
@@ -208,48 +262,58 @@
             </div>
         </modal>
 
-        <modal
-            height="auto"
-            name="manage-links-modal">
-
+        <modal height="auto" name="manage-links-modal">
             <div class="card" v-if="selected_panorama">
                 <div class="card-header">
                     <i class="fa fa-link"></i>
                     Kelola Link
                 </div>
                 <div class="card-body">
-                    <h5> Daftar Link: </h5>
+                    <h5>Daftar Link:</h5>
                     <div class="alert alert-warning" v-if="!selected_panorama.links.length">
                         <i class="fa fa-warning"></i>
                         Belum terdapat link pada panorama ini
                     </div>
 
-                    <table v-if="selected_panorama.links.length" class="table table-bordered table-sm">
+                    <table
+                        v-if="selected_panorama.links.length"
+                        class="table table-bordered table-sm"
+                    >
                         <thead class="thead thead-dark">
                             <tr>
-                                <th> Panorama </th>
-                                <th> Heading </th>
-                                <th class="text-center"> Aksi </th>
+                                <th>Panorama</th>
+                                <th>Heading</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="link in selected_pano_links" :key="link.id" :class="{ 'table-info': link.heading != link.original_heading }">
-                                <td> {{ link.destination.name }} </td>
+                            <tr
+                                v-for="link in selected_pano_links"
+                                :key="link.id"
+                                :class="{ 'table-info': link.heading != link.original_heading }"
+                            >
+                                <td>{{ link.destination.name }}</td>
                                 <td>
                                     <input
                                         class="form-control form-control-sm"
                                         type="number"
-                                        v-model.number="link.heading"/>
+                                        v-model.number="link.heading"
+                                    >
                                 </td>
                                 <td class="text-center">
                                     <button
                                         @click="onUpdateLinkHeadingButtonClick(link)"
                                         class="btn btn-dark btn-sm"
-                                        :disabled="link.heading == link.original_heading">
+                                        :disabled="link.heading == link.original_heading"
+                                    >
                                         <i class="fa fa-check"></i>
                                     </button>
 
-                                    <button @click="onDeleteLinkButtonClick(link)" v-if="!is_submitting" class="btn btn-danger btn-sm">
+                                    <button
+                                        @click="onDeleteLinkButtonClick(link)"
+                                        v-if="!is_submitting"
+                                        class="btn btn-danger btn-sm"
+                                    >
                                         <i class="fa fa-trash"></i>
                                     </button>
 
@@ -261,34 +325,44 @@
                             </tr>
                         </tbody>
                     </table>
-                    
-                    <hr/>
 
-                    <h5 class="mb-3"> Tambah Link dengan Panorama Lain: </h5>
+                    <hr>
+
+                    <h5 class="mb-3">Tambah Link dengan Panorama Lain:</h5>
 
                     <div>
                         <form v-if="possible_links.length > 0" @submit="onCreateNewLinkFormSubmit">
                             <div class="form-group">
-                                <label> Panorama Tujuan: </label>
-                                <select v-model="destination_id" class="form-control" :class="{'is-invalid': get(this.error_data, 'errors.destination_id[0]', false)}">
+                                <label>Panorama Tujuan:</label>
+                                <select
+                                    v-model="destination_id"
+                                    class="form-control"
+                                    :class="{'is-invalid': get(this.error_data, 'errors.destination_id[0]', false)}"
+                                >
                                     <option
                                         v-for="panorama in possible_links"
                                         :key="panorama.id"
-                                        :value="panorama.id">
-                                        {{ panorama.name }}
-                                    </option>
+                                        :value="panorama.id"
+                                    >{{ panorama.name }}</option>
                                 </select>
-                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.destination_id[0]', false) }}</div>
+                                <div
+                                    class="invalid-feedback"
+                                >{{ get(this.error_data, 'errors.destination_id[0]', false) }}</div>
                             </div>
 
-                            <div class='form-group'>
-                                <label for='heading'> Heading: </label>
+                            <div class="form-group">
+                                <label for="heading">Heading:</label>
                                 <input
-                                    v-model.number='heading'
-                                    class='form-control'
+                                    v-model.number="heading"
+                                    class="form-control"
                                     :class="{'is-invalid': get(this.error_data, 'errors.heading[0]', false)}"
-                                    type='text' id='heading' placeholder='Heading'>
-                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.heading[0]', false) }}</div>
+                                    type="text"
+                                    id="heading"
+                                    placeholder="Heading"
+                                >
+                                <div
+                                    class="invalid-feedback"
+                                >{{ get(this.error_data, 'errors.heading[0]', false) }}</div>
                             </div>
 
                             <div class="form-group text-right mt-2">
@@ -314,9 +388,7 @@
         </modal>
 
         <div class="my-3 text-right">
-            <button
-                @click="onCreatePanoramaButtonClick"
-                class="btn btn-dark btn-sm">
+            <button @click="onCreatePanoramaButtonClick" class="btn btn-dark btn-sm">
                 Tambah Panorama Baru
                 <i class="fa fa-plus"></i>
             </button>
@@ -334,32 +406,28 @@
                             :center="{lat: location.latitude, lng: location.longitude}"
                             :zoom="20"
                             map-type-id="terrain"
-                            style="height: 600px; width: 100%">
-
+                            style="height: 600px; width: 100%"
+                        >
                             <GmapMarker
                                 :position="{lat: location.latitude, lng: location.longitude}"
-                                :icon="`/layer/icon/${location.layer_id}`"/>
-
+                                :icon="`/layer/icon/${location.layer_id}`"
+                            />
 
                             <span v-for="panorama in location.panoramas" :key="panorama.id">
-
-                            <GmapMarker
-                                icon="/png/panorama.png"
-                                
-                                :position="{lat: panorama.latitude, lng: panorama.longitude}"/>
+                                <GmapMarker
+                                    icon="/png/panorama.png"
+                                    :position="{lat: panorama.latitude, lng: panorama.longitude}"
+                                />
 
                                 <GmapPolyline
                                     v-for="link in panorama.links"
                                     :key="link.id"
-                                    :path="[{lat: panorama.latitude, lng: panorama.longitude}, {lat: link.destination.latitude, lng: link.destination.longitude}]">
-                                </GmapPolyline>
-
+                                    :path="[{lat: panorama.latitude, lng: panorama.longitude}, {lat: link.destination.latitude, lng: link.destination.longitude}]"
+                                ></GmapPolyline>
                             </span>
-
                         </GmapMap>
                     </div>
                 </div>
-                
             </div>
 
             <div class="col-4">
@@ -367,28 +435,37 @@
                     <div
                         class="list-group-item"
                         v-for="panorama in location.panoramas"
-                        :key="panorama.id">
-                        {{ panorama.name  }}
-                        <hr class="m-1"/>
+                        :key="panorama.id"
+                    >
+                        {{ panorama.name }}
+                        <hr class="m-1">
+
                         ({{ panorama.latitude.toFixed(4) }}, {{ panorama.longitude.toFixed(4) }})
-                        
                         <div class="text-right mt-3">
-                            <button @click="onManageLinksButtonClick(panorama)" class="btn btn-dark btn-sm">
+                            <button
+                                @click="onManageLinksButtonClick(panorama)"
+                                class="btn btn-dark btn-sm"
+                            >
                                 Link
                                 <i class="fa fa-link"></i>
                             </button>
 
-                            <button @click="onEditPanoramaButtonClick(panorama)" class="btn btn-dark btn-sm">
+                            <button
+                                @click="onEditPanoramaButtonClick(panorama)"
+                                class="btn btn-dark btn-sm"
+                            >
                                 Edit
                                 <i class="fa fa-edit"></i>
                             </button>
 
-                            <button @click="onDeletePanoramaButtonClick(panorama)" class="btn btn-danger btn-sm">
+                            <button
+                                @click="onDeletePanoramaButtonClick(panorama)"
+                                class="btn btn-danger btn-sm"
+                            >
                                 Hapus
                                 <i class="fa fa-trash"></i>
                             </button>
                         </div>
-
                     </div>
                 </div>
 
@@ -398,44 +475,13 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="row">
-            <div class="col p-0">
-                <GmapMap
-                    ref="mapRef"
-                    :center="{lat: location.latitude, lng: location.longitude}"
-                    map-type-id="terrain"
-                    :zoom="24"
-                    style="width: 100%; height: 600px">
-
-                    <GmapMarker
-                        :icon="`/layer/icon/${location.layer_id}`"
-                        :position="{lat: location.latitude, lng: location.longitude}"/>
-
-                    <GmapMarker v-for="panorama in location.panoramas" :key="panorama.id"
-                        :position="{lat: panorama.latitude, lng: panorama.longitude}"/>
-                </GmapMap>
-            </div>
-            <div class="col">
-                <div ref="pano" style="width: 100%; border: thin solid black; height: 600px"></div>
-            </div>
-        </div> -->
     </div>
 </template>
 
 <script>
-
-import {gmapApi} from 'vue2-google-maps'
+import { gmapApi } from "vue2-google-maps";
 
 export default {
-    mounted() {
-        this.$refs.mapRef.$mapPromise.then((map) => {
-            this.map = map
-            var streetviewService = new google.maps.StreetViewService;
-            this.initPanorama()
-        })
-    },
-
     data() {
         return {
             new_panorama: {
@@ -445,7 +491,7 @@ export default {
             },
 
             is_submitting: false,
-            
+
             edited_panorama: null,
             selected_panorama: null,
 
@@ -456,249 +502,320 @@ export default {
             error_data: null,
 
             heading: 0,
-            destination_id: null,
-        }
+            destination_id: null
+        };
     },
 
     computed: {
         selected_pano_links() {
             if (this.selected_panorama == null) {
-                return []
+                return [];
             }
 
             return this.selected_panorama.links.map(link => {
-                return {...link, original_heading: link.heading}
-            })
+                return { ...link, original_heading: link.heading };
+            });
         },
 
         possible_links() {
-            return this.location.panoramas
-                .filter(panorama =>
-                    (panorama.id != this.selected_panorama.id) &&
-                    (this.selected_panorama.links.find(link => link.destination_id == panorama.id) === undefined)
-                )
+            return this.location.panoramas.filter(
+                panorama =>
+                    panorama.id != this.selected_panorama.id &&
+                    this.selected_panorama.links.find(
+                        link => link.destination_id == panorama.id
+                    ) === undefined
+            );
         }
     },
 
     methods: {
         get: _.get,
 
-        onManageLinksButtonClick(panorama)
-        {
-            this.error_data = null
-            this.destination_id = null
-            this.heading = 0
-            this.selected_panorama = {...panorama}
-            this.$modal.show('manage-links-modal')
+        onManageLinksButtonClick(panorama) {
+            this.error_data = null;
+            this.destination_id = null;
+            this.heading = 0;
+            this.selected_panorama = { ...panorama };
+            this.$modal.show("manage-links-modal");
         },
 
         onDeleteLinkButtonClick(link) {
-            axios.post(`/location/panorama/${this.location.id}/link/${this.selected_panorama.id}/delete/${link.id}`,)
-               .then(response => {
-                    this.location.panoramas = this.location.panoramas.filter(panorama => {
-                        if (panorama.id == this.selected_panorama.id) {
-                            panorama.links = panorama.links.filter(l => l.id != link.id)
-                            return panorama
+            axios
+                .post(
+                    `/location/panorama/${this.location.id}/link/${
+                        this.selected_panorama.id
+                    }/delete/${link.id}`
+                )
+                .then(response => {
+                    this.location.panoramas = this.location.panoramas.filter(
+                        panorama => {
+                            if (panorama.id == this.selected_panorama.id) {
+                                panorama.links = panorama.links.filter(
+                                    l => l.id != link.id
+                                );
+                                return panorama;
+                            }
+                            return panorama;
                         }
-                        return panorama;
-                    })
+                    );
 
-                    this.selected_panorama.links = this.selected_panorama.links.filter(l => l.id != link.id)
-                    this.error_data = null
-                    this.is_submitting = false
-               })
-               .catch(error => {
-                   this.is_submitting = false
-                   this.error_data = error.response.data
-               })
+                    this.selected_panorama.links = this.selected_panorama.links.filter(
+                        l => l.id != link.id
+                    );
+                    this.error_data = null;
+                    this.is_submitting = false;
+                })
+                .catch(error => {
+                    this.is_submitting = false;
+                    this.error_data = error.response.data;
+                });
         },
 
         onUpdateLinkHeadingButtonClick(link) {
-            axios.post(`/location/panorama/${this.location.id}/link/${this.selected_panorama.id}/update/${link.id}`, { heading: link.heading })
-               .then(response => {
-                    let panorama = this.location.panoramas.find(pano => pano.id == this.selected_panorama.id)
-                    
-                    let links = []
-                    this.location.panoramas = this.location.panoramas.map(panorama => {
-                        if (panorama.id != this.selected_panorama.id) {
-                            return panorama
-                        }
+            axios
+                .post(
+                    `/location/panorama/${this.location.id}/link/${
+                        this.selected_panorama.id
+                    }/update/${link.id}`,
+                    { heading: link.heading }
+                )
+                .then(response => {
+                    let panorama = this.location.panoramas.find(
+                        pano => pano.id == this.selected_panorama.id
+                    );
 
-                        links = panorama.links.map(l => {
-                            if (l.id != link.id) {
-                                return l
+                    let links = [];
+                    this.location.panoramas = this.location.panoramas.map(
+                        panorama => {
+                            if (panorama.id != this.selected_panorama.id) {
+                                return panorama;
                             }
 
-                            return {...l, heading: link.heading}
-                        })
+                            links = panorama.links.map(l => {
+                                if (l.id != link.id) {
+                                    return l;
+                                }
 
-                        return {...panorama, links: links}
-                    })
+                                return { ...l, heading: link.heading };
+                            });
 
-                    this.selected_panorama.links = links
-               })
+                            return { ...panorama, links: links };
+                        }
+                    );
 
+                    this.selected_panorama.links = links;
+                })
 
-               .catch(error => {
-                   this.error_data = error.response.data
-               })
+                .catch(error => {
+                    this.error_data = error.response.data;
+                });
         },
 
         onCreatePanoramaFormSubmit(e) {
-            e.preventDefault()
+            e.preventDefault();
 
-            let newPanoramaFormData = new FormData()
+            let newPanoramaFormData = new FormData();
             Object.keys(this.new_panorama).forEach(key => {
-                this.new_panorama[key] && newPanoramaFormData.append(key, this.new_panorama[key])
-            })
+                this.new_panorama[key] &&
+                    newPanoramaFormData.append(key, this.new_panorama[key]);
+            });
 
-            newPanoramaFormData.append('image', this.$refs.createPanoramaImageInputRef.files[0])
+            newPanoramaFormData.append(
+                "image",
+                this.$refs.createPanoramaImageInputRef.files[0]
+            );
 
-            this.is_submitting = true
-            axios.post(`/location/panorama/${this.location.id}/store`, newPanoramaFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
-               .then(response => {
-                   window.location.reload(true)
-               })
-               .catch(error => {
-                   this.is_submitting = false
-                   this.error_data = error.response.data
-               })
+            this.is_submitting = true;
+            axios
+                .post(
+                    `/location/panorama/${this.location.id}/store`,
+                    newPanoramaFormData,
+                    { headers: { "Content-Type": "multipart/form-data" } }
+                )
+                .then(response => {
+                    window.location.reload(true);
+                })
+                .catch(error => {
+                    this.is_submitting = false;
+                    this.error_data = error.response.data;
+                });
         },
 
         onCreatePanoramaButtonClick() {
-            this.new_panorama.latitude = this.location.latitude,
-            this.new_panorama.longitude = this.location.longitude,
-            this.$modal.show('create-panorama-form')
+            (this.new_panorama.latitude = this.location.latitude),
+                (this.new_panorama.longitude = this.location.longitude),
+                this.$modal.show("create-panorama-form");
         },
 
         onCreatePanoramaMapClick(e) {
-            this.error_data = null
-            this.new_panorama.latitude = e.latLng.lat()
-            this.new_panorama.longitude = e.latLng.lng()
+            this.error_data = null;
+            this.new_panorama.latitude = e.latLng.lat();
+            this.new_panorama.longitude = e.latLng.lng();
         },
 
         onDeletePanoramaButtonClick(panorama) {
-            this.selected_panorama = {...panorama}
-            this.$modal.show('delete-panorama-form')
+            this.selected_panorama = { ...panorama };
+            this.$modal.show("delete-panorama-form");
         },
 
         onEditPanoramaButtonClick(panorama) {
-            this.error_data = null
-            this.edited_panorama = {...panorama}
-            this.selected_panorama = {...panorama}
-            this.$modal.show('edit-panorama-form')
+            this.error_data = null;
+            this.edited_panorama = { ...panorama };
+            this.selected_panorama = { ...panorama };
+            this.$modal.show("edit-panorama-form");
         },
 
         onEditPanoramaMapClick(e) {
-            this.edited_panorama.latitude = e.latLng.lat() 
-            this.edited_panorama.longitude = e.latLng.lng() 
+            this.edited_panorama.latitude = e.latLng.lat();
+            this.edited_panorama.longitude = e.latLng.lng();
         },
 
         onCreateNewLinkFormSubmit(e) {
-            e.preventDefault()
-            
-            this.is_submitting = true
-            axios.post(`/location/panorama/${this.location.id}/link/${this.selected_panorama.id}/create`,
-                    { destination_id: this.destination_id, heading: this.heading }
-                )
-               .then(response => {
-                    this.location.panoramas = this.location.panoramas.map(panorama => {
-                        if (panorama.id == this.selected_panorama.id) {
-                            panorama.links = [...panorama.links, response.data]
-                            return panorama
-                        }
-                        return panorama;
-                    })
+            e.preventDefault();
 
-                    this.selected_panorama.links = [...this.selected_panorama.links, response.data]
-                    this.error_data = null
-                    this.is_submitting = false
-               })
-               .catch(error => {
-                   this.is_submitting = false
-                   this.error_data = error.response.data
-               })
+            this.is_submitting = true;
+            axios
+                .post(
+                    `/location/panorama/${this.location.id}/link/${
+                        this.selected_panorama.id
+                    }/create`,
+                    {
+                        destination_id: this.destination_id,
+                        heading: this.heading
+                    }
+                )
+                .then(response => {
+                    this.location.panoramas = this.location.panoramas.map(
+                        panorama => {
+                            if (panorama.id == this.selected_panorama.id) {
+                                panorama.links = [
+                                    ...panorama.links,
+                                    response.data
+                                ];
+                                return panorama;
+                            }
+                            return panorama;
+                        }
+                    );
+
+                    this.selected_panorama.links = [
+                        ...this.selected_panorama.links,
+                        response.data
+                    ];
+                    this.error_data = null;
+                    this.is_submitting = false;
+                })
+                .catch(error => {
+                    this.is_submitting = false;
+                    this.error_data = error.response.data;
+                });
         },
 
         onEditPanoramaFormSubmit(e) {
-            e.preventDefault()
+            e.preventDefault();
 
-            let editedPanoramaFormData = new FormData()
-            
+            let editedPanoramaFormData = new FormData();
+
             Object.keys(this.edited_panorama).forEach(key => {
-                this.edited_panorama[key] && editedPanoramaFormData.append(key, this.edited_panorama[key])
-            })
+                this.edited_panorama[key] &&
+                    editedPanoramaFormData.append(
+                        key,
+                        this.edited_panorama[key]
+                    );
+            });
 
             this.$refs.editPanoramaImageInputRef.files[0] &&
-                editedPanoramaFormData.append('image', this.$refs.editPanoramaImageInputRef.files[0])
+                editedPanoramaFormData.append(
+                    "image",
+                    this.$refs.editPanoramaImageInputRef.files[0]
+                );
 
-            this.is_submitting = true
-            axios.post(`/location/panorama/${this.location.id}/update/${this.edited_panorama.id}`, editedPanoramaFormData,
-                    { headers: { 'Content-Type': 'multipart/form-data' } }
+            this.is_submitting = true;
+            axios
+                .post(
+                    `/location/panorama/${this.location.id}/update/${
+                        this.edited_panorama.id
+                    }`,
+                    editedPanoramaFormData,
+                    { headers: { "Content-Type": "multipart/form-data" } }
                 )
-               .then(response => {
-                   window.location.reload(true)
-               })
-               .catch(error => {
-                   this.is_submitting = false
-                   this.error_data = error.response.data
-               })
+                .then(response => {
+                    window.location.reload(true);
+                })
+                .catch(error => {
+                    this.is_submitting = false;
+                    this.error_data = error.response.data;
+                });
         },
 
         onConfirmPanoramaDeleteButtonClick(panorama) {
-            axios.post(`/location/panorama/${this.location.id}/delete/${panorama.id}`)
-               .then(response => {
-                   window.location.reload(true)
-               })
+            axios
+                .post(
+                    `/location/panorama/${this.location.id}/delete/${
+                        panorama.id
+                    }`
+                )
+                .then(response => {
+                    window.location.reload(true);
+                });
         },
 
         getPanoramaData(panorama_id) {
+            let panoramas = this.location.panoramas;
+            let panorama = panoramas.find(
+                panorama => panorama.id == panorama_id
+            );
 
-            let panoramas = this.location.panoramas 
-            let panorama = panoramas.find(panorama => panorama.id == panorama_id)
-            
-            let nextId = null
+            let nextId = null;
             if (panorama_id == panoramas[0].id) {
-                nextId = panoramas[1].id
-            }
-            else {
-                nextId = panoramas[0].id
+                nextId = panoramas[1].id;
+            } else {
+                nextId = panoramas[0].id;
             }
 
             return {
                 location: {
-                    pano: panorama_id,  // The ID for this custom panorama.
-                    description: 'Google Sydney - Reception',
-                    latLng: new google.maps.LatLng(panorama.latitude, panorama.longitude)
+                    pano: panorama_id, // The ID for this custom panorama.
+                    description: "Google Sydney - Reception",
+                    latLng: new google.maps.LatLng(
+                        panorama.latitude,
+                        panorama.longitude
+                    )
                 },
-                links: [{
-                    heading: 180,
-                    description: 'Whatever',
-                    pano: nextId
-                }],
-                copyright: 'Imagery (c) 2010 Google',
+                links: [
+                    {
+                        heading: 180,
+                        description: "Whatever",
+                        pano: nextId
+                    }
+                ],
+                copyright: "Imagery (c) 2010 Google",
                 tiles: {
                     tileSize: new google.maps.Size(128, 64),
                     worldSize: new google.maps.Size(1024, 512),
                     centerHeading: 105,
                     getTileUrl: (pano, zoom, tileX, tileY) => {
-                        return `/location/panorama/${this.location.id}/tile/${panorama_id}/${zoom}/${tileX}/${tileY}`;
+                        return `/location/panorama/${
+                            this.location.id
+                        }/tile/${panorama_id}/${zoom}/${tileX}/${tileY}`;
                     }
                 }
             };
         },
 
         initPanorama() {
-            let firstPanoramaId = this.location.panoramas[0].id
+            let firstPanoramaId = this.location.panoramas[0].id;
 
-            let panorama = new google.maps.StreetViewPanorama(
-                this.$refs.pano,
-                { pano: `${firstPanoramaId}` }
-            );
+            let panorama = new google.maps.StreetViewPanorama(this.$refs.pano, {
+                pano: `${firstPanoramaId}`
+            });
 
             panorama.registerPanoProvider(pano => {
-                
-                if (this.location.panoramas.find(panorama => panorama.id == pano)) {
+                if (
+                    this.location.panoramas.find(
+                        panorama => panorama.id == pano
+                    )
+                ) {
                     return this.getPanoramaData(pano);
                 }
 
@@ -708,9 +825,8 @@ export default {
             this.map.setStreetView(panorama);
         }
     }
-}
+};
 </script>
 
 <style>
-
 </style>

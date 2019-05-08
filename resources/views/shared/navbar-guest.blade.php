@@ -7,7 +7,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Beranda</a>
+                    <a class="nav-link" href="{{ route('home.show') }}">
+                        Beranda
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Lokasi Wisata</a>

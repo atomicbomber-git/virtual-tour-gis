@@ -47,7 +47,16 @@ class LocationPanoramaController extends Controller
     {
         $image = $panorama->getFirstMedia(config('media.collections.panoramas'));
         if (empty($image)) { abort(404); }
-        return response()->file($image->getPath("tile_${zoom}_${tile_x}_${tile_y}"));
+
+        $image_path = null;
+        try {
+            $image_path =  $image->getPath("tile_${zoom}_${tile_x}_${tile_y}");
+        }
+        catch (\Exception $e) {
+            abort(404);
+        }
+
+        return response()->file($image_path);
     }
 
     public function update(Location $location, Panorama $panorama)
