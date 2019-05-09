@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@show')->name('home.show');
 
-Route::group(['prefix' => '/layer', 'as' => 'layer.', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => '/layer', 'as' => 'layer.'], function() {
     Route::get('/index', 'LayerController@index')->name('index');
     Route::get('/create', 'LayerController@create')->name('create');
     Route::post('/store', 'LayerController@store')->name('store');
@@ -26,7 +26,7 @@ Route::group(['prefix' => '/layer', 'as' => 'layer.', 'middleware' => ['auth']],
     Route::post('/delete/{layer}', 'LayerController@delete')->name('delete');
 });
 
-Route::group(['prefix' => '/location', 'as' => 'location.', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
     Route::get('/index', 'LocationController@index')->name('index');
     Route::get('/create', 'LocationController@create')->name('create');
     Route::post('/store', 'LocationController@store')->name('store');

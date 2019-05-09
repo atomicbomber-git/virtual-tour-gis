@@ -1814,29 +1814,113 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["config", "layers"],
+  data: function data() {
+    return {
+      map_center: {
+        lat: this.config.center.latitude,
+        lng: this.config.center.longitude
+      },
+      map_zoom: 14,
+      virtual_tour_mode: false,
+      selected_location: null,
+      locations: this.layers.reduce(function (curr, next) {
+        return [].concat(_toConsumableArray(curr), _toConsumableArray(next.locations));
+      }, [])
+    };
+  },
   mounted: function mounted() {
     var _this = this;
 
     this.$refs.mapRef.$mapPromise.then(function (map) {
       _this.map = map;
-
-      if (_this.locations.length > 0 && _this.locations[0].panoramas.length > 0) {
-        _this.initPanorama(_this.locations[0].panoramas[0]);
-      }
     });
   },
   methods: {
     onLocationMarkerClick: function onLocationMarkerClick(location) {
-      if (location.panoramas.length < 1) {
-        alert("This location does not have any panorama.");
+      this.selected_location = location;
+    },
+    showVirtualTour: function showVirtualTour() {
+      this.virtual_tour_mode = true;
+      this.map_center = {
+        lat: this.selected_location.latitude,
+        lng: this.selected_location.longitude
+      };
+    },
+    hideVirtualTour: function hideVirtualTour() {
+      this.virtual_tour_mode = false;
+    }
+  },
+  computed: {
+    visible_locations: function visible_locations() {
+      if (this.selected_location && this.virtual_tour_mode) {
+        return [this.selected_location];
       }
 
-      this.initPanorama(location.panoramas[0]);
-    },
+      return this.locations;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StreetView.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StreetView.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["location", "map"],
+  mounted: function mounted() {
+    if (this.location.panoramas.length < 1) {
+      alert("This location does not have any panorama.");
+    }
+
+    this.initPanorama(this.location.panoramas[0]);
+  },
+  watch: {
+    location: function location() {
+      this.initPanorama(this.location.panoramas[0]);
+    }
+  },
+  methods: {
     initPanorama: function initPanorama(panorama) {
-      var _this2 = this;
+      var _this = this;
 
       var gmap_panorama = new google.maps.StreetViewPanorama(this.$refs.pano, {
         pano: "".concat(panorama.id)
@@ -1844,10 +1928,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       /* Register panorama provider */
 
       gmap_panorama.registerPanoProvider(function (gmap_panorama) {
-        if (_this2.panoramas.find(function (panorama) {
+        if (_this.location.panoramas.find(function (panorama) {
           return panorama.id == gmap_panorama;
         })) {
-          return _this2.getPanoramaData(gmap_panorama);
+          return _this.getPanoramaData(gmap_panorama);
         }
 
         return null;
@@ -1855,7 +1939,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.map.setStreetView(gmap_panorama);
     },
     getPanoramaData: function getPanoramaData(panorama_id) {
-      var panorama = this.panoramas.find(function (panorama) {
+      var panorama = this.location.panoramas.find(function (panorama) {
         return panorama.id == panorama_id;
       });
       return {
@@ -1882,18 +1966,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           }
         }
       };
-    }
-  },
-  computed: {
-    locations: function locations() {
-      return this.layers.reduce(function (curr, next) {
-        return [].concat(_toConsumableArray(curr), _toConsumableArray(next.locations));
-      }, []);
-    },
-    panoramas: function panoramas() {
-      return this.locations.reduce(function (curr, next) {
-        return [].concat(_toConsumableArray(curr), _toConsumableArray(next.panoramas));
-      }, []);
     }
   }
 });
@@ -39547,11 +39619,57 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "container-fluid mt-5" }, [
     _c("div", { staticClass: "row" }, [
+      _vm.selected_location
+        ? _c("div", { staticClass: "col-lg-3 mr-0" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h2", { staticClass: "h4" }, [
+                  _vm._v(" " + _vm._s(_vm.selected_location.name) + " ")
+                ]),
+                _vm._v(" "),
+                _c("hr", { staticClass: "mt-0" }),
+                _vm._v(
+                  "\n\n                    " +
+                    _vm._s(_vm.selected_location.description) +
+                    "\n\n                    "
+                ),
+                _c("div", { staticClass: "text-right mt-4" }, [
+                  !_vm.virtual_tour_mode
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: { click: _vm.showVirtualTour }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Mode Virtual Tour\n                        "
+                          )
+                        ]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: { click: _vm.hideVirtualTour }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Keluar dari Model Virtual Tour\n                        "
+                          )
+                        ]
+                      )
+                ])
+              ])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-lg-8" },
+        { staticClass: "col-lg mx-0" },
         [
           _c(
             "GmapMap",
@@ -39560,15 +39678,12 @@ var render = function() {
               staticClass: "mr-3",
               staticStyle: { width: "100%", height: "640px" },
               attrs: {
-                center: {
-                  lat: _vm.config.center.latitude,
-                  lng: _vm.config.center.longitude
-                },
+                center: _vm.map_center,
                 "map-type-id": "terrain",
-                zoom: 14
+                zoom: _vm.map_zoom
               }
             },
-            _vm._l(_vm.locations, function(location) {
+            _vm._l(_vm.visible_locations, function(location) {
               return _c(
                 "span",
                 { key: "location_" + location.id },
@@ -39588,18 +39703,20 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._l(location.panoramas, function(panorama) {
-                    return _c("GmapMarker", {
-                      key: "panorama_" + panorama.id,
-                      attrs: {
-                        icon: "/png/panorama.png",
-                        position: {
-                          lat: panorama.latitude,
-                          lng: panorama.longitude
-                        }
-                      }
-                    })
-                  })
+                  _vm.virtual_tour_mode
+                    ? _vm._l(location.panoramas, function(panorama) {
+                        return _c("GmapMarker", {
+                          key: "panorama_" + panorama.id,
+                          attrs: {
+                            icon: "/png/panorama.png",
+                            position: {
+                              lat: panorama.latitude,
+                              lng: panorama.longitude
+                            }
+                          }
+                        })
+                      })
+                    : _vm._e()
                 ],
                 2
               )
@@ -39610,18 +39727,47 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-lg-4" }, [
-        _c("div", {
-          ref: "pano",
-          staticStyle: {
-            width: "100%",
-            border: "thin solid black",
-            height: "640px"
-          }
-        })
-      ])
+      _vm.virtual_tour_mode
+        ? _c(
+            "div",
+            { staticClass: "col-lg-4 ml-0" },
+            [
+              _c("street-view", {
+                attrs: { location: _vm.selected_location, map: _vm.map }
+              })
+            ],
+            1
+          )
+        : _vm._e()
     ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StreetView.vue?vue&type=template&id=1c160df3&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StreetView.vue?vue&type=template&id=1c160df3& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {
+    ref: "pano",
+    staticStyle: { width: "100%", border: "thin solid black", height: "640px" }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57327,7 +57473,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('location-index', __webpack_require__(/*! ./components/location/Index.vue */ "./resources/js/components/location/Index.vue")["default"]);
 Vue.component('location-create', __webpack_require__(/*! ./components/location/Create.vue */ "./resources/js/components/location/Create.vue")["default"]);
 Vue.component('location-panorama-index', __webpack_require__(/*! ./components/location/panorama/Index.vue */ "./resources/js/components/location/panorama/Index.vue")["default"]);
-Vue.component('guest-virtual-tour', __webpack_require__(/*! ./components/GuestVirtualTour.vue */ "./resources/js/components/GuestVirtualTour.vue")["default"]); // Import vue2-google-maps
+Vue.component('guest-virtual-tour', __webpack_require__(/*! ./components/GuestVirtualTour.vue */ "./resources/js/components/GuestVirtualTour.vue")["default"]);
+Vue.component('street-view', __webpack_require__(/*! ./components/StreetView.vue */ "./resources/js/components/StreetView.vue")["default"]); // Import vue2-google-maps
 
 
 Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_0__, {
@@ -57468,6 +57615,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_template_id_14e11014___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_template_id_14e11014___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/StreetView.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/StreetView.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StreetView_vue_vue_type_template_id_1c160df3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StreetView.vue?vue&type=template&id=1c160df3& */ "./resources/js/components/StreetView.vue?vue&type=template&id=1c160df3&");
+/* harmony import */ var _StreetView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StreetView.vue?vue&type=script&lang=js& */ "./resources/js/components/StreetView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _StreetView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StreetView_vue_vue_type_template_id_1c160df3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StreetView_vue_vue_type_template_id_1c160df3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/StreetView.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/StreetView.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/StreetView.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StreetView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./StreetView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StreetView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StreetView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/StreetView.vue?vue&type=template&id=1c160df3&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/StreetView.vue?vue&type=template&id=1c160df3& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StreetView_vue_vue_type_template_id_1c160df3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./StreetView.vue?vue&type=template&id=1c160df3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StreetView.vue?vue&type=template&id=1c160df3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StreetView_vue_vue_type_template_id_1c160df3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StreetView_vue_vue_type_template_id_1c160df3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
