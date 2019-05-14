@@ -1,5 +1,5 @@
 <template>
-    <div ref="pano" style="width: 100%; border: thin solid black; height: 640px"></div>
+    <div ref="pano" style="height: 100%"></div>
 </template>
 
 <script>

@@ -1840,6 +1840,19 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["config", "layers"],
   data: function data() {
@@ -7842,6 +7855,25 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, "\n.vue-street-view-pano-container {\n  position: relative;\n}\n.vue-street-view-pano-container .vue-street-view-pano {\n  left: 0; right: 0; top: 0; bottom: 0;\n  position: absolute;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.virtual-tour-display {\n    height: 640px;\n}\n", ""]);
 
 // exports
 
@@ -38759,6 +38791,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./GuestVirtualTour.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -39619,118 +39681,131 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid mt-5" }, [
+  return _c("div", { staticClass: "mx-1" }, [
     _c("div", { staticClass: "row" }, [
-      _vm.selected_location
-        ? _c("div", { staticClass: "col-lg-3 mr-0" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h2", { staticClass: "h4" }, [
-                  _vm._v(" " + _vm._s(_vm.selected_location.name) + " ")
-                ]),
-                _vm._v(" "),
-                _c("hr", { staticClass: "mt-0" }),
-                _vm._v(
-                  "\n\n                    " +
-                    _vm._s(_vm.selected_location.description) +
-                    "\n\n                    "
-                ),
-                _c("div", { staticClass: "text-right mt-4" }, [
-                  !_vm.virtual_tour_mode
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: { click: _vm.showVirtualTour }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Mode Virtual Tour\n                        "
-                          )
-                        ]
-                      )
-                    : _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          on: { click: _vm.hideVirtualTour }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Keluar dari Model Virtual Tour\n                        "
-                          )
-                        ]
-                      )
-                ])
-              ])
-            ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-lg mx-0" },
-        [
-          _c(
-            "GmapMap",
-            {
-              ref: "mapRef",
-              staticClass: "mr-3",
-              staticStyle: { width: "100%", height: "640px" },
-              attrs: {
-                center: _vm.map_center,
-                "map-type-id": "terrain",
-                zoom: _vm.map_zoom
-              }
-            },
-            _vm._l(_vm.visible_locations, function(location) {
-              return _c(
-                "span",
-                { key: "location_" + location.id },
-                [
-                  _c("GmapMarker", {
-                    attrs: {
-                      icon: "/layer/icon/" + location.layer_id,
-                      position: {
-                        lat: location.latitude,
-                        lng: location.longitude
+      _c("div", { staticClass: "col-lg p-0" }, [
+        _c(
+          "div",
+          { staticStyle: { position: "relative" } },
+          [
+            _c(
+              "GmapMap",
+              {
+                ref: "mapRef",
+                staticClass: "virtual-tour-display",
+                staticStyle: { width: "100%" },
+                attrs: {
+                  center: _vm.map_center,
+                  "map-type-id": "terrain",
+                  zoom: _vm.map_zoom
+                }
+              },
+              _vm._l(_vm.visible_locations, function(location) {
+                return _c(
+                  "span",
+                  { key: "location_" + location.id },
+                  [
+                    _c("GmapMarker", {
+                      attrs: {
+                        icon: "/layer/icon/" + location.layer_id,
+                        position: {
+                          lat: location.latitude,
+                          lng: location.longitude
+                        }
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.onLocationMarkerClick(location)
+                        }
                       }
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.onLocationMarkerClick(location)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.virtual_tour_mode
-                    ? _vm._l(location.panoramas, function(panorama) {
-                        return _c("GmapMarker", {
-                          key: "panorama_" + panorama.id,
-                          attrs: {
-                            icon: "/png/panorama.png",
-                            position: {
-                              lat: panorama.latitude,
-                              lng: panorama.longitude
+                    }),
+                    _vm._v(" "),
+                    _vm.virtual_tour_mode
+                      ? _vm._l(location.panoramas, function(panorama) {
+                          return _c("GmapMarker", {
+                            key: "panorama_" + panorama.id,
+                            attrs: {
+                              icon: "/png/panorama.png",
+                              position: {
+                                lat: panorama.latitude,
+                                lng: panorama.longitude
+                              }
                             }
-                          }
+                          })
                         })
-                      })
-                    : _vm._e()
-                ],
-                2
-              )
-            }),
-            0
-          )
-        ],
-        1
-      ),
+                      : _vm._e()
+                  ],
+                  2
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticStyle: {
+                  position: "absolute",
+                  bottom: "2rem",
+                  left: "2rem"
+                }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm.selected_location
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "card mt-2",
+                        staticStyle: { width: "360px" }
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("h2", { staticClass: "h4" }, [
+                            _vm._v(_vm._s(_vm.selected_location.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("hr", { staticClass: "mt-0" }),
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.selected_location.description) +
+                              "\n                            "
+                          ),
+                          _c("div", { staticClass: "text-right mt-4" }, [
+                            !_vm.virtual_tour_mode
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    on: { click: _vm.showVirtualTour }
+                                  },
+                                  [_vm._v("Mode Virtual Tour")]
+                                )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    on: { click: _vm.hideVirtualTour }
+                                  },
+                                  [_vm._v("Keluar dari Model Virtual Tour")]
+                                )
+                          ])
+                        ])
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            )
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _vm.virtual_tour_mode
         ? _c(
             "div",
-            { staticClass: "col-lg-4 ml-0" },
+            { staticClass: "col-lg-6 p-0 virtual-tour-display" },
             [
               _c("street-view", {
                 attrs: { location: _vm.selected_location, map: _vm.map }
@@ -39742,7 +39817,25 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card", staticStyle: { width: "240px" } }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c("h4", [
+          _c("i", { staticClass: "fa fa-filter" }),
+          _vm._v(
+            "\n                                Filter Layer\n                            "
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr", { staticClass: "mt-0" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -39764,10 +39857,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {
-    ref: "pano",
-    staticStyle: { width: "100%", border: "thin solid black", height: "640px" }
-  })
+  return _c("div", { ref: "pano", staticStyle: { height: "100%" } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57562,7 +57652,9 @@ if (token) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GuestVirtualTour_vue_vue_type_template_id_14e11014___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GuestVirtualTour.vue?vue&type=template&id=14e11014& */ "./resources/js/components/GuestVirtualTour.vue?vue&type=template&id=14e11014&");
 /* harmony import */ var _GuestVirtualTour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GuestVirtualTour.vue?vue&type=script&lang=js& */ "./resources/js/components/GuestVirtualTour.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GuestVirtualTour.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -57570,7 +57662,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _GuestVirtualTour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _GuestVirtualTour_vue_vue_type_template_id_14e11014___WEBPACK_IMPORTED_MODULE_0__["render"],
   _GuestVirtualTour_vue_vue_type_template_id_14e11014___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -57599,6 +57691,22 @@ component.options.__file = "resources/js/components/GuestVirtualTour.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./GuestVirtualTour.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GuestVirtualTour.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./GuestVirtualTour.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GuestVirtualTour.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GuestVirtualTour_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

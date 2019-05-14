@@ -1,7 +1,7 @@
 @extends('shared.layout-guest')
 @section('title', 'Beranda')
 @section('content')
-<header class="mt-3">
+<header>
     <div id="app">
         <guest-virtual-tour
             :config='{{ json_encode(config('map')) }}'
