@@ -4,14 +4,14 @@
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-list-alt'></i>
-        Kelola Layer
+        Layer
     </h1>
 
     @include('shared.alert', ['state' => 'success', 'session_var' => 'message'])
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"> SIG Virtual Tour </li>
+            <li class="breadcrumb-item"> {{ config('app.name') }} </li>
             <li class="breadcrumb-item active"> Layer </li>
         </ol>
     </nav>
@@ -26,7 +26,7 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-list-alt"></i>
-            Kelola Layer
+            Layer
         </div>
 
         <div class="card-body">
