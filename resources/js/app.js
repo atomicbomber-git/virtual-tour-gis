@@ -21,6 +21,10 @@ import VModal from 'vue-js-modal'
 
 Vue.use(VModal, { dialog: true })
 
+window.swal = require('sweetalert')
+require('tinymce');
+window.tinymce_file_picker_callback = require('./tinymce_file_picker_callback.js')
+
 const app = new Vue({
     el: '#app'
 });

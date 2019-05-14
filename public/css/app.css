@@ -13000,3 +13000,12 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.tinymce-editor {
+  background: #fff;
+  padding: 2rem;
+}
+
+.width-sm {
+  max-width: 350px;
+}
+

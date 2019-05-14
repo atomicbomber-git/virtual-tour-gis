@@ -20,6 +20,14 @@
                         Lokasi
                     </a>
                 </li>
+
+                <li class='nav-item {{ Route::is('article.*') ? 'active' : '' }}'>
+                    <a class='nav-link' href='{{ route('article.index') }}'>
+                        <i class='fa fa-newspaper-o'></i>
+                        Artikel
+                    </a>
+                </li>
+
                 @endauth
             </div>
 

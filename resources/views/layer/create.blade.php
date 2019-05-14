@@ -7,6 +7,18 @@
         Layer Baru
     </h1>
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> SIG Virtual Tour </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route("layer.index") }}">
+                    Layer
+                </a>
+            </li>
+            <li class="breadcrumb-item active"> Layer Baru </li>
+        </ol>
+    </nav>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-plus"></i>

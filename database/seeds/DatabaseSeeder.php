@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(LayerSeeder::class);
         $this->call(LocationSeeder::class);
+        $this->call(ArticleSeeder::class);
         $this->call(PanoramaSeeder::class);
     }
 }

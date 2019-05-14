@@ -13,5 +13,7 @@
     @yield('body')
     <script src="{{ asset('js/app.js') }}"></script>
     @include('shared.remove-notifications')
+    @include("shared.sweetalert-confirmation")
+    @yield('extra-scripts')
 </body>
 </html>

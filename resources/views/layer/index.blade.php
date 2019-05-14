@@ -51,7 +51,7 @@
                                 <img src="{{ route('layer.icon', $layer) }}">
                             </td>
                             <td class="text-center">
-                                <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-info">
+                                <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-dark">
                                     Sunting
                                     <i class="fa fa-pencil"></i>
                                 </a>

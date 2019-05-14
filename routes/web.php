@@ -26,6 +26,20 @@ Route::group(['prefix' => '/layer', 'as' => 'layer.'], function() {
     Route::post('/delete/{layer}', 'LayerController@delete')->name('delete');
 });
 
+Route::group(['prefix' => '/article', 'as' => 'article.'], function() {
+    Route::get('/index', 'ArticleController@index')->name('index');
+    Route::get('/create', 'ArticleController@create')->name('create');
+    Route::post('/store', 'ArticleController@store')->name('store');
+    Route::get('/edit/{article}', 'ArticleController@edit')->name('edit');
+    Route::post('/update/{article}', 'ArticleController@update')->name('update');
+    Route::post('/delete/{article}', 'ArticleController@delete')->name('delete');
+});
+
+Route::group(['prefix' => '/guest-article', 'as' => 'guest-article.'], function() {
+    Route::get('/index', 'GuestArticleController@index')->name('index');
+    Route::get('/show/{article}', 'GuestArticleController@show')->name('show');
+});
+
 Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
     Route::get('/index', 'LocationController@index')->name('index');
     Route::get('/create', 'LocationController@create')->name('create');
