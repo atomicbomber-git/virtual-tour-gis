@@ -19,7 +19,7 @@
         <div class="card-body">
             <h2 class="h4"> {{ $article->title }} </h2>
             <span class="text-muted">
-                {{ $article->created_at }}
+                {{ \App\Helpers\Formatter::date($article->created_at) }}
             </span>
 
             <p class="card-text">

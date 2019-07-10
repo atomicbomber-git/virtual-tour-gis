@@ -85519,6 +85519,7 @@ window.swal = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/d
 
 __webpack_require__(/*! tinymce */ "./node_modules/tinymce/tinymce.js");
 
+window.tinymce_config = __webpack_require__(/*! ./tinymce_config */ "./resources/js/tinymce_config.js");
 window.tinymce_file_picker_callback = __webpack_require__(/*! ./tinymce_file_picker_callback.js */ "./resources/js/tinymce_file_picker_callback.js");
 var app = new Vue({
   el: '#app'
@@ -85947,6 +85948,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/tinymce_config.js":
+/*!****************************************!*\
+  !*** ./resources/js/tinymce_config.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = {
+  selector: '#content',
+  body_class: 'tinymce-editor',
+  plugins: 'lists,image,imagetools',
+  image_caption: true,
+  file_picker_callback: __webpack_require__(/*! ./tinymce_file_picker_callback */ "./resources/js/tinymce_file_picker_callback.js"),
+  height: 400,
+  toolbar: ['undo redo | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright | image']
+};
+
+/***/ }),
+
 /***/ "./resources/js/tinymce_file_picker_callback.js":
 /*!******************************************************!*\
   !*** ./resources/js/tinymce_file_picker_callback.js ***!
@@ -86025,9 +86045,9 @@ module.exports = function (cb, value, meta) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
 
 
 /***/ })

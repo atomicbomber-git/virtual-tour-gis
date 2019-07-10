@@ -27,24 +27,24 @@
             Sunting Artikel
         </div>
         <div class="card-body">
-        
+
             <form method='POST' action='{{ route('article.update', $article) }}'>
                 @csrf
-            
+
                 <div class='form-group'>
                     <label for='title'> Judul: </label>
-                
+
                     <input
                         id='title' name='title' type='text'
                         placeholder='Judul'
                         value='{{ old('title', $article->title) }}'
                         class='form-control {{ !$errors->has('title') ?: 'is-invalid' }}'>
-                
+
                     <div class='invalid-feedback'>
                         {{ $errors->first('title') }}
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="content"> Konten: </label>
                     <textarea id="content" class="form-control" name="content" id="content" cols="30" rows="20"></textarea>
@@ -67,18 +67,9 @@
 
 @section ('extra-scripts')
 <script>
-    tinyMCE.init({
-        selector: '#content',
-        body_class: 'tinymce-editor',
-        plugins: 'lists,image,imagetools',
-        image_caption: true,
-        file_picker_callback: window.tinymce_file_picker_callback,
-        height: 400,
-        toolbar: [
-            'undo redo | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright | image'
-        ],
+    tinyMCE.init(Object.assign(window.tinymce_config, {
         content_css: '{{ asset('css/app.css') }}',
-    })
+    }))
     .then(editors => {
         editors[0].setContent(`{!! old('content', $article->content) !!}`)
     })

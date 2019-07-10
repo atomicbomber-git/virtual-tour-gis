@@ -28,6 +28,15 @@
                     </a>
                 </li>
 
+                @foreach ($information_menus as $information_menu)
+                <li class='nav-item {{ $information_menu["type"] === ($information->type ?? '') ? 'active' : '' }}'>
+                    <a class='nav-link' href='{{ route('information.edit', $information_menu["type"]) }}'>
+                        <i class="fa {{ $information_menu["icon"] }}"></i>
+                        {{ $information_menu["title"] }}
+                    </a>
+                </li>
+                @endforeach
+
                 @endauth
             </div>
 

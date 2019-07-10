@@ -23,6 +23,7 @@ Vue.use(VModal, { dialog: true })
 
 window.swal = require('sweetalert')
 require('tinymce');
+window.tinymce_config = require('./tinymce_config')
 window.tinymce_file_picker_callback = require('./tinymce_file_picker_callback.js')
 
 const app = new Vue({

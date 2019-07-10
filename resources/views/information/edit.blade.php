@@ -1,47 +1,25 @@
 @extends('shared.layout')
-@section('title', 'Artikel Baru')
+@section('title', $information->title)
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
-        <i class='fa fa-plus'></i>
-        Artikel Baru
+        <i class="fa {{ $information->icon }}"></i>
+        {{ $information->title }}
     </h1>
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> {{ config('app.name') }} </li>
-            <li class="breadcrumb-item">
-                <a href="{{ route("article.index") }}">
-                    Artikel
-                </a>
-            </li>
-            <li class="breadcrumb-item active"> Artikel Baru </li>
+            <li class="breadcrumb-item active"> {{ $information->title }} </li>
         </ol>
     </nav>
 
+    @include("shared.alert")
+
     <div class="card">
-        <div class="card-header">
-            <i class="fa fa-plus"></i>
-            Artikel Baru
-        </div>
         <div class="card-body">
-            <form method='POST' action='{{ route('article.store') }}'>
+            <form method="POST" action="{{ route('information.update', $information->type) }}">
                 @csrf
-
-                <div class='form-group'>
-                    <label for='title'> Judul: </label>
-
-                    <input
-                        id='title' name='title' type='text'
-                        placeholder='Judul'
-                        value='{{ old('title') }}'
-                        class='form-control {{ !$errors->has('title') ?: 'is-invalid' }}'>
-
-                    <div class='invalid-feedback'>
-                        {{ $errors->first('title') }}
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <label for="content"> Konten: </label>
                     <textarea id="content" class="form-control" name="content" id="content" cols="30" rows="20"></textarea>
@@ -52,7 +30,7 @@
 
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary">
-                        Tambahkan Artikel
+                        Ubah Data
                         <i class="fa fa-check"></i>
                     </button>
                 </div>
@@ -68,7 +46,8 @@
         content_css: '{{ asset('css/app.css') }}',
     }))
     .then(editors => {
-        editors[0].setContent(`{!! old('content') !!}`)
+        editors[0].setContent(`{!! old('content', $information->content) !!}`)
     })
 </script>
 @endsection
+

@@ -62,3 +62,9 @@ Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
         Route::post('/link/{panorama}/delete/{link}', 'LinkController@delete')->name('create');
     });
 });
+
+Route::group(['as' => 'information.'], function() {
+    Route::get('/edit/{type}', 'InformationController@edit')->name('edit');
+    Route::get('/{type}', 'InformationController@show')->name('show');
+    Route::post('/update/{type}', 'InformationController@update')->name('update');
+});
