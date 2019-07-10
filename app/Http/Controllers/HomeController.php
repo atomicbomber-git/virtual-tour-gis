@@ -21,11 +21,6 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        // return strip_tags($articles->first()->content);
-        // return  (new Html2Text($articles->first()->content))->getText();
-
-
-
         return view("home.show", compact("layers", "articles"));
     }
 }
