@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="{{ route("home.show") }}">
             <i class="fa fa-map mr-2"></i>
-            Sistem Informasi Geografis & Virtual Tour Wisata Kabupaten Kapuas Hulu
+            {{ config('app.long_name') }}
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

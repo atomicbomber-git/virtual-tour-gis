@@ -14,6 +14,7 @@ return [
     */
 
     'name' => 'SIG Virtual Tour',
+    'long_name' => 'Sistem Informasi Geografis & Virtual Tour Wisata Kabupaten Kapuas Hulu',
 
     /*
     |--------------------------------------------------------------------------

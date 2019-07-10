@@ -22,6 +22,10 @@
                 {{ $article->created_at }}
             </span>
 
+            <p class="card-text">
+                {{ $article->short_content }}
+            </p>
+
             <div class="d-flex justify-content-end">
                 <a class="btn btn-dark btn-sm" href="{{ route('guest-article.show', $article) }}">
                     Baca Artikel

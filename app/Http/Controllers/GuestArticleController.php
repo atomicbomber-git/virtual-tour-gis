@@ -10,7 +10,7 @@ class GuestArticleController extends Controller
     public function index()
     {
         $articles = Article::query()
-            ->select("id", "title", "created_at")
+            ->select("id", "title", "created_at", "content")
             ->orderByDesc("created_at", "updated_at")
             ->paginate(5);
 

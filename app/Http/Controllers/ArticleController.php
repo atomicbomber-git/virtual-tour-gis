@@ -16,12 +16,12 @@ class ArticleController extends Controller
 
         return view("article.index", compact("articles"));
     }
-    
+
     public function create()
     {
         return view("article.create");
     }
-    
+
     public function store()
     {
         $data = $this->validate(request(), [
@@ -35,12 +35,12 @@ class ArticleController extends Controller
             ->route("article.index")
             ->with("message.success", __("messages.delete.success"));
     }
-    
+
     public function edit(Article $article)
     {
         return view("article.edit", compact("article"));
     }
-    
+
     public function update(Article $article)
     {
         $data = $this->validate(request(), [
@@ -53,7 +53,7 @@ class ArticleController extends Controller
         return back()
             ->with("message.success", __("messages.update.success"));
     }
-    
+
     public function delete(Article $article)
     {
         $article->delete();
