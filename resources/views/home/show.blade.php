@@ -12,9 +12,34 @@
 
 <!-- Page Content -->
 <div class="container" style="min-height: 90vh">
-    
+    <h2 class="h3 mt-3 mb-1">
+        Artikel Terbaru
+    </h2>
+    <hr class="mt-1">
+    <div class="row">
+        @foreach ($articles as $article)
+        <div class="col-lg mb-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold text-primary">
+                        {{ $article->title }}
+                        <small class="text-muted">
+                            {{ $article->created_at }}
+                        </small>
+                    </h5>
+                    <p class="card-text">Text</p>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        </div>
+    </div>
+
+
+
+
     {{-- <h1 class="my-4">Welcome to Modern Business</h1> --}}
-    
+
     <!-- Marketing Icons Section -->
     {{-- <div class="row">
         <div class="col-lg-4 mb-4">
@@ -52,10 +77,10 @@
         </div>
     </div>
     <!-- /.row -->
-    
+
     <!-- Portfolio Section -->
     <h2>Portfolio Heading</h2>
-    
+
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
@@ -125,7 +150,7 @@
         </div>
     </div> --}}
     <!-- /.row -->
-    
+
     <!-- Features Section -->
     {{-- <div class="row">
         <div class="col-lg-6">
@@ -150,9 +175,9 @@
         </div>
     </div> --}}
     <!-- /.row -->
-    
+
     {{-- <hr> --}}
-    
+
     <!-- Call to Action Section -->
     {{-- <div class="row mb-4">
         <div class="col-md-8">
@@ -162,7 +187,7 @@
             <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
         </div>
     </div> --}}
-    
+
 </div>
 <!-- /.container -->
 

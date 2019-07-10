@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Layer;
+use App\Article;
+use Html2Text\Html2Text;
 
 class HomeController extends Controller
 {
@@ -13,6 +15,17 @@ class HomeController extends Controller
             ->with("locations.panoramas.links.destination")
             ->get();
 
-        return view("home.show", compact("layers"));
+        $articles = Article::query()
+            ->select("id", "title", "created_at", "content")
+            ->latest()
+            ->limit(3)
+            ->get();
+
+        // return strip_tags($articles->first()->content);
+        // return  (new Html2Text($articles->first()->content))->getText();
+
+
+
+        return view("home.show", compact("layers", "articles"));
     }
 }
