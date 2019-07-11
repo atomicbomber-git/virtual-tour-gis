@@ -5,26 +5,26 @@
 <script>
 export default {
     props: [
-        "location", "map"
+        "location", "map", "panorama"
     ],
 
     mounted() {
-        if (this.location.panoramas.length < 1) {
-            alert("This location does not have any panorama.")
-        }
-
-        this.initPanorama(this.location.panoramas[0])
+        this.initPanorama(this.panorama)
     },
 
     watch: {
         location() {
-            this.initPanorama(this.location.panoramas[0])
-        }
+            this.initPanorama(this.panorama)
+        },
+
+        panorama(panorama) {
+            this.initPanorama(panorama)
+        },
     },
 
     methods: {
         initPanorama(panorama) {
-            
+
             let gmap_panorama = new google.maps.StreetViewPanorama(
                 this.$refs.pano,
                 { pano: `${panorama.id}` }
@@ -46,7 +46,7 @@ export default {
             return {
                 location: {
                     pano: panorama_id,  // The ID for this custom panorama.
-                    description: 'Panorama Descriptions',
+                    description: panorama.name,
                     latLng: new google.maps.LatLng(panorama.latitude, panorama.longitude)
                 },
                 links: panorama.links.map(link => {
@@ -71,7 +71,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

@@ -1874,6 +1874,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["config", "layers"],
   data: function data() {
@@ -1889,7 +1894,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _objectSpread({}, layer, {
           is_visible: true
         });
-      })
+      }),
+      selected_panorama: null
     };
   },
   mounted: function mounted() {
@@ -1900,8 +1906,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: {
+    onPanoramaMarkerClick: function onPanoramaMarkerClick(panorama) {
+      this.selected_panorama = panorama;
+    },
     onLocationMarkerClick: function onLocationMarkerClick(location) {
       this.selected_location = location;
+      this.selected_panorama = location.panoramas[0];
     },
     showVirtualTour: function showVirtualTour() {
       if (this.selected_location.panoramas.length < 1) {
@@ -1950,17 +1960,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["location", "map"],
+  props: ["location", "map", "panorama"],
   mounted: function mounted() {
-    if (this.location.panoramas.length < 1) {
-      alert("This location does not have any panorama.");
-    }
-
-    this.initPanorama(this.location.panoramas[0]);
+    this.initPanorama(this.panorama);
   },
   watch: {
     location: function location() {
-      this.initPanorama(this.location.panoramas[0]);
+      this.initPanorama(this.panorama);
+    },
+    panorama: function panorama(_panorama) {
+      this.initPanorama(_panorama);
     }
   },
   methods: {
@@ -1991,7 +2000,7 @@ __webpack_require__.r(__webpack_exports__);
         location: {
           pano: panorama_id,
           // The ID for this custom panorama.
-          description: 'Panorama Descriptions',
+          description: panorama.name,
           latLng: new google.maps.LatLng(panorama.latitude, panorama.longitude)
         },
         links: panorama.links.map(function (link) {
@@ -67569,6 +67578,11 @@ var render = function() {
                                 lat: panorama.latitude,
                                 lng: panorama.longitude
                               }
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.onPanoramaMarkerClick(panorama)
+                              }
                             }
                           })
                         })
@@ -67752,7 +67766,11 @@ var render = function() {
             { staticClass: "col-lg-6 p-0 virtual-tour-display" },
             [
               _c("street-view", {
-                attrs: { location: _vm.selected_location, map: _vm.map }
+                attrs: {
+                  location: _vm.selected_location,
+                  panorama: _vm.selected_location.panoramas[0],
+                  map: _vm.map
+                }
               })
             ],
             1
@@ -86045,9 +86063,9 @@ module.exports = function (cb, value, meta) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
 
 
 /***/ })

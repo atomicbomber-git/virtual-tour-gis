@@ -2,11 +2,11 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
+use Jenssegers\Date\Date;
 
-class Formatter
+class Formatter implements FormatterInterface
 {
-    public static function date(\Carbon\Carbon $value) {
-        return (new Carbon($value))->format("Y-m-d");
+    public function date($value): string {
+        return (new Date($value))->format("l, j F Y");
     }
 }

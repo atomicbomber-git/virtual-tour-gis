@@ -12,23 +12,27 @@
 
 <!-- Page Content -->
 <div class="container" style="min-height: 90vh">
-    <h2 class="h3 mt-3 mb-1">
+    <h2 class="h3 mt-5 mb-1">
         <i class="fa fa-newspaper-o"></i>
         Artikel Terbaru
     </h2>
     <hr class="mt-1">
     <div class="row">
+
+        @inject('formatter', 'App\Helpers\FormatterInterface')
+
         @foreach ($articles as $article)
-        <div class="col-lg mb-2">
-            <div class="card" style="overflow-y: scroll">
+        <div class="col-lg-4 mb-2 d-flex">
+            <div class="card w-100">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold text-primary mb-1">
                         {{ $article->title }}
                     </h5>
                     <span class="text-muted mt-1">
-                    {{ \App\Helpers\Formatter::date($article->created_at) }}
+                        {{ $formatter->date($article->created_at) }}
                     </span>
-                    <p class="card-text">
+
+                    <p class="card-text" style="height: 100px; overflow-y: hidden">
                         {{ $article->short_content }}
                     </p>
 

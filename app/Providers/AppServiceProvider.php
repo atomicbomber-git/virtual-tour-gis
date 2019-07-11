@@ -24,6 +24,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->bindCarbonLocale();
+        $this->bindInformationMenusToNavbar();
+    }
+
+    private function bindCarbonLocale()
+    {
+        \Carbon\Carbon::setLocale("fr");
+    }
+
+    private function bindInformationMenusToNavbar() {
         $informationsBinder = function ($view) {
             $view->with("information_menus", $this->getInformationMenus());
         };

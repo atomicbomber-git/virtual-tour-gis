@@ -25,6 +25,7 @@
                             <!-- Panorama markers -->
                             <template v-if="virtual_tour_mode">
                                 <GmapMarker
+                                    @click="onPanoramaMarkerClick(panorama)"
                                     :icon="`/png/panorama.png`"
                                     v-for="panorama in location.panoramas"
                                     :key="'panorama_' + panorama.id"
@@ -42,7 +43,7 @@
                                     Filter Layer
                                 </h4>
                                 <hr class="mt-0">
-                                
+
                                 <div v-for="layer in m_layers" :key="layer.id" class="mb-1 custom-control custom-checkbox">
                                     <input
                                         type="checkbox"
@@ -91,7 +92,11 @@
             </div>
 
             <div v-if="virtual_tour_mode" class="col-lg-6 p-0 virtual-tour-display">
-                <street-view :location="selected_location" :map="map"/>
+                <street-view
+                    :location="selected_location"
+                    :panorama="selected_location.panoramas[0]"
+                    :map="map"
+                    />
             </div>
         </div>
     </div>
@@ -111,7 +116,9 @@ export default {
             virtual_tour_mode: false,
             selected_location: null,
 
-            m_layers: this.layers.map(layer => ({ ...layer, is_visible: true }))
+            m_layers: this.layers.map(layer => ({ ...layer, is_visible: true })),
+
+            selected_panorama: null
         };
     },
 
@@ -122,8 +129,13 @@ export default {
     },
 
     methods: {
+        onPanoramaMarkerClick(panorama) {
+            this.selected_panorama = panorama
+        },
+
         onLocationMarkerClick(location) {
-            this.selected_location = location;
+            this.selected_location = location
+            this.selected_panorama = location.panoramas[0]
         },
 
         showVirtualTour() {

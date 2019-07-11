@@ -1,6 +1,7 @@
 @extends('shared.layout-guest')
 @section('title', 'Artikel')
 @section('content')
+@inject('formatter', 'App\Helpers\FormatterInterface')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-newspaper-o'></i>
@@ -19,7 +20,7 @@
         <div class="card-body">
             <h2 class="h4"> {{ $article->title }} </h2>
             <span class="text-muted">
-                {{ \App\Helpers\Formatter::date($article->created_at) }}
+                {{ $formatter->date($article->created_at) }}
             </span>
 
             <p class="card-text">
