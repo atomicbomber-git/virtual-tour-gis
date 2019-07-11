@@ -125,7 +125,7 @@ export default {
     mounted() {
         this.$refs.mapRef.$mapPromise.then(map => {
             this.map = map;
-        });
+        })
     },
 
     methods: {
@@ -139,11 +139,7 @@ export default {
         },
 
         showVirtualTour() {
-            if (this.selected_location.panoramas.length < 1) {
-                alert("No panoramas available.");
-                return;
-            }
-
+            this.map_zoom = this.config.virtual_tour_zoom
             this.virtual_tour_mode = true;
 
             this.map_center = {
@@ -153,7 +149,8 @@ export default {
         },
 
         hideVirtualTour() {
-            this.virtual_tour_mode = false;
+            this.virtual_tour_mode = false
+            this.map_zoom = this.config.zoom
         }
     },
 

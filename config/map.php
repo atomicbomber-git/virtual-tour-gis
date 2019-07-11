@@ -7,4 +7,5 @@ return [
     ],
 
     "zoom" => 14,
+    "virtual_tour_zoom" => 16,
 ];
