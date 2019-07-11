@@ -36,13 +36,16 @@
     </div>
     @endforeach
 
-    <div class="d-flex justify-content-center">
-        <div class="flex-fill">
+    <div class="row">
+        <div class="col-md mb-3">
             Menampilkan hasil ke-{{ $articles->firstItem() }} hingga ke-{{ $articles->lastItem() }} dari {{ $articles->count() }} hasil yang ada.
         </div>
 
-        <div class="flex-fill d-flex justify-content-end">
-            {{ $articles->links() }}
+        <div
+            class="col-md mb-3 d-flex justify-content-center">
+            <div style="overflow-y: scroll">
+                {{ $articles->links() }}
+            </div>
         </div>
     </div>
 
