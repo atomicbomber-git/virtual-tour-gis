@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\GuestVirtualTourController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +64,12 @@ Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
     });
 });
 
-Route::group(['as' => 'information.'], function() {
+Route::group(['prefix' => '/information', 'as' => 'information.'], function() {
     Route::get('/edit/{type}', 'InformationController@edit')->name('edit');
     Route::get('/{type}', 'InformationController@show')->name('show');
     Route::post('/update/{type}', 'InformationController@update')->name('update');
+});
+
+Route::group(['as' => 'guest-virtual-tour.'], function() {
+    Route::get('/map', [GuestVirtualTourController::class, 'show'])->name('show');
 });

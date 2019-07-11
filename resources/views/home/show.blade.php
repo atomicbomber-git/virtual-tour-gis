@@ -1,14 +1,6 @@
 @extends('shared.layout-guest')
 @section('title', 'Beranda')
 @section('content')
-<header>
-    <div id="app">
-        <guest-virtual-tour
-            :config='{{ json_encode(config('map')) }}'
-            :layers='{{ json_encode($layers) }}'
-            />
-    </div>
-</header>
 
 <!-- Page Content -->
 <div class="container" style="min-height: 90vh">

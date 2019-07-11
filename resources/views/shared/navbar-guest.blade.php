@@ -17,6 +17,13 @@
                     </a>
                 </li>
 
+                <li class='nav-item {{ Route::is('guest-virtual-tour.show') ? 'active' : '' }}'>
+                    <a class='nav-link' href='{{ route('guest-virtual-tour.show') }}'>
+                        <i class='fa fa-map'></i>
+                        Peta
+                    </a>
+                </li>
+
                 <li class='nav-item {{ Route::is('guest-article.*') ? 'active' : '' }}'>
                     <a class='nav-link' href='{{ route('guest-article.index') }}'>
                         <i class='fa fa-newspaper-o'></i>
