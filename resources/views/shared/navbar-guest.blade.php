@@ -32,19 +32,6 @@
                     </a>
                 </li>
                 @endforeach
-
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="#">Lokasi Wisata</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="article-list.html">Artikel</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tour_guides.html">Tour Guide</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">Tentang & Kontak</a>
-                </li> --}}
             </ul>
         </div>
     </div>

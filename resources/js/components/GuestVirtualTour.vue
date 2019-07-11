@@ -94,7 +94,7 @@
             <div v-if="virtual_tour_mode" class="col-lg-6 p-0 virtual-tour-display">
                 <street-view
                     :location="selected_location"
-                    :panorama="selected_location.panoramas[0]"
+                    :panorama="selected_panorama"
                     :map="map"
                     />
             </div>
