@@ -2,8 +2,17 @@
 @section('title', 'Beranda')
 @section('content')
 
+<header class="container mt-3">
+    <div class="jumbotron">
+        <h1 class="display-3"> Selamat Datang </h1>
+        <p class="lead">
+            {{ config('app.long_name') }}
+        </p>
+    </div>
+</header>
+
 <!-- Page Content -->
-<div class="container" style="min-height: 90vh">
+<div class="container" style="min-height: 60vh">
     <h2 class="h3 mt-5 mb-1">
         <i class="fa fa-newspaper-o"></i>
         Artikel Terbaru
