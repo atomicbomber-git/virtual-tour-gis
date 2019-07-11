@@ -7,6 +7,13 @@
         {{ $information->title }}
     </h1>
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> {{ config('app.name') }} </li>
+            <li class="breadcrumb-item active"> {{ $information->title }} </li>
+        </ol>
+    </nav>
+
     <div class="card">
         <div class="card-body">
             {!! $information->content !!}
