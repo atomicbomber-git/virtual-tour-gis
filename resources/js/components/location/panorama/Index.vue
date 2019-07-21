@@ -3,7 +3,7 @@
         <modal
             name="create-panorama-form"
             height="auto"
-            @before-close="(e) => { is_submitting && e.stop() }"
+            @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
         >
             <div class="card">
                 <div class="card-header">
@@ -96,16 +96,26 @@
                             >{{ get(this.error_data, 'errors.image[0]', false) }}</small>
                         </div>
 
-                        <div class="form-group text-right">
-                            <button v-if="!is_submitting" class="btn btn-primary">
-                                Tambah Panorama
-                                <i class="fa fa-plus"></i>
-                            </button>
+                        <div class="form-group d-flex align-items-center">
+                            <div class="flex-grow-1 pr-3">
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" :style="{ width: `${upload_progress_percentage}%`}">
+                                        Progress Upload
+                                    </div>
+                                </div>
+                            </div>
 
-                            <button v-if="is_submitting" class="btn btn-primary">
-                                Mengirim Data
-                                <i class="fa fa-spinner fa-spin fa-fw"></i>
-                            </button>
+                            <div>
+                                <button v-if="!is_submitting" class="btn btn-primary">
+                                    Tambah Panorama
+                                    <i class="fa fa-plus"></i>
+                                </button>
+
+                                <button v-if="is_submitting" class="btn btn-primary">
+                                    Mengirim dan Memroses Data
+                                    <i class="fa fa-spinner fa-spin fa-fw"></i>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -145,7 +155,11 @@
             </div>
         </modal>
 
-        <modal height="auto" name="edit-panorama-form">
+        <modal
+            height="auto"
+            name="edit-panorama-form"
+            @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
+            >
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-pencil"></i>
@@ -246,16 +260,26 @@
                             >{{ get(this.error_data, 'errors.image[0]', false) }}</small>
                         </div>
 
-                        <div class="form-group text-right">
-                            <button v-if="!is_submitting" class="btn btn-primary">
-                                Perbarui Panorama
-                                <i class="fa fa-check"></i>
-                            </button>
+                        <div class="form-group d-flex align-items-center">
+                            <div class="flex-grow-1 pr-3">
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" :style="{ width: `${upload_progress_percentage}%`}">
+                                        Progress Upload
+                                    </div>
+                                </div>
+                            </div>
 
-                            <button v-if="is_submitting" class="btn btn-primary">
-                                Mengirim Data
-                                <i class="fa fa-spinner fa-spin fa-fw"></i>
-                            </button>
+                            <div>
+                                <button v-if="!is_submitting" class="btn btn-primary">
+                                    Perbarui Panorama
+                                    <i class="fa fa-check"></i>
+                                </button>
+
+                                <button v-if="is_submitting" class="btn btn-primary">
+                                    Mengirim Data
+                                    <i class="fa fa-spinner fa-spin fa-fw"></i>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -502,7 +526,9 @@ export default {
             error_data: null,
 
             heading: 0,
-            destination_id: null
+            destination_id: null,
+
+            upload_progress_percentage: 0,
         };
     },
 
@@ -630,12 +656,18 @@ export default {
                 .post(
                     `/location/panorama/${this.location.id}/store`,
                     newPanoramaFormData,
-                    { headers: { "Content-Type": "multipart/form-data" } }
+                    {
+                        headers: { "Content-Type": "multipart/form-data" },
+                        onUploadProgress: progressEvent => {
+                            this.upload_progress_percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                        }
+                    }
                 )
                 .then(response => {
                     window.location.reload(true);
                 })
                 .catch(error => {
+                    this.upload_progress_percentage = 0
                     this.is_submitting = false;
                     this.error_data = error.response.data;
                 });
@@ -737,7 +769,12 @@ export default {
                         this.edited_panorama.id
                     }`,
                     editedPanoramaFormData,
-                    { headers: { "Content-Type": "multipart/form-data" } }
+                    {
+                        headers: { "Content-Type": "multipart/form-data" },
+                        onUploadProgress: progressEvent => {
+                            this.upload_progress_percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                        }
+                    }
                 )
                 .then(response => {
                     window.location.reload(true);

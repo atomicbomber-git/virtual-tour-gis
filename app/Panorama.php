@@ -12,6 +12,8 @@ class Panorama extends Model implements HasMedia
 {
     use HasMediaTrait;
 
+    const MAX_ZOOM_LEVEL = 2;
+
     public $fillable = [
         'location_id', 'name', 'latitude', 'longitude'
     ];
@@ -28,7 +30,7 @@ class Panorama extends Model implements HasMedia
 
         for ($zoom_level = 1; $zoom_level <= $max_zoom_level; ++$zoom_level) {
             $n_tiles = pow(4, $zoom_level);
-            
+
             $n_sqrt_tiles = sqrt($n_tiles);
             $tile_size_x = $image->getWidth() / $n_sqrt_tiles;
             $tile_size_y = $image->getHeight() / $n_sqrt_tiles;
