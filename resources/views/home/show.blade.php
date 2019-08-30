@@ -12,7 +12,7 @@
 </header>
 
 <!-- Page Content -->
-<div class="container" style="min-height: 60vh">
+<div class="container">
     <h2 class="h3 mt-5 mb-1">
         <i class="fa fa-newspaper-o"></i>
         Artikel Terbaru
@@ -52,13 +52,5 @@
     </div>
 </div>
 <!-- /.container -->
-
-<!-- Footer -->
-<footer class="py-5 bg-default">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 2019 Virtual Tour Wisata Kabupaten Kapuas Hulu</p>
-    </div>
-    <!-- /.container -->
-</footer>
 
 @endsection

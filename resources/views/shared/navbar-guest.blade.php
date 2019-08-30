@@ -2,7 +2,14 @@
     <div class="container">
         <a class="navbar-brand" href="{{ route("home.show") }}">
             <i class="fa fa-map mr-2"></i>
-            {{ config('app.long_name') }}
+
+            <span class="d-none d-sm-inline">
+                {{ config('app.long_name') }}
+            </span>
+
+            <span class="d-inline d-sm-none">
+                {{ config('app.name') }}
+            </span>
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
