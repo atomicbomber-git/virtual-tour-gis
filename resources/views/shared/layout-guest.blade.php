@@ -6,5 +6,14 @@
 
 @section('body')
     @include('shared.navbar-guest')
-    @yield('content')
+
+    <div style="min-height: 80vh">
+        @yield('content')
+    </div>
+
+    <footer class="py-5 bg-default">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; 2019 Virtual Tour Wisata Kabupaten Kapuas Hulu</p>
+        </div>
+    </footer>
 @endsection

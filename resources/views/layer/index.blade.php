@@ -49,9 +49,8 @@
                             <td> {{ $layer->description }} </td>
                             <td class="text-center">
                                 <img
-                                    style="max-width: 100px; object-fit: cover"
-                                    src="{{ route('layer.icon', $layer) }}"
-                                    >
+                                    width="20px" height="20px"
+                                    src="{{ route('layer.icon', $layer) }}">
                             </td>
                             <td class="text-center">
                                 <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-dark">

@@ -18,7 +18,11 @@
                             <!-- Location markers -->
                             <GmapMarker
                                 @click="onLocationMarkerClick(location)"
-                                :icon="`/layer/icon/${location.layer_id}`"
+                                :scaledSize="iconSize"
+                                :icon="{
+                                    url: `/layer/icon/${location.layer_id}`,
+                                    scaledSize: {width: 20, height: 20, f: 'px', b: 'px'}
+                                }"
                                 :position="{ lat: location.latitude, lng: location.longitude }"
                             />
 
@@ -26,7 +30,10 @@
                             <template v-if="virtual_tour_mode">
                                 <GmapMarker
                                     @click="onPanoramaMarkerClick(panorama)"
-                                    :icon="`/png/panorama.png`"
+                                    :icon="{
+                                        url: `/png/panorama.png`,
+                                        scaledSize: {width: 20, height: 20, f: 'px', b: 'px'}
+                                    }"
                                     v-for="panorama in location.panoramas"
                                     :key="'panorama_' + panorama.id"
                                     :position="{ lat: panorama.latitude, lng: panorama.longitude }"
@@ -56,7 +63,11 @@
                                         :for="`layer_filter_check_${layer.id}`"
                                         >
 
-                                        <img :src="`/layer/icon/${layer.id}`" :alt="layer.name">
+                                        <img
+                                            width="20px"
+                                            height="20px"
+                                            :src="`/layer/icon/${layer.id}`"
+                                            :alt="layer.name">
 
                                         {{ layer.name }}
                                     </label>
@@ -103,6 +114,9 @@
 </template>
 
 <script>
+
+import { gmapApi } from 'vue2-google-maps'
+
 export default {
     props: ["config", "layers"],
 
@@ -118,7 +132,8 @@ export default {
 
             m_layers: this.layers.map(layer => ({ ...layer, is_visible: true })),
 
-            selected_panorama: null
+            selected_panorama: null,
+            google: null,
         };
     },
 

@@ -1763,6 +1763,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_0__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -1879,6 +1881,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["config", "layers"],
   data: function data() {
@@ -1895,7 +1909,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           is_visible: true
         });
       }),
-      selected_panorama: null
+      selected_panorama: null,
+      google: null
     };
   },
   mounted: function mounted() {
@@ -67605,7 +67620,16 @@ var render = function() {
                   [
                     _c("GmapMarker", {
                       attrs: {
-                        icon: "/layer/icon/" + location.layer_id,
+                        scaledSize: _vm.iconSize,
+                        icon: {
+                          url: "/layer/icon/" + location.layer_id,
+                          scaledSize: {
+                            width: 20,
+                            height: 20,
+                            f: "px",
+                            b: "px"
+                          }
+                        },
                         position: {
                           lat: location.latitude,
                           lng: location.longitude
@@ -67623,7 +67647,15 @@ var render = function() {
                           return _c("GmapMarker", {
                             key: "panorama_" + panorama.id,
                             attrs: {
-                              icon: "/png/panorama.png",
+                              icon: {
+                                url: "/png/panorama.png",
+                                scaledSize: {
+                                  width: 20,
+                                  height: 20,
+                                  f: "px",
+                                  b: "px"
+                                }
+                              },
                               position: {
                                 lat: panorama.latitude,
                                 lng: panorama.longitude
@@ -67736,6 +67768,8 @@ var render = function() {
                                 [
                                   _c("img", {
                                     attrs: {
+                                      width: "20px",
+                                      height: "20px",
                                       src: "/layer/icon/" + layer.id,
                                       alt: layer.name
                                     }
