@@ -119,7 +119,7 @@ export default {
     },
 
     computed: {
-        visible_layers() { 
+        visible_layers() {
             return this.layers.filter(layer => layer.visible)
         }
     },

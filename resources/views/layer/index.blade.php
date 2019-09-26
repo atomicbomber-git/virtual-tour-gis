@@ -7,7 +7,7 @@
         Layer
     </h1>
 
-    @include('shared.alert', ['state' => 'success', 'session_var' => 'message'])
+    @include('shared.alert')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -48,7 +48,10 @@
                             <td> {{ $layer->name }} </td>
                             <td> {{ $layer->description }} </td>
                             <td class="text-center">
-                                <img src="{{ route('layer.icon', $layer) }}">
+                                <img
+                                    style="max-width: 100px; object-fit: cover"
+                                    src="{{ route('layer.icon', $layer) }}"
+                                    >
                             </td>
                             <td class="text-center">
                                 <a href="{{ route('layer.edit', $layer) }}" class="btn btn-sm btn-dark">
@@ -58,7 +61,9 @@
 
                                 <form action='{{ route('layer.delete', $layer) }}' method='POST' class='d-inline-block'>
                                     @csrf
-                                    <button type='submit' class='btn btn-danger btn-sm'>
+                                    <button
+                                        @cannot("delete", $layer) disabled @endcannot
+                                        type='submit' class='btn btn-danger btn-sm'>
                                         Hapus
                                         <i class='fa fa-trash'></i>
                                     </button>

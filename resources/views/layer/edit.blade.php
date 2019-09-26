@@ -7,11 +7,13 @@
         Sunting Layer '{{ $layer->name }}'
     </h1>
 
+    @include('shared.alert')s
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> {{ config('app.name') }} </li>
             <li class="breadcrumb-item">
-                <a href="{{ route("article.index") }}">
+                <a href="{{ route("layer.index") }}">
                     Layer
                 </a>
             </li>
@@ -29,13 +31,13 @@
                 @csrf
                 <div class='form-group'>
                     <label for='name'> Nama: </label>
-                
+
                     <input
                         id='name' name='name' type='text'
                         placeholder='Nama'
                         value='{{ old('name', $layer->name) }}'
                         class='form-control {{ !$errors->has('name') ?: 'is-invalid' }}'>
-                
+
                     <div class='invalid-feedback'>
                         {{ $errors->first('name') }}
                     </div>
@@ -43,13 +45,13 @@
 
                 <div class='form-group'>
                     <label for='description'> Deskripsi: </label>
-                
+
                     <textarea
                         id='description' name='description'
                         class='form-control {{ !$errors->has('description') ?: 'is-invalid' }}'
                         col='30' row='6'
                         >{{ old('description', $layer->description) }}</textarea>
-                
+
                     <div class='invalid-feedback'>
                         {{ $errors->first('description') }}
                     </div>

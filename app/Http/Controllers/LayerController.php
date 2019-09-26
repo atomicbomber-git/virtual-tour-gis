@@ -16,12 +16,12 @@ class LayerController extends Controller
 
         return view('layer.index', compact('layers'));
     }
-    
+
     public function create()
     {
         return view('layer.create');
     }
-    
+
     public function store()
     {
         $data = $this->validate(request(), [
@@ -29,7 +29,7 @@ class LayerController extends Controller
             'description' => 'required|string',
             'icon' => 'required|file|mimes:png,jpg,jpeg'
         ]);
-        
+
         DB::transaction(function() use($data) {
             Layer::create($data)
                 ->addMediaFromRequest('icon')
@@ -38,9 +38,9 @@ class LayerController extends Controller
 
         return redirect()
             ->route('layer.index')
-            ->with(['message' => __('messages.create.success')]);
+            ->with(['message.success' => __('messages.create.success')]);
     }
-    
+
     public function edit(Layer $layer)
     {
         return view('layer.edit', compact('layer'));
@@ -52,7 +52,7 @@ class LayerController extends Controller
         if (empty($image)) { abort(404); }
         return response()->file($image->getPath());
     }
-    
+
     public function update(Layer $layer)
     {
         $data = $this->validate(request(), [
@@ -61,20 +61,28 @@ class LayerController extends Controller
             'icon' => 'nullable|file'
         ]);
 
-        $layer->clearMediaCollection(config('media.collections.icons'));
-        $layer->addMediaFromRequest('icon')
-            ->toMediaCollection(config('media.collections.icons'));
+        DB::transaction(function () use($layer, $data) {
+            if (!empty($data["icon"])) {
+                $layer
+                    ->clearMediaCollection(config('media.collections.icons'))
+                    ->addMediaFromRequest('icon')
+                    ->toMediaCollection(config('media.collections.icons'));
+            }
 
-        $layer->update($data);
+            $layer->update($data);
+        });
 
         return redirect()
-            ->route('layer.index')
-            ->with(['message' => __('messages.update.success')]);
+            ->route('layer.edit', $layer)
+            ->with(['message.success' => __('messages.update.success')]);
     }
-    
+
     public function delete(Layer $layer) {
+        $this->authorize("delete", $layer);
+
         $layer->delete();
+
         return back()
-            ->with(['message' => __('messages.delete.success')]);
+            ->with(['message.success' => __('messages.delete.success')]);
     }
 }
