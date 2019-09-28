@@ -43,58 +43,99 @@
                     </GmapMap>
 
                     <div style="position: absolute; bottom: 2rem; left: 2rem;">
+
+
+
+
+
                         <div class="card" style="width: 240px">
                             <div class="card-body">
-                                <h4>
-                                    <i class="fa fa-filter"></i>
-                                    Filter Layer
-                                </h4>
-                                <hr class="mt-0">
+                                <button
+                                    style="position:absolute; right: 4px; top: 4px"
+                                    @click="layer_filter_collapsed = !layer_filter_collapsed"
+                                    class="btn btn-light btn-sm">
+                                    <i
+                                        :class="{
+                                            'fa-window-minimize': !layer_filter_collapsed,
+                                            'fa-window-restore': layer_filter_collapsed,
+                                        }"
+                                        class="fa ">
+                                    </i>
+                                </button>
 
-                                <div v-for="layer in m_layers" :key="layer.id" class="mb-1 custom-control custom-checkbox">
-                                    <input
-                                        type="checkbox"
-                                        class="custom-control-input"
-                                        v-model="layer.is_visible"
-                                        :id="`layer_filter_check_${layer.id}`"
-                                    >
-                                    <label
-                                        class="custom-control-label"
-                                        :for="`layer_filter_check_${layer.id}`"
+                                <div>
+                                    <h5>
+                                        <i class="fa fa-filter"></i>
+                                        Filter Layer
+                                    </h5>
+                                </div>
+
+                                <div v-show="!layer_filter_collapsed">
+                                    <hr class="mt-0">
+
+                                    <div
+                                        v-for="layer in m_layers" :key="layer.id" class="mb-1 custom-control custom-checkbox">
+                                        <input
+                                            type="checkbox"
+                                            class="custom-control-input"
+                                            v-model="layer.is_visible"
+                                            :id="`layer_filter_check_${layer.id}`"
                                         >
+                                        <label
+                                            class="custom-control-label"
+                                            :for="`layer_filter_check_${layer.id}`"
+                                            >
 
-                                        <img
-                                            width="20px"
-                                            height="20px"
-                                            :src="`/layer/icon/${layer.id}`"
-                                            :alt="layer.name">
+                                            <img
+                                                width="20px"
+                                                height="20px"
+                                                :src="`/layer/icon/${layer.id}`"
+                                                :alt="layer.name">
 
-                                        {{ layer.name }}
-                                    </label>
+                                            {{ layer.name }}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card mt-2" v-if="selected_location" style="width: 360px">
                             <div class="card-body">
-                                <h2 class="h4">
+                                <button
+                                    style="position:absolute; right: 4px; top: 4px"
+                                    @click="location_info_collapsed = !location_info_collapsed"
+                                    class="btn btn-light btn-sm">
+                                    <i
+                                        :class="{
+                                            'fa-window-minimize': !location_info_collapsed,
+                                            'fa-window-restore': location_info_collapsed,
+                                        }"
+                                        class="fa ">
+                                    </i>
+                                </button>
+
+                                <h5>
                                     <i class="fa fa-map-marker"></i>
                                     {{ selected_location.name }}
-                                </h2>
-                                <hr class="mt-0">
-                                {{ selected_location.description }}
-                                <div class="text-right mt-4">
-                                    <button
-                                        v-if="!virtual_tour_mode"
-                                        @click="showVirtualTour"
-                                        class="btn btn-primary"
-                                    >Mode Virtual Tour</button>
+                                </h5>
 
-                                    <button
-                                        v-else
-                                        @click="hideVirtualTour"
-                                        class="btn btn-danger"
-                                    >Keluar dari Mode Virtual Tour</button>
+                                <div v-show="!location_info_collapsed">
+
+                                    <hr class="mt-0">
+                                    {{ selected_location.description }}
+                                    <div class="text-right mt-4">
+                                        <button
+                                            v-if="!virtual_tour_mode"
+                                            @click="showVirtualTour"
+                                            class="btn btn-primary"
+                                        >Mode Virtual Tour</button>
+
+                                        <button
+                                            v-else
+                                            @click="hideVirtualTour"
+                                            class="btn btn-danger"
+                                        >Keluar dari Mode Virtual Tour</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +175,9 @@ export default {
 
             selected_panorama: null,
             google: null,
+
+            layer_filter_collapsed: false,
+            location_info_collapsed: false,
         };
     },
 

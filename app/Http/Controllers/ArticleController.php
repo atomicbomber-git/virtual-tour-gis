@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
         return redirect()
             ->route("article.index")
-            ->with("message.success", __("messages.delete.success"));
+            ->with("message.success", __("messages.create.success"));
     }
 
     public function edit(Article $article)
