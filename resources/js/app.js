@@ -16,7 +16,7 @@ Vue.use(VModal, { dialog: true })
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
     load: {
-      key: 'AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU'
+      key: 'AIzaSyCt1SXMaJ-9Yb7xley_wWlvi54f5ckafOQ'
     },
 })
 
