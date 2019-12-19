@@ -71,11 +71,17 @@
                             map-type-id="terrain"
                         >
                             <GmapMarker
-                                :icon="`/layer/icon/${location.layer_id}`"
+                                :icon="{
+                                    url: `/layer/icon/${location.layer_id}`,
+                                    scaledSize: config.location_marker.icon.scaledSize
+                                }"
                                 :position="{lat: location.latitude, lng: location.longitude}"
                             />
 
                             <GmapMarker
+                                :icon="{
+                                    scaledSize: config.location_marker.icon.scaledSize
+                                }"
                                 :position="{lat: new_panorama.latitude, lng: new_panorama.longitude}"
                             />
                         </GmapMap>
@@ -230,16 +236,26 @@
                             map-type-id="terrain"
                         >
                             <GmapMarker
-                                :icon="`/layer/icon/${location.layer_id}`"
+                                :icon="{
+                                    url: `/layer/icon/${location.layer_id}`,
+                                    scaledSize: config.location_marker.icon.scaledSize
+                                }"
+
                                 :position="{lat: location.latitude, lng: location.longitude}"
                             />
 
                             <GmapMarker
+                                :icon="{
+                                    scaledSize: config.location_marker.icon.scaledSize
+                                }"
                                 :position="{lat: edited_panorama.latitude, lng: edited_panorama.longitude}"
                             />
 
                             <GmapMarker
-                                icon="/png/panorama.png"
+                                :icon="{
+                                    url: '/png/panorama.png',
+                                    scaledSize: config.location_marker.icon.scaledSize
+                                }"
                                 :position="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
                             />
                         </GmapMap>
@@ -434,13 +450,20 @@
                         >
                             <GmapMarker
                                 :position="{lat: location.latitude, lng: location.longitude}"
-                                :icon="`/layer/icon/${location.layer_id}`"
+                                :icon="{
+                                    url: `/layer/icon/${location.layer_id}`,
+                                    scaledSize: config.location_marker.icon.scaledSize
+                                }"
                             />
 
                             <span v-for="panorama in location.panoramas" :key="panorama.id">
                                 <GmapMarker
-                                    icon="/png/panorama.png"
                                     :position="{lat: panorama.latitude, lng: panorama.longitude}"
+
+                                    :icon="{
+                                        url: '/png/panorama.png',
+                                        scaledSize: config.location_marker.icon.scaledSize
+                                    }"
                                 />
 
                                 <GmapPolyline
@@ -506,6 +529,10 @@
 import { gmapApi } from "vue2-google-maps";
 
 export default {
+    props: {
+        config: Object,
+    },
+
     data() {
         return {
             new_panorama: {

@@ -17,7 +17,10 @@
     </nav>
 
     <div id="app">
-        <location-index/>
+        <location-index
+            :config='{{ json_encode(config("map")) }}'
+            >
+        </location-index>
     </div>
 </div>
 

@@ -18,7 +18,10 @@
     @javascript('p_location', $location)
 
     <div id="app">
-        <location-panorama-index/>
+        <location-panorama-index
+            :config="{{ json_encode(config("map")) }}"
+            >
+        </location-panorama-index>
     </div>
 
 </div>

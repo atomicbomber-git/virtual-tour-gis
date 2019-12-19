@@ -18,10 +18,9 @@
                             <!-- Location markers -->
                             <GmapMarker
                                 @click="onLocationMarkerClick(location)"
-                                :scaledSize="iconSize"
                                 :icon="{
                                     url: `/layer/icon/${location.layer_id}`,
-                                    scaledSize: {width: 20, height: 20, f: 'px', b: 'px'}
+                                    scaledSize: config.location_marker.icon.scaledSize
                                 }"
                                 :position="{ lat: location.latitude, lng: location.longitude }"
                             />
@@ -32,7 +31,7 @@
                                     @click="onPanoramaMarkerClick(panorama)"
                                     :icon="{
                                         url: `/png/panorama.png`,
-                                        scaledSize: {width: 20, height: 20, f: 'px', b: 'px'}
+                                        scaledSize: config.location_marker.icon.scaledSize
                                     }"
                                     v-for="panorama in location.panoramas"
                                     :key="'panorama_' + panorama.id"
@@ -87,8 +86,10 @@
                                             >
 
                                             <img
-                                                width="20px"
-                                                height="20px"
+                                                :style="{
+                                                    height: `${config.location_marker.icon.scaledSize.height}${config.location_marker.icon.scaledSize.f}`,
+                                                    width: `${config.location_marker.icon.scaledSize.width}${config.location_marker.icon.scaledSize.b}`,
+                                                }"
                                                 :src="`/layer/icon/${layer.id}`"
                                                 :alt="layer.name">
 

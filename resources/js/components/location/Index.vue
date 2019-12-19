@@ -125,7 +125,11 @@
                                 style="width: 100%; height: 300px">
 
                                 <GmapMarker
-                                    :icon="`/layer/icon/${selected_location.layer_id}`"
+                                    :icon="{
+                                        url: `/layer/icon/${selected_location.layer_id}`,
+                                        scaledSize: config.location_marker.icon.scaledSize
+                                    }"
+
                                     :position="{lat: selected_location.latitude, lng: selected_location.longitude}"/>
 
                                 <GmapMarker
@@ -225,7 +229,7 @@
                                 @click="onCreateMapClick"
                                 map-type-id="terrain"
                                 :center="create_map_center"
-                                :zoom="14"
+                                :zoom="config.zoom"
                                 style="width: 100%; height: 300px">
 
                                 <GmapMarker
@@ -242,7 +246,7 @@
                     </div>
                 </div>
             </modal>
-            
+
             <div class="card-header">
                 <i class="fa fa-map"></i>
                 Peta Persebaran Lokasi
@@ -257,7 +261,12 @@
                             :key="layer.id">
                             <input v-model="layer.visible" type="checkbox" class="custom-control-input" :id="`layer_${layer.id}`">
                             <label class="custom-control-label" :for="`layer_${layer.id}`">
-                                <img :src="`/layer/icon/${layer.id}`">
+                                <img
+                                    :style="{
+                                        height: `${config.location_marker.icon.scaledSize.height}${config.location_marker.icon.scaledSize.f}`,
+                                        width: `${config.location_marker.icon.scaledSize.width}${config.location_marker.icon.scaledSize.b}`,
+                                    }"
+                                    :src="`/layer/icon/${layer.id}`">
                                 {{ layer.name }}
                             </label>
                         </div>
@@ -280,7 +289,10 @@
 
                                     <GmapMarker
                                         @click="location.infoWindowOpened=!location.infoWindowOpened"
-                                        :icon="`/layer/icon/${layer.id}`"
+                                        :icon="{
+                                            url: `/layer/icon/${layer.id}`,
+                                            scaledSize: config.location_marker.icon.scaledSize
+                                        }"
                                         :position="{lat: location.latitude, lng: location.longitude}"/>
 
                                     <GmapInfoWindow
@@ -300,7 +312,7 @@
                                                     <p>
                                                         {{ location.description }}
                                                     </p>
-                                                    
+
                                                     <div class="text-right mt-2">
                                                         <button @click="onEditButtonClick(location)" class="btn btn-dark btn-sm">
                                                             Edit
@@ -369,6 +381,10 @@
 import {get} from 'lodash'
 
 export default {
+    props: {
+        config: Object
+    },
+
     data() {
         return {
             csrf_token: window.csrf_token,
@@ -381,7 +397,10 @@ export default {
                     })
                 }
             }),
-            map_center: {lat:-0.026330, lng:109.342504},
+            map_center: {
+                lat: this.config.center.latitude,
+                lng: this.config.center.longitude,
+            },
             selected_location: null,
             edited_location: null,
             create_map_center: null,
@@ -453,7 +472,7 @@ export default {
     },
 
     computed: {
-        visible_layers() { 
+        visible_layers() {
             return this.layers.filter(layer => layer.visible)
         }
     }

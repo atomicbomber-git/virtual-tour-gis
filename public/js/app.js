@@ -1933,6 +1933,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["config", "layers"],
@@ -2633,8 +2634,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    config: Object
+  },
   data: function data() {
     return {
       csrf_token: window.csrf_token,
@@ -2649,8 +2665,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }),
       map_center: {
-        lat: -0.026330,
-        lng: 109.342504
+        lat: this.config.center.latitude,
+        lng: this.config.center.longitude
       },
       selected_location: null,
       edited_location: null,
@@ -3254,8 +3270,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    config: Object
+  },
   data: function data() {
     return {
       new_panorama: {
@@ -67663,15 +67705,9 @@ var render = function() {
                   [
                     _c("GmapMarker", {
                       attrs: {
-                        scaledSize: _vm.iconSize,
                         icon: {
                           url: "/layer/icon/" + location.layer_id,
-                          scaledSize: {
-                            width: 20,
-                            height: 20,
-                            f: "px",
-                            b: "px"
-                          }
+                          scaledSize: _vm.config.location_marker.icon.scaledSize
                         },
                         position: {
                           lat: location.latitude,
@@ -67692,12 +67728,8 @@ var render = function() {
                             attrs: {
                               icon: {
                                 url: "/png/panorama.png",
-                                scaledSize: {
-                                  width: 20,
-                                  height: 20,
-                                  f: "px",
-                                  b: "px"
-                                }
+                                scaledSize:
+                                  _vm.config.location_marker.icon.scaledSize
                               },
                               position: {
                                 lat: panorama.latitude,
@@ -67847,9 +67879,21 @@ var render = function() {
                                   },
                                   [
                                     _c("img", {
+                                      style: {
+                                        height:
+                                          "" +
+                                          _vm.config.location_marker.icon
+                                            .scaledSize.height +
+                                          _vm.config.location_marker.icon
+                                            .scaledSize.f,
+                                        width:
+                                          "" +
+                                          _vm.config.location_marker.icon
+                                            .scaledSize.width +
+                                          _vm.config.location_marker.icon
+                                            .scaledSize.b
+                                      },
                                       attrs: {
-                                        width: "20px",
-                                        height: "20px",
                                         src: "/layer/icon/" + layer.id,
                                         alt: layer.name
                                       }
@@ -68947,9 +68991,13 @@ var render = function() {
                             [
                               _c("GmapMarker", {
                                 attrs: {
-                                  icon:
-                                    "/layer/icon/" +
-                                    _vm.selected_location.layer_id,
+                                  icon: {
+                                    url:
+                                      "/layer/icon/" +
+                                      _vm.selected_location.layer_id,
+                                    scaledSize:
+                                      _vm.config.location_marker.icon.scaledSize
+                                  },
                                   position: {
                                     lat: _vm.selected_location.latitude,
                                     lng: _vm.selected_location.longitude
@@ -69395,7 +69443,7 @@ var render = function() {
                               attrs: {
                                 "map-type-id": "terrain",
                                 center: _vm.create_map_center,
-                                zoom: 14
+                                zoom: _vm.config.zoom
                               },
                               on: { click: _vm.onCreateMapClick }
                             },
@@ -69500,6 +69548,17 @@ var render = function() {
                       },
                       [
                         _c("img", {
+                          style: {
+                            height:
+                              "" +
+                              _vm.config.location_marker.icon.scaledSize
+                                .height +
+                              _vm.config.location_marker.icon.scaledSize.f,
+                            width:
+                              "" +
+                              _vm.config.location_marker.icon.scaledSize.width +
+                              _vm.config.location_marker.icon.scaledSize.b
+                          },
                           attrs: { src: "/layer/icon/" + layer.id }
                         }),
                         _vm._v(
@@ -69542,7 +69601,11 @@ var render = function() {
                           [
                             _c("GmapMarker", {
                               attrs: {
-                                icon: "/layer/icon/" + layer.id,
+                                icon: {
+                                  url: "/layer/icon/" + layer.id,
+                                  scaledSize:
+                                    _vm.config.location_marker.icon.scaledSize
+                                },
                                 position: {
                                   lat: location.latitude,
                                   lng: location.longitude
@@ -70062,7 +70125,11 @@ var render = function() {
                       [
                         _c("GmapMarker", {
                           attrs: {
-                            icon: "/layer/icon/" + _vm.location.layer_id,
+                            icon: {
+                              url: "/layer/icon/" + _vm.location.layer_id,
+                              scaledSize:
+                                _vm.config.location_marker.icon.scaledSize
+                            },
                             position: {
                               lat: _vm.location.latitude,
                               lng: _vm.location.longitude
@@ -70072,6 +70139,10 @@ var render = function() {
                         _vm._v(" "),
                         _c("GmapMarker", {
                           attrs: {
+                            icon: {
+                              scaledSize:
+                                _vm.config.location_marker.icon.scaledSize
+                            },
                             position: {
                               lat: _vm.new_panorama.latitude,
                               lng: _vm.new_panorama.longitude
@@ -70465,7 +70536,11 @@ var render = function() {
                         [
                           _c("GmapMarker", {
                             attrs: {
-                              icon: "/layer/icon/" + _vm.location.layer_id,
+                              icon: {
+                                url: "/layer/icon/" + _vm.location.layer_id,
+                                scaledSize:
+                                  _vm.config.location_marker.icon.scaledSize
+                              },
                               position: {
                                 lat: _vm.location.latitude,
                                 lng: _vm.location.longitude
@@ -70475,6 +70550,10 @@ var render = function() {
                           _vm._v(" "),
                           _c("GmapMarker", {
                             attrs: {
+                              icon: {
+                                scaledSize:
+                                  _vm.config.location_marker.icon.scaledSize
+                              },
                               position: {
                                 lat: _vm.edited_panorama.latitude,
                                 lng: _vm.edited_panorama.longitude
@@ -70484,7 +70563,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("GmapMarker", {
                             attrs: {
-                              icon: "/png/panorama.png",
+                              icon: {
+                                url: "/png/panorama.png",
+                                scaledSize:
+                                  _vm.config.location_marker.icon.scaledSize
+                              },
                               position: {
                                 lat: _vm.selected_panorama.latitude,
                                 lng: _vm.selected_panorama.longitude
@@ -70975,7 +71058,10 @@ var render = function() {
                           lat: _vm.location.latitude,
                           lng: _vm.location.longitude
                         },
-                        icon: "/layer/icon/" + _vm.location.layer_id
+                        icon: {
+                          url: "/layer/icon/" + _vm.location.layer_id,
+                          scaledSize: _vm.config.location_marker.icon.scaledSize
+                        }
                       }
                     }),
                     _vm._v(" "),
@@ -70986,10 +71072,14 @@ var render = function() {
                         [
                           _c("GmapMarker", {
                             attrs: {
-                              icon: "/png/panorama.png",
                               position: {
                                 lat: panorama.latitude,
                                 lng: panorama.longitude
+                              },
+                              icon: {
+                                url: "/png/panorama.png",
+                                scaledSize:
+                                  _vm.config.location_marker.icon.scaledSize
                               }
                             }
                           }),
