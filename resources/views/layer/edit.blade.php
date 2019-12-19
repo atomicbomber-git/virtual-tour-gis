@@ -7,7 +7,7 @@
         Sunting Layer '{{ $layer->name }}'
     </h1>
 
-    @include('shared.alert')s
+    @include('shared.alert')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
