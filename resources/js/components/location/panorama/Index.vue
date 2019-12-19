@@ -444,7 +444,7 @@
                     <div class="card-body p-0">
                         <GmapMap
                             :center="{lat: location.latitude, lng: location.longitude}"
-                            :zoom="20"
+                            :zoom="config.zoom"
                             map-type-id="terrain"
                             style="height: 600px; width: 100%"
                         >

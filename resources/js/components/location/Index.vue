@@ -121,7 +121,7 @@
                                 @click="onEditMapClick"
                                 :center="{lat: selected_location.latitude, lng: selected_location.longitude}"
                                 map-type-id="terrain"
-                                :zoom="14"
+                                :zoom="config.zoom"
                                 style="width: 100%; height: 300px">
 
                                 <GmapMarker
@@ -277,7 +277,8 @@
                     <div class="col pr-0">
                         <GmapMap
                             :center="map_center"
-                            :zoom="14"
+                            @center_changed="updateCenter"
+                            :zoom="config.zoom"
                             map-type-id="terrain"
                             style="width: 100%; height: 640px">
 
@@ -468,6 +469,13 @@ export default {
             axios.post(`/location/store`, this.created_location)
                 .then(response => { window.location.reload(true) })
                 .catch(error => { this.create_error_data = error.response.data })
+        },
+
+        updateCenter(e) {
+            console.log({
+                lat: e.lat(),
+                lng: e.lng(),
+            })
         }
     },
 
@@ -478,7 +486,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

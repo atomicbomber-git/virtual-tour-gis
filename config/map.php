@@ -2,8 +2,8 @@
 
 return [
     "center" => [
-        "latitude" => -0.6418786,
-        "longitude" => 112.3916791,
+        "latitude" => 0.6994176483258742,
+        "longitude" => 112.72878016021056,
     ],
 
     "location_marker" => [
@@ -17,6 +17,6 @@ return [
         ],
     ],
 
-    "zoom" => 8,
+    "zoom" => 10,
     "virtual_tour_zoom" => 16,
 ];

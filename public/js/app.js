@@ -2646,6 +2646,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2729,6 +2730,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         window.location.reload(true);
       })["catch"](function (error) {
         _this2.create_error_data = error.response.data;
+      });
+    },
+    updateCenter: function updateCenter(e) {
+      console.log({
+        lat: e.lat(),
+        lng: e.lng()
       });
     }
   },
@@ -68984,7 +68991,7 @@ var render = function() {
                                   lng: _vm.selected_location.longitude
                                 },
                                 "map-type-id": "terrain",
-                                zoom: 14
+                                zoom: _vm.config.zoom
                               },
                               on: { click: _vm.onEditMapClick }
                             },
@@ -69586,9 +69593,10 @@ var render = function() {
                     staticStyle: { width: "100%", height: "640px" },
                     attrs: {
                       center: _vm.map_center,
-                      zoom: 14,
+                      zoom: _vm.config.zoom,
                       "map-type-id": "terrain"
-                    }
+                    },
+                    on: { center_changed: _vm.updateCenter }
                   },
                   _vm._l(_vm.visible_layers, function(layer) {
                     return _c(
@@ -71047,7 +71055,7 @@ var render = function() {
                         lat: _vm.location.latitude,
                         lng: _vm.location.longitude
                       },
-                      zoom: 20,
+                      zoom: _vm.config.zoom,
                       "map-type-id": "terrain"
                     }
                   },
