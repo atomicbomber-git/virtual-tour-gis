@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\GuestVirtualTourController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
