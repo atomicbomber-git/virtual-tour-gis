@@ -24,9 +24,10 @@ class Panorama extends Model implements HasMedia
     {
         $image = Image::load($this->getFirstMediaPath("panoramas"));
 
-        $max_zoom_level = 2;
+        $max_zoom_level = static::MAX_ZOOM_LEVEL;
 
-        $this->addMediaConversion("tile_0_0_0");
+        $this->addMediaConversion("tile_0_0_0")
+            ->optimize();
 
         for ($zoom_level = 1; $zoom_level <= $max_zoom_level; ++$zoom_level) {
             $n_tiles = pow(4, $zoom_level);
@@ -38,7 +39,8 @@ class Panorama extends Model implements HasMedia
             for ($i = 0; $i < $n_sqrt_tiles; ++$i) {
                 for ($j = 0; $j < $n_sqrt_tiles; ++$j) {
                     $this->addMediaConversion("tile_${zoom_level}_${i}_${j}")
-                        ->manualCrop($tile_size_x, $tile_size_y, $tile_size_x * $i, $tile_size_y * $j);
+                        ->manualCrop($tile_size_x, $tile_size_y, $tile_size_x * $i, $tile_size_y * $j)
+                        ->optimize();
                 }
             }
         }
