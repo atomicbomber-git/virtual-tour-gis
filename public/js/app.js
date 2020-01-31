@@ -2264,6 +2264,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_LayerSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/LayerSelect */ "./resources/js/components/shared/LayerSelect.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2647,8 +2648,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    LayerSelect: _shared_LayerSelect__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: {
     config: Object
   },
@@ -2704,7 +2758,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$modal.show('edit-location-modal');
     },
     onConfirmDeleteButtonClick: function onConfirmDeleteButtonClick(location) {
-      axios.post("/location/delete/".concat(location.id)).then(function (response) {
+      axios.post(this.route('location.delete', location.id).url()).then(function (response) {
         window.location.reload(true);
       })["catch"](function (error) {});
     },
@@ -3300,6 +3354,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3359,7 +3445,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onDeleteLinkButtonClick: function onDeleteLinkButtonClick(link) {
       var _this2 = this;
 
-      axios.post("/location/panorama/".concat(this.location.id, "/link/").concat(this.selected_panorama.id, "/delete/").concat(link.id)).then(function (response) {
+      axios.post(this.route('location.panorama.destination.delete', [this.location.id, this.selected_panorama.id, link.id]).url()).then(function (response) {
         _this2.location.panoramas = _this2.location.panoramas.filter(function (panorama) {
           if (panorama.id == _this2.selected_panorama.id) {
             panorama.links = panorama.links.filter(function (l) {
@@ -3383,7 +3469,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onUpdateLinkHeadingButtonClick: function onUpdateLinkHeadingButtonClick(link) {
       var _this3 = this;
 
-      axios.post("/location/panorama/".concat(this.location.id, "/link/").concat(this.selected_panorama.id, "/update/").concat(link.id), {
+      axios.post(this.route('location.panorama.destination.update', [this.location.id, this.selected_panorama.id, link.id]).url(), {
         heading: link.heading
       }).then(function (response) {
         var panorama = _this3.location.panoramas.find(function (pano) {
@@ -3466,7 +3552,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       e.preventDefault();
       this.is_submitting = true;
-      axios.post("/location/panorama/".concat(this.location.id, "/link/").concat(this.selected_panorama.id, "/create"), {
+      axios.post(this.route('location.panorama.destination.create', [this.location.id, this.selected_panorama.id]).url(), {
         destination_id: this.destination_id,
         heading: this.heading
       }).then(function (response) {
@@ -3571,6 +3657,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       this.map.setStreetView(panorama);
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/shared/LayerSelect.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/shared/LayerSelect.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'LayerSelect',
+  props: {
+    error_data: {},
+    created_location: {},
+    get: {},
+    layers: {}
   }
 });
 
@@ -68626,8 +68750,8 @@ var render = function() {
                         { on: { submit: _vm.onEditFormSubmit } },
                         [
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "name" } }, [
-                              _vm._v(" Nama: ")
+                            _c("label", { attrs: { for: "edit_name" } }, [
+                              _vm._v(" Nama:")
                             ]),
                             _vm._v(" "),
                             _c("input", {
@@ -68649,7 +68773,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                id: "name",
+                                id: "edit_name",
                                 placeholder: "Nama"
                               },
                               domProps: { value: _vm.edited_location.name },
@@ -68675,14 +68799,12 @@ var render = function() {
                                     "errors.name[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "address" } }, [
-                              _vm._v(" Alamat: ")
+                            ]),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "edit_address" } }, [
+                              _vm._v(" Alamat:")
                             ]),
                             _vm._v(" "),
                             _c("textarea", {
@@ -68704,7 +68826,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                id: "address",
+                                id: "edit_address",
                                 placeholder: "Alamat"
                               },
                               domProps: { value: _vm.edited_location.address },
@@ -68730,15 +68852,17 @@ var render = function() {
                                     "errors.address[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "description" } }, [
-                              _vm._v(" Deskripsi: ")
-                            ]),
+                            _c(
+                              "label",
+                              { attrs: { for: "edit_description" } },
+                              [_vm._v(" Deskripsi:")]
+                            ),
                             _vm._v(" "),
                             _c("textarea", {
                               directives: [
@@ -68759,7 +68883,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                id: "description",
+                                id: "edit_description",
                                 placeholder: "Deskripsi"
                               },
                               domProps: {
@@ -68787,76 +68911,32 @@ var render = function() {
                                     "errors.description[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "layer_id" } }, [
-                              _vm._v(" Layer: ")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.edited_location.layer_id,
-                                    expression: "edited_location.layer_id"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { name: "layer_id", id: "layer_id" },
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.edited_location,
-                                      "layer_id",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  }
-                                }
-                              },
-                              _vm._l(_vm.layers, function(layer) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: layer.id,
-                                    domProps: { value: layer.id }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(layer.name) +
-                                        "\n                                "
-                                    )
-                                  ]
-                                )
-                              }),
-                              0
-                            )
-                          ]),
+                          _c("LayerSelect", {
+                            attrs: {
+                              create_error_data: _vm.edit_error_data,
+                              created_location: _vm.edited_location,
+                              get: _vm.get(
+                                this.edit_error_data,
+                                "errors.layer_id[0]",
+                                false
+                              ),
+                              layers: _vm.layers
+                            }
+                          }),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-row" }, [
                             _c("div", { staticClass: "col" }, [
                               _c("div", { staticClass: "form-group" }, [
-                                _c("label", { attrs: { for: "latitude" } }, [
-                                  _vm._v(" Latitude: ")
-                                ]),
+                                _c(
+                                  "label",
+                                  { attrs: { for: "edited_latitude" } },
+                                  [_vm._v(" Latitude:")]
+                                ),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -68879,7 +68959,7 @@ var render = function() {
                                   attrs: {
                                     step: "any",
                                     type: "number",
-                                    id: "latitude",
+                                    id: "edited_latitude",
                                     placeholder: "Latitude"
                                   },
                                   domProps: {
@@ -68910,7 +68990,7 @@ var render = function() {
                                         "errors.latitude[0]",
                                         false
                                       )
-                                    )
+                                    ) + "\n                                    "
                                   )
                                 ])
                               ])
@@ -68918,9 +68998,11 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "col" }, [
                               _c("div", { staticClass: "form-group" }, [
-                                _c("label", { attrs: { for: "longitude" } }, [
-                                  _vm._v(" Longitude: ")
-                                ]),
+                                _c(
+                                  "label",
+                                  { attrs: { for: "edited_longitude" } },
+                                  [_vm._v(" Longitude:")]
+                                ),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -68943,7 +69025,7 @@ var render = function() {
                                   attrs: {
                                     step: "any",
                                     type: "number",
-                                    id: "longitude",
+                                    id: "edited_longitude",
                                     placeholder: "Longitude"
                                   },
                                   domProps: {
@@ -68974,7 +69056,7 @@ var render = function() {
                                         "errors.longitude[0]",
                                         false
                                       )
-                                    )
+                                    ) + "\n                                    "
                                   )
                                 ])
                               ])
@@ -69070,7 +69152,7 @@ var render = function() {
                         [
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "name" } }, [
-                              _vm._v(" Nama: ")
+                              _vm._v(" Nama:")
                             ]),
                             _vm._v(" "),
                             _c("input", {
@@ -69118,14 +69200,14 @@ var render = function() {
                                     "errors.name[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "address" } }, [
-                              _vm._v(" Alamat: ")
+                            _c("label", { attrs: { for: "create_address" } }, [
+                              _vm._v(" Alamat:")
                             ]),
                             _vm._v(" "),
                             _c("textarea", {
@@ -69147,7 +69229,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                id: "address",
+                                id: "create_address",
                                 placeholder: "Alamat"
                               },
                               domProps: { value: _vm.created_location.address },
@@ -69173,15 +69255,17 @@ var render = function() {
                                     "errors.address[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "description" } }, [
-                              _vm._v(" Deskripsi: ")
-                            ]),
+                            _c(
+                              "label",
+                              { attrs: { for: "create_description" } },
+                              [_vm._v(" Deskripsi:")]
+                            ),
                             _vm._v(" "),
                             _c("textarea", {
                               directives: [
@@ -69202,7 +69286,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                id: "description",
+                                id: "create_description",
                                 placeholder: "Deskripsi"
                               },
                               domProps: {
@@ -69230,94 +69314,29 @@ var render = function() {
                                     "errors.description[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "layer_id" } }, [
-                              _vm._v(" Layer: ")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.created_location.layer_id,
-                                    expression: "created_location.layer_id"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: {
-                                  "is-invalid": _vm.get(
-                                    this.create_error_data,
-                                    "errors.layer_id[0]",
-                                    false
-                                  )
-                                },
-                                attrs: { name: "layer_id", id: "layer_id" },
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.created_location,
-                                      "layer_id",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  }
-                                }
-                              },
-                              _vm._l(_vm.layers, function(layer) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: layer.id,
-                                    domProps: { value: layer.id }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(layer.name) +
-                                        "\n                                "
-                                    )
-                                  ]
-                                )
-                              }),
-                              0
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "invalid-feedback" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.get(
-                                    this.create_error_data,
-                                    "errors.layer_id[0]",
-                                    false
-                                  )
-                                )
-                              )
-                            ])
-                          ]),
+                          _c("LayerSelect", {
+                            attrs: {
+                              create_error_data: _vm.create_error_data,
+                              created_location: _vm.created_location,
+                              get: _vm.get(
+                                this.create_error_data,
+                                "errors.layer_id[0]",
+                                false
+                              ),
+                              layers: _vm.layers
+                            }
+                          }),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-row" }, [
                             _c("div", { staticClass: "col" }, [
                               _c("div", { staticClass: "form-group" }, [
                                 _c("label", { attrs: { for: "latitude" } }, [
-                                  _vm._v(" Latitude: ")
+                                  _vm._v(" Latitude:")
                                 ]),
                                 _vm._v(" "),
                                 _c("input", {
@@ -69372,7 +69391,7 @@ var render = function() {
                                         "errors.latitude[0]",
                                         false
                                       )
-                                    )
+                                    ) + "\n                                    "
                                   )
                                 ])
                               ])
@@ -69381,7 +69400,7 @@ var render = function() {
                             _c("div", { staticClass: "col" }, [
                               _c("div", { staticClass: "form-group" }, [
                                 _c("label", { attrs: { for: "longitude" } }, [
-                                  _vm._v(" Longitude: ")
+                                  _vm._v(" Longitude:")
                                 ]),
                                 _vm._v(" "),
                                 _c("input", {
@@ -69436,7 +69455,7 @@ var render = function() {
                                         "errors.longitude[0]",
                                         false
                                       )
-                                    )
+                                    ) + "\n                                    "
                                   )
                                 ])
                               ])
@@ -69986,7 +70005,7 @@ var render = function() {
                         _vm._v(
                           _vm._s(
                             _vm.get(this.error_data, "errors.name[0]", false)
-                          )
+                          ) + "\n                        "
                         )
                       ])
                     ]),
@@ -70047,7 +70066,7 @@ var render = function() {
                                   "errors.latitude[0]",
                                   false
                                 )
-                              )
+                              ) + "\n                                "
                             )
                           ])
                         ])
@@ -70108,7 +70127,7 @@ var render = function() {
                                   "errors.longitude[0]",
                                   false
                                 )
-                              )
+                              ) + "\n                                "
                             )
                           ])
                         ])
@@ -70189,7 +70208,7 @@ var render = function() {
                                     "errors.image[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                        "
                               )
                             ]
                           )
@@ -70395,7 +70414,7 @@ var render = function() {
                           _vm._v(
                             _vm._s(
                               _vm.get(this.error_data, "errors.name[0]", false)
-                            )
+                            ) + "\n                        "
                           )
                         ])
                       ]),
@@ -70456,7 +70475,7 @@ var render = function() {
                                     "errors.latitude[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                                "
                               )
                             ])
                           ])
@@ -70519,7 +70538,7 @@ var render = function() {
                                     "errors.longitude[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                                "
                               )
                             ])
                           ])
@@ -70614,7 +70633,7 @@ var render = function() {
                                       "errors.image[0]",
                                       false
                                     )
-                                  )
+                                  ) + "\n                        "
                                 )
                               ]
                             )
@@ -70820,7 +70839,7 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                    Mengirim Data\n                                    "
+                                            "\n                                Mengirim Data\n                                "
                                           ),
                                           _c("i", {
                                             staticClass:
@@ -70897,7 +70916,12 @@ var render = function() {
                                     key: panorama.id,
                                     domProps: { value: panorama.id }
                                   },
-                                  [_vm._v(_vm._s(panorama.name))]
+                                  [
+                                    _vm._v(
+                                      _vm._s(panorama.name) +
+                                        "\n                                "
+                                    )
+                                  ]
                                 )
                               }),
                               0
@@ -70911,7 +70935,7 @@ var render = function() {
                                     "errors.destination_id[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
@@ -70966,7 +70990,7 @@ var render = function() {
                                     "errors.heading[0]",
                                     false
                                   )
-                                )
+                                ) + "\n                            "
                               )
                             ])
                           ]),
@@ -71230,6 +71254,76 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/shared/LayerSelect.vue?vue&type=template&id=29134aee&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/shared/LayerSelect.vue?vue&type=template&id=29134aee& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-group" }, [
+    _c("label", { attrs: { for: "create_layer_id" } }, [_vm._v(" Layer:")]),
+    _vm._v(" "),
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.created_location.layer_id,
+            expression: "created_location.layer_id"
+          }
+        ],
+        staticClass: "form-control",
+        class: { "is-invalid": _vm.get },
+        attrs: { name: "layer_id", id: "create_layer_id" },
+        on: {
+          change: function($event) {
+            var $$selectedVal = Array.prototype.filter
+              .call($event.target.options, function(o) {
+                return o.selected
+              })
+              .map(function(o) {
+                var val = "_value" in o ? o._value : o.value
+                return val
+              })
+            _vm.$set(
+              _vm.created_location,
+              "layer_id",
+              $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+            )
+          }
+        }
+      },
+      _vm._l(_vm.layers, function(layer) {
+        return _c(
+          "option",
+          { key: layer.id, domProps: { value: layer.layer_id } },
+          [_vm._v("\n            " + _vm._s(layer.name) + "\n        ")]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "invalid-feedback" }, [_vm._v(_vm._s(_vm.get))])
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -85946,6 +86040,23 @@ __webpack_require__(/*! tinymce */ "./node_modules/tinymce/tinymce.js");
 
 window.tinymce_config = __webpack_require__(/*! ./tinymce_config */ "./resources/js/tinymce_config.js");
 window.tinymce_file_picker_callback = __webpack_require__(/*! ./tinymce_file_picker_callback.js */ "./resources/js/tinymce_file_picker_callback.js");
+Vue.mixin({
+  methods: {
+    route: function (_route) {
+      function route(_x, _x2, _x3) {
+        return _route.apply(this, arguments);
+      }
+
+      route.toString = function () {
+        return _route.toString();
+      };
+
+      return route;
+    }(function (name, params, absolute) {
+      return route(name, params, absolute, Ziggy);
+    })
+  }
+});
 var app = new Vue({
   el: '#app'
 });
@@ -86437,6 +86548,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_65a5b8b7___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_65a5b8b7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/shared/LayerSelect.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/shared/LayerSelect.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LayerSelect_vue_vue_type_template_id_29134aee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LayerSelect.vue?vue&type=template&id=29134aee& */ "./resources/js/components/shared/LayerSelect.vue?vue&type=template&id=29134aee&");
+/* harmony import */ var _LayerSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LayerSelect.vue?vue&type=script&lang=js& */ "./resources/js/components/shared/LayerSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LayerSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LayerSelect_vue_vue_type_template_id_29134aee___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LayerSelect_vue_vue_type_template_id_29134aee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/shared/LayerSelect.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/shared/LayerSelect.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/shared/LayerSelect.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LayerSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LayerSelect.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/shared/LayerSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LayerSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/shared/LayerSelect.vue?vue&type=template&id=29134aee&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/shared/LayerSelect.vue?vue&type=template&id=29134aee& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LayerSelect_vue_vue_type_template_id_29134aee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LayerSelect.vue?vue&type=template&id=29134aee& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/shared/LayerSelect.vue?vue&type=template&id=29134aee&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LayerSelect_vue_vue_type_template_id_29134aee___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LayerSelect_vue_vue_type_template_id_29134aee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

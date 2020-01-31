@@ -10,7 +10,7 @@ class LayerController extends Controller
 {
     public function index()
     {
-        $layers = Layer::select('id', 'name', 'description')
+        $layers = Layer::select('layer_id', 'name', 'description')
             ->orderBy('name')
             ->get();
 

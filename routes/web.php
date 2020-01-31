@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\GuestVirtualTourController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -60,9 +62,9 @@ Route::group(['prefix' => '/location', 'as' => 'location.'], function() {
         Route::post('/update/{panorama}', 'LocationPanoramaController@update')->name('update');
         Route::post('/delete/{panorama}', 'LocationPanoramaController@delete')->name('delete');
 
-        Route::post('/link/{panorama}/create', 'LinkController@create')->name('create');
-        Route::post('/link/{panorama}/update/{link}', 'LinkController@update')->name('create');
-        Route::post('/link/{panorama}/delete/{link}', 'LinkController@delete')->name('create');
+        Route::post('/destination/{panorama}/create', [DestinationController::class, 'create'])->name('destination.create');
+        Route::post('/destination/{panorama}/update/{destination}', [DestinationController::class, 'update'])->name('destination.update');
+        Route::post('/destination/{panorama}/delete/{destination}', [DestinationController::class, 'delete'])->name('destination.delete');
     });
 });
 

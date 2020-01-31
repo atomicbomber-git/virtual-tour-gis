@@ -10,7 +10,8 @@
                     <i class="fa fa-plus"></i>
                     Tambah Panorama Baru
                 </div>
-                <div class="card-body" style="max-height: 30rem; overflow-y: auto">
+                <div class="card-body"
+                     style="max-height: 30rem; overflow-y: auto">
                     <form @submit="onCreatePanoramaFormSubmit">
                         <div class="form-group">
                             <label for="name">Name:</label>
@@ -24,7 +25,8 @@
                             >
                             <div
                                 class="invalid-feedback"
-                            >{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                            >{{ get(this.error_data, 'errors.name[0]', false) }}
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -41,7 +43,8 @@
                                     >
                                     <div
                                         class="invalid-feedback"
-                                    >{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                                    >{{ get(this.error_data, 'errors.latitude[0]', false) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -57,7 +60,8 @@
                                     >
                                     <div
                                         class="invalid-feedback"
-                                    >{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                                    >{{ get(this.error_data, 'errors.longitude[0]', false) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -99,25 +103,30 @@
                             <small
                                 v-if="get(this.error_data, 'errors.image[0]', false)"
                                 class="text-danger text-xs mt-3"
-                            >{{ get(this.error_data, 'errors.image[0]', false) }}</small>
+                            >{{ get(this.error_data, 'errors.image[0]', false) }}
+                            </small>
                         </div>
 
                         <div class="form-group d-flex align-items-center">
                             <div class="flex-grow-1 pr-3">
                                 <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" :style="{ width: `${upload_progress_percentage}%`}">
+                                    <div class="progress-bar bg-primary"
+                                         role="progressbar"
+                                         :style="{ width: `${upload_progress_percentage}%`}">
                                         Progress Upload
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <button v-if="!is_submitting" class="btn btn-primary">
+                                <button v-if="!is_submitting"
+                                        class="btn btn-primary">
                                     Tambah Panorama
                                     <i class="fa fa-plus"></i>
                                 </button>
 
-                                <button v-if="is_submitting" class="btn btn-primary">
+                                <button v-if="is_submitting"
+                                        class="btn btn-primary">
                                     Mengirim dan Memroses Data
                                     <i class="fa fa-spinner fa-spin fa-fw"></i>
                                 </button>
@@ -133,7 +142,8 @@
             @before-close="(e) => { is_submitting && e.stop() }"
             name="delete-panorama-form"
         >
-            <div v-if="selected_panorama" class="card bg-danger text-white">
+            <div v-if="selected_panorama"
+                 class="card bg-danger text-white">
                 <div class="card-header">
                     <i class="fa fa-warning"></i>
                     Anda Yakin Anda Hendak Menghapus Panorama Ini?
@@ -165,7 +175,7 @@
             height="auto"
             name="edit-panorama-form"
             @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
-            >
+        >
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-pencil"></i>
@@ -189,7 +199,8 @@
                             >
                             <div
                                 class="invalid-feedback"
-                            >{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                            >{{ get(this.error_data, 'errors.name[0]', false) }}
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -206,7 +217,8 @@
                                     >
                                     <div
                                         class="invalid-feedback"
-                                    >{{ get(this.error_data, 'errors.latitude[0]', false) }}</div>
+                                    >{{ get(this.error_data, 'errors.latitude[0]', false) }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -222,7 +234,8 @@
                                     >
                                     <div
                                         class="invalid-feedback"
-                                    >{{ get(this.error_data, 'errors.longitude[0]', false) }}</div>
+                                    >{{ get(this.error_data, 'errors.longitude[0]', false) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -273,25 +286,30 @@
                             <small
                                 v-if="get(this.error_data, 'errors.image[0]', false)"
                                 class="text-danger text-xs mt-3"
-                            >{{ get(this.error_data, 'errors.image[0]', false) }}</small>
+                            >{{ get(this.error_data, 'errors.image[0]', false) }}
+                            </small>
                         </div>
 
                         <div class="form-group d-flex align-items-center">
                             <div class="flex-grow-1 pr-3">
                                 <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" :style="{ width: `${upload_progress_percentage}%`}">
+                                    <div class="progress-bar bg-primary"
+                                         role="progressbar"
+                                         :style="{ width: `${upload_progress_percentage}%`}">
                                         Progress Upload
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <button v-if="!is_submitting" class="btn btn-primary">
+                                <button v-if="!is_submitting"
+                                        class="btn btn-primary">
                                     Perbarui Panorama
                                     <i class="fa fa-check"></i>
                                 </button>
 
-                                <button v-if="is_submitting" class="btn btn-primary">
+                                <button v-if="is_submitting"
+                                        class="btn btn-primary">
                                     Mengirim Data
                                     <i class="fa fa-spinner fa-spin fa-fw"></i>
                                 </button>
@@ -302,15 +320,18 @@
             </div>
         </modal>
 
-        <modal height="auto" name="manage-links-modal">
-            <div class="card" v-if="selected_panorama">
+        <modal height="auto"
+               name="manage-links-modal">
+            <div class="card"
+                 v-if="selected_panorama">
                 <div class="card-header">
                     <i class="fa fa-link"></i>
                     Kelola Link
                 </div>
                 <div class="card-body">
                     <h5>Daftar Link:</h5>
-                    <div class="alert alert-warning" v-if="!selected_panorama.links.length">
+                    <div class="alert alert-warning"
+                         v-if="!selected_panorama.links.length">
                         <i class="fa fa-warning"></i>
                         Belum terdapat link pada panorama ini
                     </div>
@@ -320,49 +341,50 @@
                         class="table table-bordered table-sm"
                     >
                         <thead class="thead thead-dark">
-                            <tr>
-                                <th>Panorama</th>
-                                <th>Heading</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
+                        <tr>
+                            <th>Panorama</th>
+                            <th>Heading</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                v-for="link in selected_pano_links"
-                                :key="link.id"
-                                :class="{ 'table-info': link.heading != link.original_heading }"
-                            >
-                                <td>{{ link.destination.name }}</td>
-                                <td>
-                                    <input
-                                        class="form-control form-control-sm"
-                                        type="number"
-                                        v-model.number="link.heading"
-                                    >
-                                </td>
-                                <td class="text-center">
-                                    <button
-                                        @click="onUpdateLinkHeadingButtonClick(link)"
-                                        class="btn btn-dark btn-sm"
-                                        :disabled="link.heading == link.original_heading"
-                                    >
-                                        <i class="fa fa-check"></i>
-                                    </button>
+                        <tr
+                            v-for="link in selected_pano_links"
+                            :key="link.id"
+                            :class="{ 'table-info': link.heading != link.original_heading }"
+                        >
+                            <td>{{ link.destination.name }}</td>
+                            <td>
+                                <input
+                                    class="form-control form-control-sm"
+                                    type="number"
+                                    v-model.number="link.heading"
+                                >
+                            </td>
+                            <td class="text-center">
+                                <button
+                                    @click="onUpdateLinkHeadingButtonClick(link)"
+                                    class="btn btn-dark btn-sm"
+                                    :disabled="link.heading == link.original_heading"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </button>
 
-                                    <button
-                                        @click="onDeleteLinkButtonClick(link)"
-                                        v-if="!is_submitting"
-                                        class="btn btn-danger btn-sm"
-                                    >
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                <button
+                                    @click="onDeleteLinkButtonClick(link)"
+                                    v-if="!is_submitting"
+                                    class="btn btn-danger btn-sm"
+                                >
+                                    <i class="fa fa-trash"></i>
+                                </button>
 
-                                    <button v-if="is_submitting" class="btn btn-danger btn-sm">
-                                        Mengirim Data
-                                        <i class="fa fa-spinner fa-spin fa-fw"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                <button v-if="is_submitting"
+                                        class="btn btn-danger btn-sm">
+                                    Mengirim Data
+                                    <i class="fa fa-spinner fa-spin fa-fw"></i>
+                                </button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
 
@@ -371,7 +393,8 @@
                     <h5 class="mb-3">Tambah Link dengan Panorama Lain:</h5>
 
                     <div>
-                        <form v-if="possible_links.length > 0" @submit="onCreateNewLinkFormSubmit">
+                        <form v-if="possible_links.length > 0"
+                              @submit="onCreateNewLinkFormSubmit">
                             <div class="form-group">
                                 <label>Panorama Tujuan:</label>
                                 <select
@@ -383,11 +406,13 @@
                                         v-for="panorama in possible_links"
                                         :key="panorama.id"
                                         :value="panorama.id"
-                                    >{{ panorama.name }}</option>
+                                    >{{ panorama.name }}
+                                    </option>
                                 </select>
                                 <div
                                     class="invalid-feedback"
-                                >{{ get(this.error_data, 'errors.destination_id[0]', false) }}</div>
+                                >{{ get(this.error_data, 'errors.destination_id[0]', false) }}
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -402,23 +427,27 @@
                                 >
                                 <div
                                     class="invalid-feedback"
-                                >{{ get(this.error_data, 'errors.heading[0]', false) }}</div>
+                                >{{ get(this.error_data, 'errors.heading[0]', false) }}
+                                </div>
                             </div>
 
                             <div class="form-group text-right mt-2">
-                                <button v-if="!is_submitting" class="btn btn-primary">
+                                <button v-if="!is_submitting"
+                                        class="btn btn-primary">
                                     Tambah Link
                                     <i class="fa fa-check"></i>
                                 </button>
 
-                                <button v-if="is_submitting" class="btn btn-primary">
+                                <button v-if="is_submitting"
+                                        class="btn btn-primary">
                                     Mengirim Data
                                     <i class="fa fa-spinner fa-spin fa-fw"></i>
                                 </button>
                             </div>
                         </form>
 
-                        <div class="alert alert-warning" v-if="possible_links.length == 0">
+                        <div class="alert alert-warning"
+                             v-if="possible_links.length == 0">
                             <i class="fa fa-warning"></i>
                             Tidak terdapat link yang dapat ditambahkan
                         </div>
@@ -428,7 +457,8 @@
         </modal>
 
         <div class="my-3 text-right">
-            <button @click="onCreatePanoramaButtonClick" class="btn btn-dark btn-sm">
+            <button @click="onCreatePanoramaButtonClick"
+                    class="btn btn-dark btn-sm">
                 Tambah Panorama Baru
                 <i class="fa fa-plus"></i>
             </button>
@@ -456,7 +486,8 @@
                                 }"
                             />
 
-                            <span v-for="panorama in location.panoramas" :key="panorama.id">
+                            <span v-for="panorama in location.panoramas"
+                                  :key="panorama.id">
                                 <GmapMarker
                                     :position="{lat: panorama.latitude, lng: panorama.longitude}"
 
@@ -516,7 +547,8 @@
                     </div>
                 </div>
 
-                <div v-if="location.panoramas.length == 0" class="alert alert-warning">
+                <div v-if="location.panoramas.length == 0"
+                     class="alert alert-warning">
                     <i class="fa fa-warning"></i>
                     Belum Terdapa Panorama Sama Sekali.
                 </div>
@@ -526,370 +558,375 @@
 </template>
 
 <script>
-import { gmapApi } from "vue2-google-maps";
+    import {gmapApi} from "vue2-google-maps";
 
-export default {
-    props: {
-        config: Object,
-    },
+    export default {
+        props: {
+            config: Object,
+        },
 
-    data() {
-        return {
-            new_panorama: {
-                name: null,
-                latitude: null,
-                longitude: null
+        data() {
+            return {
+                new_panorama: {
+                    name: null,
+                    latitude: null,
+                    longitude: null
+                },
+
+                is_submitting: false,
+
+                edited_panorama: null,
+                selected_panorama: null,
+
+                map: null,
+                google: gmapApi,
+                location: window.p_location,
+                location_street_view: null,
+                error_data: null,
+
+                heading: 0,
+                destination_id: null,
+
+                upload_progress_percentage: 0,
+            };
+        },
+
+        computed: {
+            selected_pano_links() {
+                if (this.selected_panorama == null) {
+                    return [];
+                }
+
+                return this.selected_panorama.links.map(link => {
+                    return {...link, original_heading: link.heading};
+                });
             },
 
-            is_submitting: false,
-
-            edited_panorama: null,
-            selected_panorama: null,
-
-            map: null,
-            google: gmapApi,
-            location: window.p_location,
-            location_street_view: null,
-            error_data: null,
-
-            heading: 0,
-            destination_id: null,
-
-            upload_progress_percentage: 0,
-        };
-    },
-
-    computed: {
-        selected_pano_links() {
-            if (this.selected_panorama == null) {
-                return [];
+            possible_links() {
+                return this.location.panoramas.filter(
+                    panorama =>
+                        panorama.id != this.selected_panorama.id &&
+                        this.selected_panorama.links.find(
+                            link => link.destination_id == panorama.id
+                        ) === undefined
+                );
             }
-
-            return this.selected_panorama.links.map(link => {
-                return { ...link, original_heading: link.heading };
-            });
         },
 
-        possible_links() {
-            return this.location.panoramas.filter(
-                panorama =>
-                    panorama.id != this.selected_panorama.id &&
-                    this.selected_panorama.links.find(
-                        link => link.destination_id == panorama.id
-                    ) === undefined
-            );
-        }
-    },
+        methods: {
+            get: _.get,
 
-    methods: {
-        get: _.get,
+            onManageLinksButtonClick(panorama) {
+                this.error_data = null;
+                this.destination_id = null;
+                this.heading = 0;
+                this.selected_panorama = {...panorama};
+                this.$modal.show("manage-links-modal");
+            },
 
-        onManageLinksButtonClick(panorama) {
-            this.error_data = null;
-            this.destination_id = null;
-            this.heading = 0;
-            this.selected_panorama = { ...panorama };
-            this.$modal.show("manage-links-modal");
-        },
-
-        onDeleteLinkButtonClick(link) {
-            axios
-                .post(
-                    `/location/panorama/${this.location.id}/link/${
-                        this.selected_panorama.id
-                    }/delete/${link.id}`
-                )
-                .then(response => {
-                    this.location.panoramas = this.location.panoramas.filter(
-                        panorama => {
-                            if (panorama.id == this.selected_panorama.id) {
-                                panorama.links = panorama.links.filter(
-                                    l => l.id != link.id
-                                );
+            onDeleteLinkButtonClick(link) {
+                axios
+                    .post(
+                        this.route('location.panorama.destination.delete', [
+                            this.location.id,
+                            this.selected_panorama.id,
+                            link.id
+                        ]).url(),
+                    )
+                    .then(response => {
+                        this.location.panoramas = this.location.panoramas.filter(
+                            panorama => {
+                                if (panorama.id == this.selected_panorama.id) {
+                                    panorama.links = panorama.links.filter(
+                                        l => l.id != link.id
+                                    );
+                                    return panorama;
+                                }
                                 return panorama;
                             }
-                            return panorama;
-                        }
-                    );
+                        );
 
-                    this.selected_panorama.links = this.selected_panorama.links.filter(
-                        l => l.id != link.id
-                    );
-                    this.error_data = null;
-                    this.is_submitting = false;
-                })
-                .catch(error => {
-                    this.is_submitting = false;
-                    this.error_data = error.response.data;
-                });
-        },
+                        this.selected_panorama.links = this.selected_panorama.links.filter(
+                            l => l.id != link.id
+                        );
+                        this.error_data = null;
+                        this.is_submitting = false;
+                    })
+                    .catch(error => {
+                        this.is_submitting = false;
+                        this.error_data = error.response.data;
+                    });
+            },
 
-        onUpdateLinkHeadingButtonClick(link) {
-            axios
-                .post(
-                    `/location/panorama/${this.location.id}/link/${
-                        this.selected_panorama.id
-                    }/update/${link.id}`,
-                    { heading: link.heading }
-                )
-                .then(response => {
-                    let panorama = this.location.panoramas.find(
-                        pano => pano.id == this.selected_panorama.id
-                    );
+            onUpdateLinkHeadingButtonClick(link) {
+                axios
+                    .post(
+                        this.route('location.panorama.destination.update', [
+                            this.location.id,
+                            this.selected_panorama.id,
+                            link.id
+                        ]).url(),
+                        {heading: link.heading}
+                    )
+                    .then(response => {
+                        let panorama = this.location.panoramas.find(
+                            pano => pano.id == this.selected_panorama.id
+                        );
 
-                    let links = [];
-                    this.location.panoramas = this.location.panoramas.map(
-                        panorama => {
-                            if (panorama.id != this.selected_panorama.id) {
-                                return panorama;
-                            }
-
-                            links = panorama.links.map(l => {
-                                if (l.id != link.id) {
-                                    return l;
+                        let links = [];
+                        this.location.panoramas = this.location.panoramas.map(
+                            panorama => {
+                                if (panorama.id != this.selected_panorama.id) {
+                                    return panorama;
                                 }
 
-                                return { ...l, heading: link.heading };
-                            });
+                                links = panorama.links.map(l => {
+                                    if (l.id != link.id) {
+                                        return l;
+                                    }
 
-                            return { ...panorama, links: links };
-                        }
-                    );
+                                    return {...l, heading: link.heading};
+                                });
 
-                    this.selected_panorama.links = links;
-                })
+                                return {...panorama, links: links};
+                            }
+                        );
 
-                .catch(error => {
-                    this.error_data = error.response.data;
-                });
-        },
+                        this.selected_panorama.links = links;
+                    })
 
-        onCreatePanoramaFormSubmit(e) {
-            e.preventDefault();
+                    .catch(error => {
+                        this.error_data = error.response.data;
+                    });
+            },
 
-            let newPanoramaFormData = new FormData();
-            Object.keys(this.new_panorama).forEach(key => {
-                this.new_panorama[key] &&
+            onCreatePanoramaFormSubmit(e) {
+                e.preventDefault();
+
+                let newPanoramaFormData = new FormData();
+                Object.keys(this.new_panorama).forEach(key => {
+                    this.new_panorama[key] &&
                     newPanoramaFormData.append(key, this.new_panorama[key]);
-            });
-
-            newPanoramaFormData.append(
-                "image",
-                this.$refs.createPanoramaImageInputRef.files[0]
-            );
-
-            this.is_submitting = true;
-            axios
-                .post(
-                    `/location/panorama/${this.location.id}/store`,
-                    newPanoramaFormData,
-                    {
-                        headers: { "Content-Type": "multipart/form-data" },
-                        onUploadProgress: progressEvent => {
-                            this.upload_progress_percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                        }
-                    }
-                )
-                .then(response => {
-                    window.location.reload(true);
-                })
-                .catch(error => {
-                    this.upload_progress_percentage = 0
-                    this.is_submitting = false;
-                    this.error_data = error.response.data;
                 });
-        },
 
-        onCreatePanoramaButtonClick() {
-            (this.new_panorama.latitude = this.location.latitude),
-                (this.new_panorama.longitude = this.location.longitude),
-                this.$modal.show("create-panorama-form");
-        },
+                newPanoramaFormData.append(
+                    "image",
+                    this.$refs.createPanoramaImageInputRef.files[0]
+                );
 
-        onCreatePanoramaMapClick(e) {
-            this.error_data = null;
-            this.new_panorama.latitude = e.latLng.lat();
-            this.new_panorama.longitude = e.latLng.lng();
-        },
+                this.is_submitting = true;
+                axios
+                    .post(
+                        `/location/panorama/${this.location.id}/store`,
+                        newPanoramaFormData,
+                        {
+                            headers: {"Content-Type": "multipart/form-data"},
+                            onUploadProgress: progressEvent => {
+                                this.upload_progress_percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                            }
+                        }
+                    )
+                    .then(response => {
+                        window.location.reload(true);
+                    })
+                    .catch(error => {
+                        this.upload_progress_percentage = 0
+                        this.is_submitting = false;
+                        this.error_data = error.response.data;
+                    });
+            },
 
-        onDeletePanoramaButtonClick(panorama) {
-            this.selected_panorama = { ...panorama };
-            this.$modal.show("delete-panorama-form");
-        },
+            onCreatePanoramaButtonClick() {
+                (this.new_panorama.latitude = this.location.latitude),
+                    (this.new_panorama.longitude = this.location.longitude),
+                    this.$modal.show("create-panorama-form");
+            },
 
-        onEditPanoramaButtonClick(panorama) {
-            this.error_data = null;
-            this.edited_panorama = { ...panorama };
-            this.selected_panorama = { ...panorama };
-            this.$modal.show("edit-panorama-form");
-        },
+            onCreatePanoramaMapClick(e) {
+                this.error_data = null;
+                this.new_panorama.latitude = e.latLng.lat();
+                this.new_panorama.longitude = e.latLng.lng();
+            },
 
-        onEditPanoramaMapClick(e) {
-            this.edited_panorama.latitude = e.latLng.lat();
-            this.edited_panorama.longitude = e.latLng.lng();
-        },
+            onDeletePanoramaButtonClick(panorama) {
+                this.selected_panorama = {...panorama};
+                this.$modal.show("delete-panorama-form");
+            },
 
-        onCreateNewLinkFormSubmit(e) {
-            e.preventDefault();
+            onEditPanoramaButtonClick(panorama) {
+                this.error_data = null;
+                this.edited_panorama = {...panorama};
+                this.selected_panorama = {...panorama};
+                this.$modal.show("edit-panorama-form");
+            },
 
-            this.is_submitting = true;
-            axios
-                .post(
-                    `/location/panorama/${this.location.id}/link/${
-                        this.selected_panorama.id
-                    }/create`,
-                    {
-                        destination_id: this.destination_id,
-                        heading: this.heading
-                    }
-                )
-                .then(response => {
-                    this.location.panoramas = this.location.panoramas.map(
-                        panorama => {
-                            if (panorama.id == this.selected_panorama.id) {
-                                panorama.links = [
-                                    ...panorama.links,
-                                    response.data
-                                ];
+            onEditPanoramaMapClick(e) {
+                this.edited_panorama.latitude = e.latLng.lat();
+                this.edited_panorama.longitude = e.latLng.lng();
+            },
+
+            onCreateNewLinkFormSubmit(e) {
+                e.preventDefault();
+
+                this.is_submitting = true;
+                axios
+                    .post(
+                        this.route('location.panorama.destination.create', [
+                            this.location.id,
+                            this.selected_panorama.id,
+                        ]).url(),
+                        {
+                            destination_id: this.destination_id,
+                            heading: this.heading
+                        }
+                    )
+                    .then(response => {
+                        this.location.panoramas = this.location.panoramas.map(
+                            panorama => {
+                                if (panorama.id == this.selected_panorama.id) {
+                                    panorama.links = [
+                                        ...panorama.links,
+                                        response.data
+                                    ];
+                                    return panorama;
+                                }
                                 return panorama;
                             }
-                            return panorama;
-                        }
-                    );
+                        );
 
-                    this.selected_panorama.links = [
-                        ...this.selected_panorama.links,
-                        response.data
-                    ];
-                    this.error_data = null;
-                    this.is_submitting = false;
-                })
-                .catch(error => {
-                    this.is_submitting = false;
-                    this.error_data = error.response.data;
-                });
-        },
+                        this.selected_panorama.links = [
+                            ...this.selected_panorama.links,
+                            response.data
+                        ];
+                        this.error_data = null;
+                        this.is_submitting = false;
+                    })
+                    .catch(error => {
+                        this.is_submitting = false;
+                        this.error_data = error.response.data;
+                    });
+            },
 
-        onEditPanoramaFormSubmit(e) {
-            e.preventDefault();
+            onEditPanoramaFormSubmit(e) {
+                e.preventDefault();
 
-            let editedPanoramaFormData = new FormData();
+                let editedPanoramaFormData = new FormData();
 
-            Object.keys(this.edited_panorama).forEach(key => {
-                this.edited_panorama[key] &&
+                Object.keys(this.edited_panorama).forEach(key => {
+                    this.edited_panorama[key] &&
                     editedPanoramaFormData.append(
                         key,
                         this.edited_panorama[key]
                     );
-            });
+                });
 
-            this.$refs.editPanoramaImageInputRef.files[0] &&
+                this.$refs.editPanoramaImageInputRef.files[0] &&
                 editedPanoramaFormData.append(
                     "image",
                     this.$refs.editPanoramaImageInputRef.files[0]
                 );
 
-            this.is_submitting = true;
-            axios
-                .post(
-                    `/location/panorama/${this.location.id}/update/${
-                        this.edited_panorama.id
-                    }`,
-                    editedPanoramaFormData,
-                    {
-                        headers: { "Content-Type": "multipart/form-data" },
-                        onUploadProgress: progressEvent => {
-                            this.upload_progress_percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                this.is_submitting = true;
+                axios
+                    .post(
+                        `/location/panorama/${this.location.id}/update/${
+                            this.edited_panorama.id
+                        }`,
+                        editedPanoramaFormData,
+                        {
+                            headers: {"Content-Type": "multipart/form-data"},
+                            onUploadProgress: progressEvent => {
+                                this.upload_progress_percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                            }
+                        }
+                    )
+                    .then(response => {
+                        window.location.reload(true);
+                    })
+                    .catch(error => {
+                        this.is_submitting = false;
+                        this.error_data = error.response.data;
+                    });
+            },
+
+            onConfirmPanoramaDeleteButtonClick(panorama) {
+                axios
+                    .post(
+                        `/location/panorama/${this.location.id}/delete/${
+                            panorama.id
+                        }`
+                    )
+                    .then(response => {
+                        window.location.reload(true);
+                    });
+            },
+
+            getPanoramaData(panorama_id) {
+                let panoramas = this.location.panoramas;
+                let panorama = panoramas.find(
+                    panorama => panorama.id == panorama_id
+                );
+
+                let nextId = null;
+                if (panorama_id == panoramas[0].id) {
+                    nextId = panoramas[1].id;
+                } else {
+                    nextId = panoramas[0].id;
+                }
+
+                return {
+                    location: {
+                        pano: panorama_id, // The ID for this custom panorama.
+                        description: "Google Sydney - Reception",
+                        latLng: new google.maps.LatLng(
+                            panorama.latitude,
+                            panorama.longitude
+                        )
+                    },
+                    links: [
+                        {
+                            heading: 180,
+                            description: "Whatever",
+                            pano: nextId
+                        }
+                    ],
+                    copyright: "Imagery (c) 2010 Google",
+                    tiles: {
+                        tileSize: new google.maps.Size(128, 64),
+                        worldSize: new google.maps.Size(1024, 512),
+                        centerHeading: 105,
+                        getTileUrl: (pano, zoom, tileX, tileY) => {
+                            return `/location/panorama/${
+                                this.location.id
+                            }/tile/${panorama_id}/${zoom}/${tileX}/${tileY}`;
                         }
                     }
-                )
-                .then(response => {
-                    window.location.reload(true);
-                })
-                .catch(error => {
-                    this.is_submitting = false;
-                    this.error_data = error.response.data;
+                };
+            },
+
+            initPanorama() {
+                let firstPanoramaId = this.location.panoramas[0].id;
+
+                let panorama = new google.maps.StreetViewPanorama(this.$refs.pano, {
+                    pano: `${firstPanoramaId}`
                 });
-        },
 
-        onConfirmPanoramaDeleteButtonClick(panorama) {
-            axios
-                .post(
-                    `/location/panorama/${this.location.id}/delete/${
-                        panorama.id
-                    }`
-                )
-                .then(response => {
-                    window.location.reload(true);
+                panorama.registerPanoProvider(pano => {
+                    if (
+                        this.location.panoramas.find(
+                            panorama => panorama.id == pano
+                        )
+                    ) {
+                        return this.getPanoramaData(pano);
+                    }
+
+                    return null;
                 });
-        },
 
-        getPanoramaData(panorama_id) {
-            let panoramas = this.location.panoramas;
-            let panorama = panoramas.find(
-                panorama => panorama.id == panorama_id
-            );
-
-            let nextId = null;
-            if (panorama_id == panoramas[0].id) {
-                nextId = panoramas[1].id;
-            } else {
-                nextId = panoramas[0].id;
+                this.map.setStreetView(panorama);
             }
-
-            return {
-                location: {
-                    pano: panorama_id, // The ID for this custom panorama.
-                    description: "Google Sydney - Reception",
-                    latLng: new google.maps.LatLng(
-                        panorama.latitude,
-                        panorama.longitude
-                    )
-                },
-                links: [
-                    {
-                        heading: 180,
-                        description: "Whatever",
-                        pano: nextId
-                    }
-                ],
-                copyright: "Imagery (c) 2010 Google",
-                tiles: {
-                    tileSize: new google.maps.Size(128, 64),
-                    worldSize: new google.maps.Size(1024, 512),
-                    centerHeading: 105,
-                    getTileUrl: (pano, zoom, tileX, tileY) => {
-                        return `/location/panorama/${
-                            this.location.id
-                        }/tile/${panorama_id}/${zoom}/${tileX}/${tileY}`;
-                    }
-                }
-            };
-        },
-
-        initPanorama() {
-            let firstPanoramaId = this.location.panoramas[0].id;
-
-            let panorama = new google.maps.StreetViewPanorama(this.$refs.pano, {
-                pano: `${firstPanoramaId}`
-            });
-
-            panorama.registerPanoProvider(pano => {
-                if (
-                    this.location.panoramas.find(
-                        panorama => panorama.id == pano
-                    )
-                ) {
-                    return this.getPanoramaData(pano);
-                }
-
-                return null;
-            });
-
-            this.map.setStreetView(panorama);
         }
-    }
-};
+    };
 </script>
 
 <style>

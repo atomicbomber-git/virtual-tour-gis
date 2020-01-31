@@ -26,6 +26,6 @@ class Layer extends Model implements HasMedia
 
     public function locations()
     {
-        return $this->hasMany(Location::class);
+        return $this->hasMany(Location::class, 'layer_id');
     }
 }

@@ -7,7 +7,7 @@
         Lokasi
     </h1>
 
-    @include('shared.alert', ['state' => 'success', 'session_var' => 'message'])
+    @include('shared.alert')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

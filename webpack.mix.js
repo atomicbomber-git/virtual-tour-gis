@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const execa = require('execa');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,3 +18,13 @@ mix.js('resources/js/app.js', 'public/js')
    .copy("node_modules/tinymce/themes", "public/js/themes")
    .copy("node_modules/tinymce/plugins", "public/js/plugins")
    .copy("node_modules/tinymce/skins", "public/js/skins")
+    .then(() => {
+        console.info("Generating routes using Ziggy...")
+        execa('php', ['artisan', 'ziggy:generate'])
+            .then(result => {
+                console.info("Successfully generated routes using Ziggy.")
+            })
+            .catch(error => {
+                console.info("Failed generating routes using Ziggy.")
+            })
+    })

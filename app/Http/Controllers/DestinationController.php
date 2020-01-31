@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Destination;
 use App\Location;
 use App\Panorama;
-use App\Link;
 
-class LinkController extends Controller
+class DestinationController extends Controller
 {
     public function create(Location $location, Panorama $panorama)
     {
@@ -16,7 +15,7 @@ class LinkController extends Controller
             'heading' => 'required|numeric'
         ]);
 
-        $link = Link::create([
+        $link = Destination::create([
             'origin_id' => $panorama->id,
             'destination_id' => $data['destination_id'],
             'heading' => $data['heading']
@@ -25,7 +24,7 @@ class LinkController extends Controller
         return $link->load('destination');
     }
 
-    public function update(Location $location, Panorama $panorama, Link $link)
+    public function update(Location $location, Panorama $panorama, Destination $link)
     {
         $data = $this->validate(request(), [
             'heading' => 'required|numeric'
@@ -34,7 +33,7 @@ class LinkController extends Controller
         $link->update($data);
     }
 
-    public function delete(Location $location, Panorama $panorama, Link $link)
+    public function delete(Location $location, Panorama $panorama, Destination $link)
     {
         $link->delete();
     }

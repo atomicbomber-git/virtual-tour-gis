@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Panorama;
-use App\Link;
+use App\Destination;
 
 class LocationPanoramaController extends Controller
 {
@@ -82,13 +82,13 @@ class LocationPanoramaController extends Controller
 
         session()->flash('message.success', __('messages.update.success'));
     }
-    
+
     public function delete(Location $location, Panorama $panorama) {
-        
-        Link::where('origin_id', $panorama->id)
+
+        Destination::where('origin_id', $panorama->id)
             ->delete();
 
-        Link::where('destination_id', $panorama->id)
+        Destination::where('destination_id', $panorama->id)
             ->delete();
 
         $panorama->delete();

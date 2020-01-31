@@ -25,6 +25,12 @@ require('tinymce');
 window.tinymce_config = require('./tinymce_config')
 window.tinymce_file_picker_callback = require('./tinymce_file_picker_callback.js')
 
+Vue.mixin({
+    methods: {
+        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+    }
+});
+
 const app = new Vue({
     el: '#app'
 });

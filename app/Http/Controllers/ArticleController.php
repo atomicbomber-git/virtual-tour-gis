@@ -11,7 +11,8 @@ class ArticleController extends Controller
     {
         $articles = Article::query()
             ->select("id", "title", "content")
-            ->orderByDesc("created_at", "updated_at")
+            ->orderByDesc("created_at")
+            ->orderByDesc("updated_at")
             ->paginate();
 
         return view("article.index", compact("articles"));

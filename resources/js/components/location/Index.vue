@@ -1,21 +1,24 @@
 <template>
     <div>
         <div class="text-right my-3">
-            <button @click="onCreateButtonClick" class="btn btn-dark btn-sm">
+            <button @click="onCreateButtonClick"
+                    class="btn btn-dark btn-sm">
                 Tambah Lokasi Baru
                 <i class="fa fa-plus"></i>
             </button>
         </div>
 
         <div class="card">
-            <modal name="delete-location-modal" height="auto">
+            <modal name="delete-location-modal"
+                   height="auto">
                 <div v-if="selected_location">
                     <div class="card text-white bg-danger">
                         <div class="card-header">
                             <i class="fa fa-warning"></i>
                             Anda yakin Anda Ingin Menghapus Berkas Ini?
                         </div>
-                        <div class="card-body" style="max-height: 30rem; overflow-y: scroll">
+                        <div class="card-body"
+                             style="max-height: 30rem; overflow-y: scroll">
                             <div class="card text-dark">
                                 <div class="card-body">
                                     <h4> {{ selected_location.name }} </h4>
@@ -32,7 +35,8 @@
                             </div>
 
                             <div class="mt-4 text-right">
-                                <button @click="onConfirmDeleteButtonClick(selected_location)" class="btn btn-warning">
+                                <button @click="onConfirmDeleteButtonClick(selected_location)"
+                                        class="btn btn-warning">
                                     Hapus
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -42,77 +46,93 @@
                 </div>
             </modal>
 
-            <modal name="edit-location-modal" height="auto">
+            <modal name="edit-location-modal"
+                   height="auto">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-pencil"></i>
+                        <i class="fa fa-pencil"/>
                         Edit Lokasi
                     </div>
 
-                    <div class="card-body" style="height: 30rem; overflow-y: scroll">
-                        <form @submit="onEditFormSubmit" v-if="edited_location">
+                    <div class="card-body"
+                         style="height: 30rem; overflow-y: scroll">
+                        <form @submit="onEditFormSubmit"
+                              v-if="edited_location">
                             <div class='form-group'>
-                                <label for='name'> Nama: </label>
+                                <label for='edit_name'> Nama:</label>
                                 <input
                                     v-model='edited_location.name'
                                     class='form-control'
                                     :class="{'is-invalid': get(this.edit_error_data, 'errors.name[0]', false)}"
-                                    type='text' id='name' placeholder='Nama'>
-                                <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.name[0]', false) }}</div>
-                            </div>
+                                    type='text'
+                                    id='edit_name'
+                                    placeholder='Nama'>
+                                <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.name[0]', false) }}
+                                </div>
 
-                            <div class='form-group'>
-                                <label for='address'> Alamat: </label>
+                                <label for='edit_address'> Alamat:</label>
                                 <textarea
                                     v-model='edited_location.address'
                                     class='form-control'
                                     :class="{'is-invalid': get(this.edit_error_data, 'errors.address[0]', false)}"
-                                    type='text' id='address' placeholder='Alamat'></textarea>
-                                <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.address[0]', false) }}</div>
+                                    type='text'
+                                    id='edit_address'
+                                    placeholder='Alamat'/>
+                                <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.address[0]', false)
+                                    }}
+                                </div>
                             </div>
 
                             <div class='form-group'>
-                                <label for='description'> Deskripsi: </label>
+                                <label for='edit_description'> Deskripsi:</label>
                                 <textarea
                                     v-model='edited_location.description'
                                     class='form-control'
                                     :class="{'is-invalid': get(this.edit_error_data, 'errors.description[0]', false)}"
-                                    type='text' id='description' placeholder='Deskripsi'></textarea>
-                                <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.description[0]', false) }}</div>
+                                    type='text'
+                                    id='edit_description'
+                                    placeholder='Deskripsi'/>
+                                <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.description[0]',
+                                    false) }}
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="layer_id"> Layer: </label>
-                                <select class="form-control" v-model="edited_location.layer_id" name="layer_id" id="layer_id">
-                                    <option v-for="layer in layers" :value="layer.id" :key="layer.id">
-                                        {{ layer.name }}
-                                    </option>
-                                </select>
-                            </div>
+                            <LayerSelect :create_error_data="edit_error_data"
+                                         :created_location="edited_location"
+                                         :get="get(this.edit_error_data, 'errors.layer_id[0]', false)"
+                                         :layers="layers"/>
 
                             <div class="form-row">
                                 <div class="col">
                                     <div class='form-group'>
-                                        <label for='latitude'> Latitude: </label>
+                                        <label for='edited_latitude'> Latitude:</label>
                                         <input
                                             v-model.number='edited_location.latitude'
                                             step="any"
                                             class='form-control'
                                             :class="{'is-invalid': get(this.edit_error_data, 'errors.latitude[0]', false)}"
-                                            type='number' id='latitude' placeholder='Latitude'>
-                                        <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.latitude[0]', false) }}</div>
+                                            type='number'
+                                            id='edited_latitude'
+                                            placeholder='Latitude'>
+                                        <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.latitude[0]',
+                                            false) }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class='form-group'>
-                                        <label for='longitude'> Longitude: </label>
+                                        <label for='edited_longitude'> Longitude:</label>
                                         <input
                                             v-model.number='edited_location.longitude'
                                             step="any"
                                             class='form-control'
                                             :class="{'is-invalid': get(this.edit_error_data, 'errors.longitude[0]', false)}"
-                                            type='number' id='longitude' placeholder='Longitude'>
-                                        <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.longitude[0]', false) }}</div>
+                                            type='number'
+                                            id='edited_longitude'
+                                            placeholder='Longitude'>
+                                        <div class='invalid-feedback'>{{ get(this.edit_error_data,
+                                            'errors.longitude[0]', false) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -147,80 +167,96 @@
                 </div>
             </modal>
 
-            <modal name="create-location-modal" height="auto">
+            <modal name="create-location-modal"
+                   height="auto">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-plus"></i>
+                        <i class="fa fa-plus"/>
                         Tambah Lokasi
                     </div>
 
-                    <div class="card-body" style="height: 30rem; overflow-y: scroll">
-                        <form @submit="onCreateFormSubmit" v-if="created_location">
+                    <div class="card-body"
+                         style="height: 30rem; overflow-y: scroll">
+                        <form @submit="onCreateFormSubmit"
+                              v-if="created_location">
                             <div class='form-group'>
-                                <label for='name'> Nama: </label>
+                                <label for='name'> Nama:</label>
                                 <input
                                     v-model='created_location.name'
                                     class='form-control'
                                     :class="{'is-invalid': get(this.create_error_data, 'errors.name[0]', false)}"
-                                    type='text' id='name' placeholder='Nama'>
-                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.name[0]', false) }}</div>
+                                    type='text'
+                                    id='name'
+                                    placeholder='Nama'>
+                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.name[0]', false)
+                                    }}
+                                </div>
                             </div>
 
                             <div class='form-group'>
-                                <label for='address'> Alamat: </label>
+                                <label for='create_address'> Alamat:</label>
                                 <textarea
                                     v-model='created_location.address'
                                     class='form-control'
                                     :class="{'is-invalid': get(this.create_error_data, 'errors.address[0]', false)}"
-                                    type='text' id='address' placeholder='Alamat'></textarea>
-                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.address[0]', false) }}</div>
+                                    type='text'
+                                    id='create_address'
+                                    placeholder='Alamat'/>
+                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.address[0]', false)
+                                    }}
+                                </div>
                             </div>
 
                             <div class='form-group'>
-                                <label for='description'> Deskripsi: </label>
+                                <label for='create_description'> Deskripsi:</label>
                                 <textarea
                                     v-model='created_location.description'
                                     class='form-control'
                                     :class="{'is-invalid': get(this.create_error_data, 'errors.description[0]', false)}"
-                                    type='text' id='description' placeholder='Deskripsi'></textarea>
-                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.description[0]', false) }}</div>
+                                    type='text'
+                                    id='create_description'
+                                    placeholder='Deskripsi'/>
+                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.description[0]',
+                                    false) }}
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="layer_id"> Layer: </label>
-                                <select class="form-control"
-                                    :class="{'is-invalid': get(this.create_error_data, 'errors.layer_id[0]', false)}"
-                                    v-model="created_location.layer_id" name="layer_id" id="layer_id">
-                                    <option v-for="layer in layers" :value="layer.id" :key="layer.id">
-                                        {{ layer.name }}
-                                    </option>
-                                </select>
-                                <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.layer_id[0]', false) }}</div>
-                            </div>
+                            <LayerSelect :create_error_data="create_error_data"
+                                         :created_location="created_location"
+                                         :get="get(this.create_error_data, 'errors.layer_id[0]', false)"
+                                         :layers="layers"/>
 
                             <div class="form-row">
                                 <div class="col">
                                     <div class='form-group'>
-                                        <label for='latitude'> Latitude: </label>
+                                        <label for='latitude'> Latitude:</label>
                                         <input
                                             v-model.number='created_location.latitude'
                                             step="any"
                                             class='form-control'
                                             :class="{'is-invalid': get(this.create_error_data, 'errors.latitude[0]', false)}"
-                                            type='number' id='latitude' placeholder='Latitude'>
-                                        <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.latitude[0]', false) }}</div>
+                                            type='number'
+                                            id='latitude'
+                                            placeholder='Latitude'>
+                                        <div class='invalid-feedback'>{{ get(this.create_error_data,
+                                            'errors.latitude[0]', false) }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class='form-group'>
-                                        <label for='longitude'> Longitude: </label>
+                                        <label for='longitude'> Longitude:</label>
                                         <input
                                             v-model.number='created_location.longitude'
                                             step="any"
                                             class='form-control'
                                             :class="{'is-invalid': get(this.create_error_data, 'errors.longitude[0]', false)}"
-                                            type='number' id='longitude' placeholder='Longitude'>
-                                        <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.longitude[0]', false) }}</div>
+                                            type='number'
+                                            id='longitude'
+                                            placeholder='Longitude'>
+                                        <div class='invalid-feedback'>{{ get(this.create_error_data,
+                                            'errors.longitude[0]', false) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -257,10 +293,14 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="custom-control custom-checkbox d-inline-block mr-3"
-                            v-for="layer in layers"
-                            :key="layer.id">
-                            <input v-model="layer.visible" type="checkbox" class="custom-control-input" :id="`layer_${layer.id}`">
-                            <label class="custom-control-label" :for="`layer_${layer.id}`">
+                             v-for="layer in layers"
+                             :key="layer.id">
+                            <input v-model="layer.visible"
+                                   type="checkbox"
+                                   class="custom-control-input"
+                                   :id="`layer_${layer.id}`">
+                            <label class="custom-control-label"
+                                   :for="`layer_${layer.id}`">
                                 <img
                                     :style="{
                                         height: `${config.location_marker.icon.scaledSize.height}${config.location_marker.icon.scaledSize.f}`,
@@ -282,7 +322,8 @@
                             map-type-id="terrain"
                             style="width: 100%; height: 640px">
 
-                            <span v-for="layer in visible_layers" :key="layer.id">
+                            <span v-for="layer in visible_layers"
+                                  :key="layer.id">
 
                                 <span
                                     v-for="location in layer.locations"
@@ -301,7 +342,8 @@
                                         :opened="location.infoWindowOpened"
                                         @closeclick="location.infoWindowOpened=false">
                                         <div>
-                                            <div class="card" style="width: 20rem">
+                                            <div class="card"
+                                                 style="width: 20rem">
                                                 <div class="card-body">
                                                     <h4> {{ location.name }} </h4>
                                                     <hr>
@@ -315,11 +357,13 @@
                                                     </p>
 
                                                     <div class="text-right mt-2">
-                                                        <button @click="onEditButtonClick(location)" class="btn btn-dark btn-sm">
+                                                        <button @click="onEditButtonClick(location)"
+                                                                class="btn btn-dark btn-sm">
                                                             Edit
                                                             <i class="fa fa-pencil"></i>
                                                         </button>
-                                                        <button @click="onDeleteButtonClick(location)" class="btn btn-danger btn-sm">
+                                                        <button @click="onDeleteButtonClick(location)"
+                                                                class="btn btn-danger btn-sm">
                                                             Hapus
                                                             <i class="fa fa-trash"></i>
                                                         </button>
@@ -333,13 +377,15 @@
                         </GmapMap>
                     </div>
                     <div class="col-4">
-                        <div class="list-group" style="height:640px; overflow-y: scroll">
-                            <span v-for="layer in layers" :key="layer.id">
+                        <div class="list-group"
+                             style="height:640px; overflow-y: scroll">
+                            <span v-for="layer in layers"
+                                  :key="layer.id">
                                 <div
                                     class="list-group-item"
                                     v-for="location in layer.locations"
                                     :key="location.id"
-                                    >
+                                >
                                     <div> {{ location.name }} </div>
 
                                     <hr class="my-2">
@@ -354,15 +400,18 @@
                                     </div>
 
                                     <div class="text-right mt-3">
-                                        <a class="btn btn-dark btn-sm" :href="`/location/panorama/${location.id}/index`">
+                                        <a class="btn btn-dark btn-sm"
+                                           :href="`/location/panorama/${location.id}/index`">
                                             Panorama
                                             <i class="fa fa-image"></i>
                                         </a>
-                                        <button @click="onEditButtonClick(location)" class="btn btn-dark btn-sm">
+                                        <button @click="onEditButtonClick(location)"
+                                                class="btn btn-dark btn-sm">
                                             Edit
                                             <i class="fa fa-pencil"></i>
                                         </button>
-                                        <button @click="onDeleteButtonClick(location)" class="btn btn-danger btn-sm">
+                                        <button @click="onDeleteButtonClick(location)"
+                                                class="btn btn-danger btn-sm">
                                             Hapus
                                             <i class="fa fa-trash"></i>
                                         </button>
@@ -379,110 +428,121 @@
 
 <script>
 
-import {get} from 'lodash'
+    import {get} from 'lodash'
+    import LayerSelect from "../shared/LayerSelect";
 
-export default {
-    props: {
-        config: Object
-    },
+    export default {
+        components: {LayerSelect},
+        props: {
+            config: Object
+        },
 
-    data() {
-        return {
-            csrf_token: window.csrf_token,
-            layers: window.layers.map(layer => {
-                return {
-                    ...layer,
-                    visible: true,
-                    locations: layer.locations.map(location => {
-                        return { ...location, infoWindowOpened: false }
+        data() {
+            return {
+                csrf_token: window.csrf_token,
+                layers: window.layers.map(layer => {
+                    return {
+                        ...layer,
+                        visible: true,
+                        locations: layer.locations.map(location => {
+                            return {...location, infoWindowOpened: false}
+                        })
+                    }
+                }),
+                map_center: {
+                    lat: this.config.center.latitude,
+                    lng: this.config.center.longitude,
+                },
+                selected_location: null,
+                edited_location: null,
+                create_map_center: null,
+                created_location: {
+                    name: null,
+                    address: null,
+                    description: null,
+                    latitude: null,
+                    longitude: null,
+                    layer_id: null,
+                },
+                edit_error_data: null,
+                create_error_data: null
+            }
+        },
+
+        methods: {
+            get: get,
+
+            onCreateButtonClick(e) {
+                this.create_map_center = {...this.map_center}
+                this.$modal.show('create-location-modal')
+            },
+
+            onEditMapClick(e) {
+                this.edited_location.latitude = e.latLng.lat()
+                this.edited_location.longitude = e.latLng.lng()
+            },
+
+            onDeleteButtonClick(location) {
+                this.selected_location = {...location}
+                this.$modal.show('delete-location-modal')
+            },
+
+            onEditButtonClick(location) {
+                this.selected_location = {...location}
+                this.edited_location = {...location}
+                this.$modal.show('edit-location-modal');
+            },
+
+            onConfirmDeleteButtonClick(location) {
+                axios.post(this.route('location.delete', location.id).url())
+                    .then(response => {
+                        window.location.reload(true)
                     })
-                }
-            }),
-            map_center: {
-                lat: this.config.center.latitude,
-                lng: this.config.center.longitude,
+                    .catch(error => {
+                    })
             },
-            selected_location: null,
-            edited_location: null,
-            create_map_center: null,
-            created_location: {
-                name: null,
-                address: null,
-                description: null,
-                latitude: null,
-                longitude: null,
-                layer_id: null,
+
+            onEditFormSubmit(e) {
+                e.preventDefault()
+
+                axios.post(`/location/update/${this.edited_location.id}`, this.edited_location)
+                    .then(response => {
+                        window.location.reload(true)
+                    })
+                    .catch(error => {
+                        this.edit_error_data = error.response.data
+                    })
             },
-            edit_error_data: null,
-            create_error_data: null
-        }
-    },
 
-    methods: {
-        get: get,
+            onCreateMapClick(e) {
+                this.created_location.latitude = e.latLng.lat()
+                this.created_location.longitude = e.latLng.lng()
+            },
 
-        onCreateButtonClick(e) {
-            this.create_map_center = {...this.map_center}
-            this.$modal.show('create-location-modal')
-        },
+            onCreateFormSubmit(e) {
+                e.preventDefault()
 
-        onEditMapClick(e) {
-            this.edited_location.latitude = e.latLng.lat()
-            this.edited_location.longitude = e.latLng.lng()
-        },
+                axios.post(`/location/store`, this.created_location)
+                    .then(response => {
+                        window.location.reload(true)
+                    })
+                    .catch(error => {
+                        this.create_error_data = error.response.data
+                    })
+            },
 
-        onDeleteButtonClick(location) {
-            this.selected_location = {...location}
-            this.$modal.show('delete-location-modal')
-        },
-
-        onEditButtonClick(location) {
-            this.selected_location = {...location}
-            this.edited_location = {...location}
-            this.$modal.show('edit-location-modal');
-        },
-
-        onConfirmDeleteButtonClick(location) {
-            axios.post(`/location/delete/${location.id}`)
-                .then(response => {
-                    window.location.reload(true)
+            updateCenter(e) {
+                console.log({
+                    lat: e.lat(),
+                    lng: e.lng(),
                 })
-                .catch(error => {})
+            }
         },
 
-        onEditFormSubmit(e) {
-            e.preventDefault()
-
-            axios.post(`/location/update/${this.edited_location.id}`, this.edited_location)
-                .then(response => { window.location.reload(true) })
-                .catch(error => { this.edit_error_data = error.response.data })
-        },
-
-        onCreateMapClick(e) {
-            this.created_location.latitude = e.latLng.lat()
-            this.created_location.longitude = e.latLng.lng()
-        },
-
-        onCreateFormSubmit(e) {
-            e.preventDefault()
-
-            axios.post(`/location/store`, this.created_location)
-                .then(response => { window.location.reload(true) })
-                .catch(error => { this.create_error_data = error.response.data })
-        },
-
-        updateCenter(e) {
-            console.log({
-                lat: e.lat(),
-                lng: e.lng(),
-            })
-        }
-    },
-
-    computed: {
-        visible_layers() {
-            return this.layers.filter(layer => layer.visible)
+        computed: {
+            visible_layers() {
+                return this.layers.filter(layer => layer.visible)
+            }
         }
     }
-}
 </script>

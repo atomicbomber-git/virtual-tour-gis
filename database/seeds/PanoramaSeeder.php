@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Location;
 use App\Panorama;
-use App\Link;
+use App\Destination;
 
 class PanoramaSeeder extends Seeder
 {
@@ -42,13 +42,13 @@ class PanoramaSeeder extends Seeder
                     $current = $location->panoramas[$i];
                     $next = $location->panoramas[$i + 1];
 
-                    Link::create([
+                    Destination::create([
                         "heading" => 0,
                         "origin_id" => $current->id,
                         "destination_id" => $next->id,
                     ]);
 
-                    Link::create([
+                    Destination::create([
                         "heading" => 180,
                         "origin_id" => $next->id,
                         "destination_id" => $current->id,

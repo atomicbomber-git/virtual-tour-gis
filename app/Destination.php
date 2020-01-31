@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Link extends Model
+class Destination extends Model
 {
-    public $fillable = [
-        'heading', 'origin_id', 'destination_id'
-    ];
+    public $guarded = [];
 
     public function destination()
     {
