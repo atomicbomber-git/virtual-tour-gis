@@ -13,6 +13,8 @@ class Layer extends Model implements HasMedia
     use HasMediaTrait,
         CountsRelatedModels;
 
+    public $primaryKey = 'layer_id';
+
     public $fillable = [
         'name', 'description'
     ];

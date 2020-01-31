@@ -6,14 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    public $fillable = [
-        'name', 'address', 'description', 'layer_id',
-        'latitude', 'longitude'
-    ];
+    public $guarded = [];
 
     public function layer()
     {
-        return $this->belongsTo(Layer::class);
+        return $this->belongsTo(Layer::class, (new Layer)->getKeyName());
     }
 
     public function panoramas()
