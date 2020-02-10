@@ -11,9 +11,9 @@
                 <div class="card-body">
                     <div class="custom-control custom-checkbox d-inline-block mr-3"
                         v-for="layer in layers"
-                        :key="layer.id">
-                        <input v-model="layer.visible" type="checkbox" class="custom-control-input" :id="`layer_${layer.id}`">
-                        <label class="custom-control-label" :for="`layer_${layer.id}`">
+                        :key="layer.layer_id">
+                        <input v-model="layer.visible" type="checkbox" class="custom-control-input" :id="`layer_${layer.layer_id}`">
+                        <label class="custom-control-label" :for="`layer_${layer.layer_id}`">
                             {{ layer.name }}
                         </label>
                     </div>
@@ -32,7 +32,7 @@
                         <GmapMarker
                             :position="{lat: this.pointer_marker.lat, lng: this.pointer_marker.lng}"/>
 
-                        <span v-for="layer in visible_layers" :key="layer.id">
+                        <span v-for="layer in visible_layers" :key="layer.layer_id">
 
                             <span
                                 v-for="location in layer.locations"

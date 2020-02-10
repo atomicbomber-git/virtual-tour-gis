@@ -8,7 +8,7 @@
                 id="create_layer_id">
             <option v-for="layer in layers"
                     :value="layer.layer_id"
-                    :key="layer.id">
+                    :key="layer.layer_id">
                 {{ layer.name }}
             </option>
         </select>

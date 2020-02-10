@@ -73,16 +73,16 @@
                                     <hr class="mt-0">
 
                                     <div
-                                        v-for="layer in m_layers" :key="layer.id" class="mb-1 custom-control custom-checkbox">
+                                        v-for="layer in m_layers" :key="layer.layer_id" class="mb-1 custom-control custom-checkbox">
                                         <input
                                             type="checkbox"
                                             class="custom-control-input"
                                             v-model="layer.is_visible"
-                                            :id="`layer_filter_check_${layer.id}`"
+                                            :id="`layer_filter_check_${layer.layer_id}`"
                                         >
                                         <label
                                             class="custom-control-label"
-                                            :for="`layer_filter_check_${layer.id}`"
+                                            :for="`layer_filter_check_${layer.layer_id}`"
                                             >
 
                                             <img
@@ -90,7 +90,7 @@
                                                     height: `${config.location_marker.icon.scaledSize.height}${config.location_marker.icon.scaledSize.f}`,
                                                     width: `${config.location_marker.icon.scaledSize.width}${config.location_marker.icon.scaledSize.b}`,
                                                 }"
-                                                :src="`/layer/icon/${layer.id}`"
+                                                :src="`/layer/icon/${layer.layer_id}`"
                                                 :alt="layer.name">
 
                                             {{ layer.name }}

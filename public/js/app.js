@@ -67971,7 +67971,7 @@ var render = function() {
                             return _c(
                               "div",
                               {
-                                key: layer.id,
+                                key: layer.layer_id,
                                 staticClass:
                                   "mb-1 custom-control custom-checkbox"
                               },
@@ -67988,7 +67988,7 @@ var render = function() {
                                   staticClass: "custom-control-input",
                                   attrs: {
                                     type: "checkbox",
-                                    id: "layer_filter_check_" + layer.id
+                                    id: "layer_filter_check_" + layer.layer_id
                                   },
                                   domProps: {
                                     checked: Array.isArray(layer.is_visible)
@@ -68032,7 +68032,8 @@ var render = function() {
                                   {
                                     staticClass: "custom-control-label",
                                     attrs: {
-                                      for: "layer_filter_check_" + layer.id
+                                      for:
+                                        "layer_filter_check_" + layer.layer_id
                                     }
                                   },
                                   [
@@ -68052,7 +68053,7 @@ var render = function() {
                                             .scaledSize.b
                                       },
                                       attrs: {
-                                        src: "/layer/icon/" + layer.id,
+                                        src: "/layer/icon/" + layer.layer_id,
                                         alt: layer.name
                                       }
                                     }),
@@ -68284,7 +68285,7 @@ var render = function() {
             return _c(
               "div",
               {
-                key: layer.id,
+                key: layer.layer_id,
                 staticClass:
                   "custom-control custom-checkbox d-inline-block mr-3"
               },
@@ -68299,7 +68300,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "custom-control-input",
-                  attrs: { type: "checkbox", id: "layer_" + layer.id },
+                  attrs: { type: "checkbox", id: "layer_" + layer.layer_id },
                   domProps: {
                     checked: Array.isArray(layer.visible)
                       ? _vm._i(layer.visible, null) > -1
@@ -68335,7 +68336,7 @@ var render = function() {
                   "label",
                   {
                     staticClass: "custom-control-label",
-                    attrs: { for: "layer_" + layer.id }
+                    attrs: { for: "layer_" + layer.layer_id }
                   },
                   [
                     _vm._v(
@@ -68381,7 +68382,7 @@ var render = function() {
                 _vm._l(_vm.visible_layers, function(layer) {
                   return _c(
                     "span",
-                    { key: layer.id },
+                    { key: layer.layer_id },
                     _vm._l(layer.locations, function(location) {
                       return _c(
                         "span",
@@ -69546,7 +69547,7 @@ var render = function() {
                 return _c(
                   "div",
                   {
-                    key: layer.id,
+                    key: layer.layer_id,
                     staticClass:
                       "custom-control custom-checkbox d-inline-block mr-3"
                   },
@@ -69561,7 +69562,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "custom-control-input",
-                      attrs: { type: "checkbox", id: "layer_" + layer.id },
+                      attrs: {
+                        type: "checkbox",
+                        id: "layer_" + layer.layer_id
+                      },
                       domProps: {
                         checked: Array.isArray(layer.visible)
                           ? _vm._i(layer.visible, null) > -1
@@ -69597,7 +69601,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "custom-control-label",
-                        attrs: { for: "layer_" + layer.id }
+                        attrs: { for: "layer_" + layer.layer_id }
                       },
                       [
                         _c("img", {
@@ -69612,7 +69616,7 @@ var render = function() {
                               _vm.config.location_marker.icon.scaledSize.width +
                               _vm.config.location_marker.icon.scaledSize.b
                           },
-                          attrs: { src: "/layer/icon/" + layer.id }
+                          attrs: { src: "/layer/icon/" + layer.layer_id }
                         }),
                         _vm._v(
                           "\n                            " +
@@ -69647,7 +69651,7 @@ var render = function() {
                   _vm._l(_vm.visible_layers, function(layer) {
                     return _c(
                       "span",
-                      { key: layer.id },
+                      { key: layer.layer_id },
                       _vm._l(layer.locations, function(location) {
                         return _c(
                           "span",
@@ -69656,7 +69660,7 @@ var render = function() {
                             _c("GmapMarker", {
                               attrs: {
                                 icon: {
-                                  url: "/layer/icon/" + layer.id,
+                                  url: "/layer/icon/" + layer.layer_id,
                                   scaledSize:
                                     _vm.config.location_marker.icon.scaledSize
                                 },
@@ -69817,7 +69821,7 @@ var render = function() {
                 _vm._l(_vm.layers, function(layer) {
                   return _c(
                     "span",
-                    { key: layer.id },
+                    { key: layer.layer_id },
                     _vm._l(layer.locations, function(location) {
                       return _c(
                         "div",
@@ -71340,7 +71344,7 @@ var render = function() {
       _vm._l(_vm.layers, function(layer) {
         return _c(
           "option",
-          { key: layer.id, domProps: { value: layer.layer_id } },
+          { key: layer.layer_id, domProps: { value: layer.layer_id } },
           [_vm._v("\n            " + _vm._s(layer.name) + "\n        ")]
         )
       }),

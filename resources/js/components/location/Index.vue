@@ -294,19 +294,19 @@
                     <div class="card-body">
                         <div class="custom-control custom-checkbox d-inline-block mr-3"
                              v-for="layer in layers"
-                             :key="layer.id">
+                             :key="layer.layer_id">
                             <input v-model="layer.visible"
                                    type="checkbox"
                                    class="custom-control-input"
-                                   :id="`layer_${layer.id}`">
+                                   :id="`layer_${layer.layer_id}`">
                             <label class="custom-control-label"
-                                   :for="`layer_${layer.id}`">
+                                   :for="`layer_${layer.layer_id}`">
                                 <img
                                     :style="{
                                         height: `${config.location_marker.icon.scaledSize.height}${config.location_marker.icon.scaledSize.f}`,
                                         width: `${config.location_marker.icon.scaledSize.width}${config.location_marker.icon.scaledSize.b}`,
                                     }"
-                                    :src="`/layer/icon/${layer.id}`">
+                                    :src="`/layer/icon/${layer.layer_id}`">
                                 {{ layer.name }}
                             </label>
                         </div>
@@ -323,7 +323,7 @@
                             style="width: 100%; height: 640px">
 
                             <span v-for="layer in visible_layers"
-                                  :key="layer.id">
+                                  :key="layer.layer_id">
 
                                 <span
                                     v-for="location in layer.locations"
@@ -332,7 +332,7 @@
                                     <GmapMarker
                                         @click="location.infoWindowOpened=!location.infoWindowOpened"
                                         :icon="{
-                                            url: `/layer/icon/${layer.id}`,
+                                            url: `/layer/icon/${layer.layer_id}`,
                                             scaledSize: config.location_marker.icon.scaledSize
                                         }"
                                         :position="{lat: location.latitude, lng: location.longitude}"/>
@@ -380,7 +380,7 @@
                         <div class="list-group"
                              style="height:640px; overflow-y: scroll">
                             <span v-for="layer in layers"
-                                  :key="layer.id">
+                                  :key="layer.layer_id">
                                 <div
                                     class="list-group-item"
                                     v-for="location in layer.locations"
