@@ -1,9 +1,9 @@
 <template>
     <div class="mb-4">
         <modal
-            name="create-panorama-form"
-            height="auto"
-            @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
+                name="create-panorama-form"
+                height="auto"
+                @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
         >
             <div class="card">
                 <div class="card-header">
@@ -16,15 +16,15 @@
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input
-                                v-model="new_panorama.name"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
-                                type="text"
-                                id="name"
-                                placeholder="Name"
+                                    v-model="new_panorama.name"
+                                    class="form-control"
+                                    :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
+                                    type="text"
+                                    id="name"
+                                    placeholder="Name"
                             >
                             <div
-                                class="invalid-feedback"
+                                    class="invalid-feedback"
                             >{{ get(this.error_data, 'errors.name[0]', false) }}
                             </div>
                         </div>
@@ -34,15 +34,15 @@
                                 <div class="form-group">
                                     <label for="latitude">Latitude:</label>
                                     <input
-                                        v-model.number="new_panorama.latitude"
-                                        class="form-control"
-                                        :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
-                                        type="text"
-                                        id="latitude"
-                                        placeholder="Latitude"
+                                            v-model.number="new_panorama.latitude"
+                                            class="form-control"
+                                            :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
+                                            type="text"
+                                            id="latitude"
+                                            placeholder="Latitude"
                                     >
                                     <div
-                                        class="invalid-feedback"
+                                            class="invalid-feedback"
                                     >{{ get(this.error_data, 'errors.latitude[0]', false) }}
                                     </div>
                                 </div>
@@ -51,15 +51,15 @@
                                 <div class="form-group">
                                     <label for="longitude">Longitude:</label>
                                     <input
-                                        v-model.number="new_panorama.longitude"
-                                        class="form-control"
-                                        :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
-                                        type="text"
-                                        id="longitude"
-                                        placeholder="Longitude"
+                                            v-model.number="new_panorama.longitude"
+                                            class="form-control"
+                                            :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
+                                            type="text"
+                                            id="longitude"
+                                            placeholder="Longitude"
                                     >
                                     <div
-                                        class="invalid-feedback"
+                                            class="invalid-feedback"
                                     >{{ get(this.error_data, 'errors.longitude[0]', false) }}
                                     </div>
                                 </div>
@@ -67,42 +67,42 @@
                         </div>
 
                         <GmapMap
-                            @click="onCreatePanoramaMapClick"
-                            class="my-3"
-                            style="height: 300px; width: 100%"
-                            :center="{lat: location.latitude, lng: location.longitude}"
-                            :zoom="20"
-                            map-type-id="terrain"
+                                @click="onCreatePanoramaMapClick"
+                                class="my-3"
+                                style="height: 300px; width: 100%"
+                                :center="{lat: location.latitude, lng: location.longitude}"
+                                :zoom="20"
+                                map-type-id="terrain"
                         >
                             <GmapMarker
-                                :icon="{
+                                    :icon="{
                                     url: `/layer/icon/${location.layer_id}`,
                                     scaledSize: config.location_marker.icon.scaledSize
                                 }"
-                                :position="{lat: location.latitude, lng: location.longitude}"
+                                    :position="{lat: location.latitude, lng: location.longitude}"
                             />
 
                             <GmapMarker
-                                :icon="{
+                                    :icon="{
                                     scaledSize: config.location_marker.icon.scaledSize
                                 }"
-                                :position="{lat: new_panorama.latitude, lng: new_panorama.longitude}"
+                                    :position="{lat: new_panorama.latitude, lng: new_panorama.longitude}"
                             />
                         </GmapMap>
 
                         <div class="form-group">
                             <label for="image">Gambar:</label>
                             <input
-                                class="d-block"
-                                ref="createPanoramaImageInputRef"
-                                id="image"
-                                name="image"
-                                type="file"
-                                accept="images/*"
+                                    class="d-block"
+                                    ref="createPanoramaImageInputRef"
+                                    id="image"
+                                    name="image"
+                                    type="file"
+                                    accept="images/*"
                             >
                             <small
-                                v-if="get(this.error_data, 'errors.image[0]', false)"
-                                class="text-danger text-xs mt-3"
+                                    v-if="get(this.error_data, 'errors.image[0]', false)"
+                                    class="text-danger text-xs mt-3"
                             >{{ get(this.error_data, 'errors.image[0]', false) }}
                             </small>
                         </div>
@@ -138,9 +138,9 @@
         </modal>
 
         <modal
-            height="auto"
-            @before-close="(e) => { is_submitting && e.stop() }"
-            name="delete-panorama-form"
+                height="auto"
+                @before-close="(e) => { is_submitting && e.stop() }"
+                name="delete-panorama-form"
         >
             <div v-if="selected_panorama"
                  class="card bg-danger text-white">
@@ -154,14 +154,14 @@
                     <hr>
 
                     <img
-                        style="width: 100%; height: auto; object-fit: cover"
-                        :src="`/location/panorama/${selected_panorama.location_id}/image/${selected_panorama.id}`"
+                            style="width: 100%; height: auto; object-fit: cover"
+                            :src="`/location/panorama/${selected_panorama.location_id}/image/${selected_panorama.id}`"
                     >
 
                     <div class="mt-3 text-right">
                         <button
-                            @click="onConfirmPanoramaDeleteButtonClick(selected_panorama)"
-                            class="btn btn-primary"
+                                @click="onConfirmPanoramaDeleteButtonClick(selected_panorama)"
+                                class="btn btn-primary"
                         >
                             Konfimasi Penghapusan
                             <i class="fa fa-trash"></i>
@@ -172,9 +172,9 @@
         </modal>
 
         <modal
-            height="auto"
-            name="edit-panorama-form"
-            @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
+                height="auto"
+                name="edit-panorama-form"
+                @before-close="(e) => { is_submitting && e.stop(); upload_progress_percentage = 0; }"
         >
             <div class="card">
                 <div class="card-header">
@@ -184,21 +184,21 @@
 
                 <div class="card-body">
                     <form
-                        @submit="onEditPanoramaFormSubmit"
-                        v-if="selected_panorama && edited_panorama"
+                            @submit="onEditPanoramaFormSubmit"
+                            v-if="selected_panorama && edited_panorama"
                     >
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input
-                                v-model="edited_panorama.name"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
-                                type="text"
-                                id="name"
-                                placeholder="Name"
+                                    v-model="edited_panorama.name"
+                                    class="form-control"
+                                    :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
+                                    type="text"
+                                    id="name"
+                                    placeholder="Name"
                             >
                             <div
-                                class="invalid-feedback"
+                                    class="invalid-feedback"
                             >{{ get(this.error_data, 'errors.name[0]', false) }}
                             </div>
                         </div>
@@ -208,15 +208,15 @@
                                 <div class="form-group">
                                     <label for="latitude">Latitude:</label>
                                     <input
-                                        v-model.number="edited_panorama.latitude"
-                                        class="form-control"
-                                        :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
-                                        type="text"
-                                        id="latitude"
-                                        placeholder="Latitude"
+                                            v-model.number="edited_panorama.latitude"
+                                            class="form-control"
+                                            :class="{'is-invalid': get(this.error_data, 'errors.latitude[0]', false)}"
+                                            type="text"
+                                            id="latitude"
+                                            placeholder="Latitude"
                                     >
                                     <div
-                                        class="invalid-feedback"
+                                            class="invalid-feedback"
                                     >{{ get(this.error_data, 'errors.latitude[0]', false) }}
                                     </div>
                                 </div>
@@ -225,15 +225,15 @@
                                 <div class="form-group">
                                     <label for="longitude">Longitude:</label>
                                     <input
-                                        v-model.number="edited_panorama.longitude"
-                                        class="form-control"
-                                        :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
-                                        type="text"
-                                        id="longitude"
-                                        placeholder="Longitude"
+                                            v-model.number="edited_panorama.longitude"
+                                            class="form-control"
+                                            :class="{'is-invalid': get(this.error_data, 'errors.longitude[0]', false)}"
+                                            type="text"
+                                            id="longitude"
+                                            placeholder="Longitude"
                                     >
                                     <div
-                                        class="invalid-feedback"
+                                            class="invalid-feedback"
                                     >{{ get(this.error_data, 'errors.longitude[0]', false) }}
                                     </div>
                                 </div>
@@ -241,51 +241,51 @@
                         </div>
 
                         <GmapMap
-                            @click="onEditPanoramaMapClick"
-                            class="my-3"
-                            style="height: 300px; width: 100%"
-                            :center="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
-                            :zoom="18"
-                            map-type-id="terrain"
+                                @click="onEditPanoramaMapClick"
+                                class="my-3"
+                                style="height: 300px; width: 100%"
+                                :center="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
+                                :zoom="18"
+                                map-type-id="terrain"
                         >
                             <GmapMarker
-                                :icon="{
+                                    :icon="{
                                     url: `/layer/icon/${location.layer_id}`,
                                     scaledSize: config.location_marker.icon.scaledSize
                                 }"
 
-                                :position="{lat: location.latitude, lng: location.longitude}"
+                                    :position="{lat: location.latitude, lng: location.longitude}"
                             />
 
                             <GmapMarker
-                                :icon="{
+                                    :icon="{
                                     scaledSize: config.location_marker.icon.scaledSize
                                 }"
-                                :position="{lat: edited_panorama.latitude, lng: edited_panorama.longitude}"
+                                    :position="{lat: edited_panorama.latitude, lng: edited_panorama.longitude}"
                             />
 
                             <GmapMarker
-                                :icon="{
+                                    :icon="{
                                     url: '/png/panorama.png',
                                     scaledSize: config.location_marker.icon.scaledSize
                                 }"
-                                :position="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
+                                    :position="{lat: selected_panorama.latitude, lng: selected_panorama.longitude}"
                             />
                         </GmapMap>
 
                         <div class="form-group">
                             <label for="image">Gambar:</label>
                             <input
-                                class="d-block"
-                                ref="editPanoramaImageInputRef"
-                                id="image"
-                                name="image"
-                                type="file"
-                                accept="images/*"
+                                    class="d-block"
+                                    ref="editPanoramaImageInputRef"
+                                    id="image"
+                                    name="image"
+                                    type="file"
+                                    accept="images/*"
                             >
                             <small
-                                v-if="get(this.error_data, 'errors.image[0]', false)"
-                                class="text-danger text-xs mt-3"
+                                    v-if="get(this.error_data, 'errors.image[0]', false)"
+                                    class="text-danger text-xs mt-3"
                             >{{ get(this.error_data, 'errors.image[0]', false) }}
                             </small>
                         </div>
@@ -337,8 +337,8 @@
                     </div>
 
                     <table
-                        v-if="selected_panorama.links.length"
-                        class="table table-bordered table-sm"
+                            v-if="selected_panorama.links.length"
+                            class="table table-bordered table-sm"
                     >
                         <thead class="thead thead-dark">
                         <tr>
@@ -349,31 +349,31 @@
                         </thead>
                         <tbody>
                         <tr
-                            v-for="link in selected_pano_links"
-                            :key="link.id"
-                            :class="{ 'table-info': link.heading != link.original_heading }"
+                                v-for="link in selected_pano_links"
+                                :key="link.id"
+                                :class="{ 'table-info': link.heading !== link.original_heading }"
                         >
                             <td>{{ link.destination.name }}</td>
                             <td>
                                 <input
-                                    class="form-control form-control-sm"
-                                    type="number"
-                                    v-model.number="link.heading"
+                                        class="form-control form-control-sm"
+                                        type="number"
+                                        v-model.number="link.heading"
                                 >
                             </td>
                             <td class="text-center">
                                 <button
-                                    @click="onUpdateLinkHeadingButtonClick(link)"
-                                    class="btn btn-dark btn-sm"
-                                    :disabled="link.heading == link.original_heading"
+                                        @click="onUpdateLinkHeadingButtonClick(link)"
+                                        class="btn btn-dark btn-sm"
+                                        :disabled="link.heading === link.original_heading"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
 
                                 <button
-                                    @click="onDeleteLinkButtonClick(link)"
-                                    v-if="!is_submitting"
-                                    class="btn btn-danger btn-sm"
+                                        @click="onDeleteLinkButtonClick(link)"
+                                        v-if="!is_submitting"
+                                        class="btn btn-danger btn-sm"
                                 >
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -398,19 +398,19 @@
                             <div class="form-group">
                                 <label>Panorama Tujuan:</label>
                                 <select
-                                    v-model="destination_id"
-                                    class="form-control"
-                                    :class="{'is-invalid': get(this.error_data, 'errors.destination_id[0]', false)}"
+                                        v-model="destination_id"
+                                        class="form-control"
+                                        :class="{'is-invalid': get(this.error_data, 'errors.destination_id[0]', false)}"
                                 >
                                     <option
-                                        v-for="panorama in possible_links"
-                                        :key="panorama.id"
-                                        :value="panorama.id"
+                                            v-for="panorama in possible_links"
+                                            :key="panorama.id"
+                                            :value="panorama.id"
                                     >{{ panorama.name }}
                                     </option>
                                 </select>
                                 <div
-                                    class="invalid-feedback"
+                                        class="invalid-feedback"
                                 >{{ get(this.error_data, 'errors.destination_id[0]', false) }}
                                 </div>
                             </div>
@@ -418,15 +418,15 @@
                             <div class="form-group">
                                 <label for="heading">Heading:</label>
                                 <input
-                                    v-model.number="heading"
-                                    class="form-control"
-                                    :class="{'is-invalid': get(this.error_data, 'errors.heading[0]', false)}"
-                                    type="text"
-                                    id="heading"
-                                    placeholder="Heading"
+                                        v-model.number="heading"
+                                        class="form-control"
+                                        :class="{'is-invalid': get(this.error_data, 'errors.heading[0]', false)}"
+                                        type="text"
+                                        id="heading"
+                                        placeholder="Heading"
                                 >
                                 <div
-                                    class="invalid-feedback"
+                                        class="invalid-feedback"
                                 >{{ get(this.error_data, 'errors.heading[0]', false) }}
                                 </div>
                             </div>
@@ -473,14 +473,14 @@
                     </div>
                     <div class="card-body p-0">
                         <GmapMap
-                            :center="{lat: location.latitude, lng: location.longitude}"
-                            :zoom="config.zoom"
-                            map-type-id="terrain"
-                            style="height: 600px; width: 100%"
+                                :center="{lat: location.latitude, lng: location.longitude}"
+                                :zoom="config.zoom"
+                                map-type-id="terrain"
+                                style="height: 600px; width: 100%"
                         >
                             <GmapMarker
-                                :position="{lat: location.latitude, lng: location.longitude}"
-                                :icon="{
+                                    :position="{lat: location.latitude, lng: location.longitude}"
+                                    :icon="{
                                     url: `/layer/icon/${location.layer_id}`,
                                     scaledSize: config.location_marker.icon.scaledSize
                                 }"
@@ -489,18 +489,18 @@
                             <span v-for="panorama in location.panoramas"
                                   :key="panorama.id">
                                 <GmapMarker
-                                    :position="{lat: panorama.latitude, lng: panorama.longitude}"
+                                        :position="{lat: panorama.latitude, lng: panorama.longitude}"
 
-                                    :icon="{
+                                        :icon="{
                                         url: '/png/panorama.png',
                                         scaledSize: config.location_marker.icon.scaledSize
                                     }"
                                 />
 
                                 <GmapPolyline
-                                    v-for="link in panorama.links"
-                                    :key="link.id"
-                                    :path="[{lat: panorama.latitude, lng: panorama.longitude}, {lat: link.destination.latitude, lng: link.destination.longitude}]"
+                                        v-for="link in panorama.links"
+                                        :key="link.id"
+                                        :path="[{lat: panorama.latitude, lng: panorama.longitude}, {lat: link.destination.latitude, lng: link.destination.longitude}]"
                                 ></GmapPolyline>
                             </span>
                         </GmapMap>
@@ -511,9 +511,9 @@
             <div class="col-4">
                 <div class="list-group">
                     <div
-                        class="list-group-item"
-                        v-for="panorama in location.panoramas"
-                        :key="panorama.id"
+                            class="list-group-item"
+                            v-for="panorama in location.panoramas"
+                            :key="panorama.id"
                     >
                         {{ panorama.name }}
                         <hr class="m-1">
@@ -521,24 +521,24 @@
                         ({{ panorama.latitude.toFixed(4) }}, {{ panorama.longitude.toFixed(4) }})
                         <div class="text-right mt-3">
                             <button
-                                @click="onManageLinksButtonClick(panorama)"
-                                class="btn btn-dark btn-sm"
+                                    @click="onManageLinksButtonClick(panorama)"
+                                    class="btn btn-dark btn-sm"
                             >
                                 Link
                                 <i class="fa fa-link"></i>
                             </button>
 
                             <button
-                                @click="onEditPanoramaButtonClick(panorama)"
-                                class="btn btn-dark btn-sm"
+                                    @click="onEditPanoramaButtonClick(panorama)"
+                                    class="btn btn-dark btn-sm"
                             >
                                 Edit
                                 <i class="fa fa-edit"></i>
                             </button>
 
                             <button
-                                @click="onDeletePanoramaButtonClick(panorama)"
-                                class="btn btn-danger btn-sm"
+                                    @click="onDeletePanoramaButtonClick(panorama)"
+                                    class="btn btn-danger btn-sm"
                             >
                                 Hapus
                                 <i class="fa fa-trash"></i>
@@ -605,11 +605,29 @@
             possible_links() {
                 return this.location.panoramas.filter(
                     panorama =>
-                        panorama.id != this.selected_panorama.id &&
+                        panorama.id !== this.selected_panorama.id &&
                         this.selected_panorama.links.find(
-                            link => link.destination_id == panorama.id
+                            link => link.destination_id === panorama.id
                         ) === undefined
                 );
+            }
+        },
+
+        watch: {
+            destination_id(new_destination_id) {
+                if (!new_destination_id) {
+                    return
+                }
+
+                const destination_panorama = this.location.panoramas
+                    .find(source_panorama => source_panorama.id === new_destination_id)
+
+                const pointA = new google.maps.LatLng(this.selected_panorama.latitude, this.selected_panorama.longitude)
+                const pointB = new google.maps.LatLng(destination_panorama.latitude, destination_panorama.longitude)
+
+                console.log(google.maps.geometry)
+
+                this.heading = google.maps.geometry.spherical.computeHeading(pointA, pointB)
             }
         },
 
@@ -781,12 +799,24 @@
                         }
                     )
                     .then(response => {
+                        console.log(response.data)
+
+                        const destination = response.data[0]
+                        const reverseDestination = response.data[1]
+
                         this.location.panoramas = this.location.panoramas.map(
                             panorama => {
-                                if (panorama.id == this.selected_panorama.id) {
+                                if (panorama.id === this.selected_panorama.id) {
                                     panorama.links = [
                                         ...panorama.links,
-                                        response.data
+                                        destination
+                                    ];
+                                    return panorama;
+                                }
+                                else if (panorama.id === this.destination_id) {
+                                    panorama.links = [
+                                        ...panorama.links,
+                                        reverseDestination
                                     ];
                                     return panorama;
                                 }
@@ -794,10 +824,6 @@
                             }
                         );
 
-                        this.selected_panorama.links = [
-                            ...this.selected_panorama.links,
-                            response.data
-                        ];
                         this.error_data = null;
                         this.is_submitting = false;
                     })

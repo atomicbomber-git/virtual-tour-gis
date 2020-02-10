@@ -3427,10 +3427,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return this.location.panoramas.filter(function (panorama) {
-        return panorama.id != _this.selected_panorama.id && _this.selected_panorama.links.find(function (link) {
-          return link.destination_id == panorama.id;
+        return panorama.id !== _this.selected_panorama.id && _this.selected_panorama.links.find(function (link) {
+          return link.destination_id === panorama.id;
         }) === undefined;
       });
+    }
+  },
+  watch: {
+    destination_id: function destination_id(new_destination_id) {
+      if (!new_destination_id) {
+        return;
+      }
+
+      var destination_panorama = this.location.panoramas.find(function (source_panorama) {
+        return source_panorama.id === new_destination_id;
+      });
+      var pointA = new google.maps.LatLng(this.selected_panorama.latitude, this.selected_panorama.longitude);
+      var pointB = new google.maps.LatLng(destination_panorama.latitude, destination_panorama.longitude);
+      console.log(google.maps.geometry);
+      this.heading = google.maps.geometry.spherical.computeHeading(pointA, pointB);
     }
   },
   methods: {
@@ -3556,15 +3571,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         destination_id: this.destination_id,
         heading: this.heading
       }).then(function (response) {
+        console.log(response.data);
+        var destination = response.data[0];
+        var reverseDestination = response.data[1];
         _this5.location.panoramas = _this5.location.panoramas.map(function (panorama) {
-          if (panorama.id == _this5.selected_panorama.id) {
-            panorama.links = [].concat(_toConsumableArray(panorama.links), [response.data]);
+          if (panorama.id === _this5.selected_panorama.id) {
+            panorama.links = [].concat(_toConsumableArray(panorama.links), [destination]);
+            return panorama;
+          } else if (panorama.id === _this5.destination_id) {
+            panorama.links = [].concat(_toConsumableArray(panorama.links), [reverseDestination]);
             return panorama;
           }
 
           return panorama;
         });
-        _this5.selected_panorama.links = [].concat(_toConsumableArray(_this5.selected_panorama.links), [response.data]);
         _this5.error_data = null;
         _this5.is_submitting = false;
       })["catch"](function (error) {
@@ -70750,7 +70770,7 @@ var render = function() {
                                 key: link.id,
                                 class: {
                                   "table-info":
-                                    link.heading != link.original_heading
+                                    link.heading !== link.original_heading
                                 }
                               },
                               [
@@ -70797,7 +70817,7 @@ var render = function() {
                                       staticClass: "btn btn-dark btn-sm",
                                       attrs: {
                                         disabled:
-                                          link.heading == link.original_heading
+                                          link.heading === link.original_heading
                                       },
                                       on: {
                                         click: function($event) {
@@ -86023,14 +86043,15 @@ Vue.component('location-panorama-index', __webpack_require__(/*! ./components/lo
 Vue.component('guest-virtual-tour', __webpack_require__(/*! ./components/GuestVirtualTour.vue */ "./resources/js/components/GuestVirtualTour.vue")["default"]);
 Vue.component('street-view', __webpack_require__(/*! ./components/StreetView.vue */ "./resources/js/components/StreetView.vue")["default"]); // Import vue-js-modal
 
+ // Import vue2-google-maps
+
 
 Vue.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_0___default.a, {
   dialog: true
-}); // Import vue2-google-maps
-
-
+});
 Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_1__, {
   load: {
+    libraries: ["geometry"],
     key: 'AIzaSyCt1SXMaJ-9Yb7xley_wWlvi54f5ckafOQ'
   }
 });
@@ -86719,9 +86740,9 @@ module.exports = function (cb, value, meta) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
 
 
 /***/ })

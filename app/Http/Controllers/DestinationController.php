@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Destination;
 use App\Location;
 use App\Panorama;
+use Illuminate\Support\Facades\DB;
 
 class DestinationController extends Controller
 {
+    /**
+     * @param Location $location
+     * @param Panorama $panorama
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Exception
+     */
     public function create(Location $location, Panorama $panorama)
     {
         $data = $this->validate(request(), [
@@ -15,27 +23,47 @@ class DestinationController extends Controller
             'heading' => 'required|numeric'
         ]);
 
-        $link = Destination::create([
+        DB::beginTransaction();
+
+        $destination = Destination::create([
             'origin_id' => $panorama->id,
             'destination_id' => $data['destination_id'],
             'heading' => $data['heading']
         ]);
 
-        return $link->load('destination');
+        $reverseDestination = Destination::firstOrCreate([
+            'origin_id' => $data['destination_id'],
+            'destination_id' => $panorama->id,
+        ], [
+            'heading' => $data['heading'] - 180,
+        ]);
+
+        DB::commit();
+
+        return [
+            $destination->load('destination'),
+            $reverseDestination->load('destination'),
+        ];
     }
 
-    public function update(Location $location, Panorama $panorama, Destination $link)
+    /**
+     * @param Location $location
+     * @param Panorama $panorama
+     * @param Destination $destination
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(Location $location, Panorama $panorama, Destination $destination)
     {
         $data = $this->validate(request(), [
             'heading' => 'required|numeric'
         ]);
 
-        $link->update($data);
+        $destination->update($data);
     }
 
-    public function delete(Location $location, Panorama $panorama, Destination $link)
+    public function delete(Location $location, Panorama $panorama, Destination $destination)
     {
-        $link->delete();
+        $destination->delete();
     }
 
 }
