@@ -501,7 +501,7 @@
                                         v-for="link in panorama.links"
                                         :key="link.id"
                                         :path="[{lat: panorama.latitude, lng: panorama.longitude}, {lat: link.destination.latitude, lng: link.destination.longitude}]"
-                                ></GmapPolyline>
+                                />
                             </span>
                         </GmapMap>
                     </div>
@@ -524,7 +524,7 @@
                                     @click="onManageLinksButtonClick(panorama)"
                                     class="btn btn-dark btn-sm"
                             >
-                                Link
+                                Link to Destination
                                 <i class="fa fa-link"></i>
                             </button>
 
@@ -550,7 +550,7 @@
                 <div v-if="location.panoramas.length == 0"
                      class="alert alert-warning">
                     <i class="fa fa-warning"></i>
-                    Belum Terdapa Panorama Sama Sekali.
+                    Belum Terdapat Panorama Sama Sekali.
                 </div>
             </div>
         </div>
@@ -620,10 +620,10 @@
                 }
 
                 const destination_panorama = this.location.panoramas
-                    .find(source_panorama => source_panorama.id === new_destination_id)
+                    .find(source_panorama => source_panorama.id === new_destination_id);
 
-                const pointA = new google.maps.LatLng(this.selected_panorama.latitude, this.selected_panorama.longitude)
-                const pointB = new google.maps.LatLng(destination_panorama.latitude, destination_panorama.longitude)
+                const pointA = new google.maps.LatLng(this.selected_panorama.latitude, this.selected_panorama.longitude);
+                const pointB = new google.maps.LatLng(destination_panorama.latitude, destination_panorama.longitude);
                 this.heading = google.maps.geometry.spherical.computeHeading(pointA, pointB)
             }
         },
@@ -721,7 +721,7 @@
                         window.location.reload(true);
                     })
                     .catch(error => {
-                        this.upload_progress_percentage = 0
+                        this.upload_progress_percentage = 0;
                         this.is_submitting = false;
                         this.error_data = error.response.data;
                     });
@@ -757,13 +757,13 @@
             },
 
             updatePanoramas: function (response) {
-                const destination = response.data[0]
-                const reverseDestination = response.data[1]
+                const destination = response.data[0];
+                const reverseDestination = response.data[1];
 
                 this.location.panoramas = this.location.panoramas.map(
                     panorama => {
                         if (panorama.id === destination.origin_id) {
-                            const oldLink = panorama.links.find(link => link.origin_id === destination.origin_id)
+                            const oldLink = panorama.links.find(link => link.origin_id === destination.origin_id);
                             if (!oldLink) {
                                 panorama.links = [...panorama.links, destination];
                             }
@@ -778,7 +778,7 @@
                             return panorama;
                         }
                         else if (panorama.id === destination.destination_id) {
-                            const oldLink = panorama.links.find(link => link.origin_id === destination.destination_id)
+                            const oldLink = panorama.links.find(link => link.origin_id === destination.destination_id);
                             if (!oldLink) {
                                 panorama.links = [...panorama.links, reverseDestination];
                             } else {

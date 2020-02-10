@@ -71208,7 +71208,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            Link\n                            "
+                          "\n                            Link to Destination\n                            "
                         ),
                         _c("i", { staticClass: "fa fa-link" })
                       ]
@@ -71260,7 +71260,7 @@ var render = function() {
             ? _c("div", { staticClass: "alert alert-warning" }, [
                 _c("i", { staticClass: "fa fa-warning" }),
                 _vm._v(
-                  "\n                Belum Terdapa Panorama Sama Sekali.\n            "
+                  "\n                Belum Terdapat Panorama Sama Sekali.\n            "
                 )
               ])
             : _vm._e()
