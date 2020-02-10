@@ -326,10 +326,10 @@
                  v-if="selected_panorama">
                 <div class="card-header">
                     <i class="fa fa-link"></i>
-                    Kelola Link
+                    Kelola Destination
                 </div>
                 <div class="card-body">
-                    <h5>Daftar Link:</h5>
+                    <h5>Daftar Destination:</h5>
                     <div class="alert alert-warning"
                          v-if="!selected_panorama.links.length">
                         <i class="fa fa-warning"></i>
@@ -390,7 +390,7 @@
 
                     <hr>
 
-                    <h5 class="mb-3">Tambah Link dengan Panorama Lain:</h5>
+                    <h5 class="mb-3">Tambah Destination dengan Panorama Lain:</h5>
 
                     <div>
                         <form v-if="possible_links.length > 0"
@@ -434,7 +434,7 @@
                             <div class="form-group text-right mt-2">
                                 <button v-if="!is_submitting"
                                         class="btn btn-primary">
-                                    Tambah Link
+                                    Tambah Destination
                                     <i class="fa fa-check"></i>
                                 </button>
 
@@ -449,7 +449,7 @@
                         <div class="alert alert-warning"
                              v-if="possible_links.length == 0">
                             <i class="fa fa-warning"></i>
-                            Tidak terdapat link yang dapat ditambahkan
+                            Tidak terdapat destination yang dapat ditambahkan
                         </div>
                     </div>
                 </div>
@@ -624,9 +624,6 @@
 
                 const pointA = new google.maps.LatLng(this.selected_panorama.latitude, this.selected_panorama.longitude)
                 const pointB = new google.maps.LatLng(destination_panorama.latitude, destination_panorama.longitude)
-
-                console.log(google.maps.geometry)
-
                 this.heading = google.maps.geometry.spherical.computeHeading(pointA, pointB)
             }
         },
@@ -687,32 +684,8 @@
                         {heading: link.heading}
                     )
                     .then(response => {
-                        let panorama = this.location.panoramas.find(
-                            pano => pano.id == this.selected_panorama.id
-                        );
 
-                        let links = [];
-                        this.location.panoramas = this.location.panoramas.map(
-                            panorama => {
-                                if (panorama.id != this.selected_panorama.id) {
-                                    return panorama;
-                                }
-
-                                links = panorama.links.map(l => {
-                                    if (l.id != link.id) {
-                                        return l;
-                                    }
-
-                                    return {...l, heading: link.heading};
-                                });
-
-                                return {...panorama, links: links};
-                            }
-                        );
-
-                        this.selected_panorama.links = links;
                     })
-
                     .catch(error => {
                         this.error_data = error.response.data;
                     });
@@ -783,6 +756,46 @@
                 this.edited_panorama.longitude = e.latLng.lng();
             },
 
+            updatePanoramas: function (response) {
+                const destination = response.data[0]
+                const reverseDestination = response.data[1]
+
+                this.location.panoramas = this.location.panoramas.map(
+                    panorama => {
+                        if (panorama.id === destination.origin_id) {
+                            const oldLink = panorama.links.find(link => link.origin_id === destination.origin_id)
+                            if (!oldLink) {
+                                panorama.links = [...panorama.links, destination];
+                            }
+                            else {
+                                panorama.links = panorama.links.map(link => {
+                                    if (link.origin_id === destination.origin_id) {
+                                        return destination
+                                    }
+                                    return link
+                                })
+                            }
+                            return panorama;
+                        }
+                        else if (panorama.id === destination.destination_id) {
+                            const oldLink = panorama.links.find(link => link.origin_id === destination.destination_id)
+                            if (!oldLink) {
+                                panorama.links = [...panorama.links, reverseDestination];
+                            } else {
+                                panorama.links = panorama.links.map(link => {
+                                    if (link.origin_id === destination.destination_id) {
+                                        return reverseDestination
+                                    }
+                                    return link
+                                })
+                            }
+                            return panorama;
+                        }
+                        return panorama;
+                    }
+                );
+            },
+
             onCreateNewLinkFormSubmit(e) {
                 e.preventDefault();
 
@@ -799,31 +812,7 @@
                         }
                     )
                     .then(response => {
-                        console.log(response.data)
-
-                        const destination = response.data[0]
-                        const reverseDestination = response.data[1]
-
-                        this.location.panoramas = this.location.panoramas.map(
-                            panorama => {
-                                if (panorama.id === this.selected_panorama.id) {
-                                    panorama.links = [
-                                        ...panorama.links,
-                                        destination
-                                    ];
-                                    return panorama;
-                                }
-                                else if (panorama.id === this.destination_id) {
-                                    panorama.links = [
-                                        ...panorama.links,
-                                        reverseDestination
-                                    ];
-                                    return panorama;
-                                }
-                                return panorama;
-                            }
-                        );
-
+                        this.updatePanoramas(response);
                         this.error_data = null;
                         this.is_submitting = false;
                     })

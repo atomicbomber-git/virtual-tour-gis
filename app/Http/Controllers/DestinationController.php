@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Destination;
+use App\Helpers\Math;
 use App\Location;
 use App\Panorama;
 use Illuminate\Support\Facades\DB;
@@ -31,11 +32,11 @@ class DestinationController extends Controller
             'heading' => $data['heading']
         ]);
 
-        $reverseDestination = Destination::firstOrCreate([
+        $reverseDestination = Destination::updateOrCreate([
             'origin_id' => $data['destination_id'],
             'destination_id' => $panorama->id,
         ], [
-            'heading' => $data['heading'] - 180,
+            "heading" => Math::fmod($data['heading'] - 180, 360),
         ]);
 
         DB::commit();
@@ -50,6 +51,7 @@ class DestinationController extends Controller
      * @param Location $location
      * @param Panorama $panorama
      * @param Destination $destination
+     * @return array
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Location $location, Panorama $panorama, Destination $destination)
@@ -58,7 +60,13 @@ class DestinationController extends Controller
             'heading' => 'required|numeric'
         ]);
 
+        DB::beginTransaction();
+
         $destination->update($data);
+
+        DB::commit();
+
+        return $destination->load('destination');
     }
 
     public function delete(Location $location, Panorama $panorama, Destination $destination)

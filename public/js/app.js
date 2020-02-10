@@ -3444,7 +3444,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       var pointA = new google.maps.LatLng(this.selected_panorama.latitude, this.selected_panorama.longitude);
       var pointB = new google.maps.LatLng(destination_panorama.latitude, destination_panorama.longitude);
-      console.log(google.maps.geometry);
       this.heading = google.maps.geometry.spherical.computeHeading(pointA, pointB);
     }
   },
@@ -3486,32 +3485,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios.post(this.route('location.panorama.destination.update', [this.location.id, this.selected_panorama.id, link.id]).url(), {
         heading: link.heading
-      }).then(function (response) {
-        var panorama = _this3.location.panoramas.find(function (pano) {
-          return pano.id == _this3.selected_panorama.id;
-        });
-
-        var links = [];
-        _this3.location.panoramas = _this3.location.panoramas.map(function (panorama) {
-          if (panorama.id != _this3.selected_panorama.id) {
-            return panorama;
-          }
-
-          links = panorama.links.map(function (l) {
-            if (l.id != link.id) {
-              return l;
-            }
-
-            return _objectSpread({}, l, {
-              heading: link.heading
-            });
-          });
-          return _objectSpread({}, panorama, {
-            links: links
-          });
-        });
-        _this3.selected_panorama.links = links;
-      })["catch"](function (error) {
+      }).then(function (response) {})["catch"](function (error) {
         _this3.error_data = error.response.data;
       });
     },
@@ -3562,6 +3536,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.edited_panorama.latitude = e.latLng.lat();
       this.edited_panorama.longitude = e.latLng.lng();
     },
+    updatePanoramas: function updatePanoramas(response) {
+      var destination = response.data[0];
+      var reverseDestination = response.data[1];
+      this.location.panoramas = this.location.panoramas.map(function (panorama) {
+        if (panorama.id === destination.origin_id) {
+          var oldLink = panorama.links.find(function (link) {
+            return link.origin_id === destination.origin_id;
+          });
+
+          if (!oldLink) {
+            panorama.links = [].concat(_toConsumableArray(panorama.links), [destination]);
+          } else {
+            panorama.links = panorama.links.map(function (link) {
+              if (link.origin_id === destination.origin_id) {
+                return destination;
+              }
+
+              return link;
+            });
+          }
+
+          return panorama;
+        } else if (panorama.id === destination.destination_id) {
+          var _oldLink = panorama.links.find(function (link) {
+            return link.origin_id === destination.destination_id;
+          });
+
+          if (!_oldLink) {
+            panorama.links = [].concat(_toConsumableArray(panorama.links), [reverseDestination]);
+          } else {
+            panorama.links = panorama.links.map(function (link) {
+              if (link.origin_id === destination.destination_id) {
+                return reverseDestination;
+              }
+
+              return link;
+            });
+          }
+
+          return panorama;
+        }
+
+        return panorama;
+      });
+    },
     onCreateNewLinkFormSubmit: function onCreateNewLinkFormSubmit(e) {
       var _this5 = this;
 
@@ -3571,20 +3590,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         destination_id: this.destination_id,
         heading: this.heading
       }).then(function (response) {
-        console.log(response.data);
-        var destination = response.data[0];
-        var reverseDestination = response.data[1];
-        _this5.location.panoramas = _this5.location.panoramas.map(function (panorama) {
-          if (panorama.id === _this5.selected_panorama.id) {
-            panorama.links = [].concat(_toConsumableArray(panorama.links), [destination]);
-            return panorama;
-          } else if (panorama.id === _this5.destination_id) {
-            panorama.links = [].concat(_toConsumableArray(panorama.links), [reverseDestination]);
-            return panorama;
-          }
+        _this5.updatePanoramas(response);
 
-          return panorama;
-        });
         _this5.error_data = null;
         _this5.is_submitting = false;
       })["catch"](function (error) {
@@ -70729,11 +70736,11 @@ var render = function() {
           ? _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("i", { staticClass: "fa fa-link" }),
-                _vm._v("\n                Kelola Link\n            ")
+                _vm._v("\n                Kelola Destination\n            ")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
-                _c("h5", [_vm._v("Daftar Link:")]),
+                _c("h5", [_vm._v("Daftar Destination:")]),
                 _vm._v(" "),
                 !_vm.selected_panorama.links.length
                   ? _c("div", { staticClass: "alert alert-warning" }, [
@@ -70881,7 +70888,7 @@ var render = function() {
                 _c("hr"),
                 _vm._v(" "),
                 _c("h5", { staticClass: "mb-3" }, [
-                  _vm._v("Tambah Link dengan Panorama Lain:")
+                  _vm._v("Tambah Destination dengan Panorama Lain:")
                 ]),
                 _vm._v(" "),
                 _c("div", [
@@ -71025,7 +71032,7 @@ var render = function() {
                                     { staticClass: "btn btn-primary" },
                                     [
                                       _vm._v(
-                                        "\n                                Tambah Link\n                                "
+                                        "\n                                Tambah Destination\n                                "
                                       ),
                                       _c("i", { staticClass: "fa fa-check" })
                                     ]
@@ -71057,7 +71064,7 @@ var render = function() {
                     ? _c("div", { staticClass: "alert alert-warning" }, [
                         _c("i", { staticClass: "fa fa-warning" }),
                         _vm._v(
-                          "\n                        Tidak terdapat link yang dapat ditambahkan\n                    "
+                          "\n                        Tidak terdapat destination yang dapat ditambahkan\n                    "
                         )
                       ])
                     : _vm._e()
@@ -86740,9 +86747,9 @@ module.exports = function (cb, value, meta) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
 
 
 /***/ })
