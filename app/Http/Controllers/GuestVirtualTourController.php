@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Layer;
 use Illuminate\Http\Request;
 
 class GuestVirtualTourController extends Controller
 {
     public function show()
     {
-        $layers = \App\Layer::query()
+        $layers = Layer::query()
             ->with("locations.panoramas.links.destination")
             ->get();
 

@@ -126,6 +126,7 @@
                                     {{ selected_location.description }}
                                     <div class="text-right mt-4">
                                         <button
+                                            :disabled="selected_location.has_virtual_tour === 0"
                                             v-if="!virtual_tour_mode"
                                             @click="showVirtualTour"
                                             class="btn btn-primary"

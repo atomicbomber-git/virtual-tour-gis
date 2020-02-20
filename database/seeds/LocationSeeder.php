@@ -13,12 +13,13 @@ class LocationSeeder extends Seeder
      */
     public function run()
     {
-        $layers = Layer::select('id')->get();
+        $layers = Layer::select('layer_id')
+            ->get();
 
         factory(\App\Location::class, 2)
             ->make()
             ->each(function ($location) use($layers) {
-                $location->layer_id = $layers->random()->id;
+                $location->layer_id = $layers->random()->layer_id;
                 $location->save();
             });
     }

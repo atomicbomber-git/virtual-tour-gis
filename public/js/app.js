@@ -1934,6 +1934,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["config", "layers"],
@@ -2697,6 +2698,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2732,7 +2770,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         description: null,
         latitude: null,
         longitude: null,
-        layer_id: null
+        layer_id: null,
+        has_virtual_tour: null
       },
       edit_error_data: null,
       create_error_data: null
@@ -2765,9 +2804,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onEditFormSubmit: function onEditFormSubmit(e) {
       var _this = this;
 
-      e.preventDefault();
       axios.post("/location/update/".concat(this.edited_location.id), this.edited_location).then(function (response) {
-        window.location.reload(true);
+        window.location.reload();
       })["catch"](function (error) {
         _this.edit_error_data = error.response.data;
       });
@@ -2779,9 +2817,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onCreateFormSubmit: function onCreateFormSubmit(e) {
       var _this2 = this;
 
-      e.preventDefault();
       axios.post("/location/store", this.created_location).then(function (response) {
-        window.location.reload(true);
+        window.location.reload();
       })["catch"](function (error) {
         _this2.create_error_data = error.response.data;
       });
@@ -68144,6 +68181,11 @@ var render = function() {
                                       "button",
                                       {
                                         staticClass: "btn btn-primary",
+                                        attrs: {
+                                          disabled:
+                                            _vm.selected_location
+                                              .has_virtual_tour === 0
+                                        },
                                         on: { click: _vm.showVirtualTour }
                                       },
                                       [_vm._v("Mode Virtual Tour")]
@@ -68690,9 +68732,7 @@ var render = function() {
                         _c("div", { staticClass: "card text-dark" }, [
                           _c("div", { staticClass: "card-body" }, [
                             _c("h4", [
-                              _vm._v(
-                                " " + _vm._s(_vm.selected_location.name) + " "
-                              )
+                              _vm._v(" " + _vm._s(_vm.selected_location.name))
                             ]),
                             _vm._v(" "),
                             _c("hr"),
@@ -68775,7 +68815,14 @@ var render = function() {
                   _vm.edited_location
                     ? _c(
                         "form",
-                        { on: { submit: _vm.onEditFormSubmit } },
+                        {
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.onEditFormSubmit($event)
+                            }
+                          }
+                        },
                         [
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "edit_name" } }, [
@@ -68829,8 +68876,94 @@ var render = function() {
                                   )
                                 ) + "\n                            "
                               )
-                            ]),
-                            _vm._v(" "),
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "div",
+                              { staticClass: "custom-control custom-checkbox" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.edited_location.has_virtual_tour,
+                                      expression:
+                                        "edited_location.has_virtual_tour"
+                                    }
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "checkbox",
+                                    id: "edit_has_virtual_tour"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.edited_location.has_virtual_tour
+                                    )
+                                      ? _vm._i(
+                                          _vm.edited_location.has_virtual_tour,
+                                          null
+                                        ) > -1
+                                      : _vm.edited_location.has_virtual_tour
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a =
+                                          _vm.edited_location.has_virtual_tour,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.edited_location,
+                                              "has_virtual_tour",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.edited_location,
+                                              "has_virtual_tour",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(
+                                          _vm.edited_location,
+                                          "has_virtual_tour",
+                                          $$c
+                                        )
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "edit_has_virtual_tour" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Virtual Tour?\n                                "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "edit_address" } }, [
                               _vm._v(" Alamat:")
                             ]),
@@ -69176,7 +69309,14 @@ var render = function() {
                   _vm.created_location
                     ? _c(
                         "form",
-                        { on: { submit: _vm.onCreateFormSubmit } },
+                        {
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.onCreateFormSubmit($event)
+                            }
+                          }
+                        },
                         [
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "name" } }, [
@@ -69231,6 +69371,90 @@ var render = function() {
                                 ) + "\n                            "
                               )
                             ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "div",
+                              { staticClass: "custom-control custom-checkbox" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.created_location.has_virtual_tour,
+                                      expression:
+                                        "created_location.has_virtual_tour"
+                                    }
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "checkbox",
+                                    id: "has_virtual_tour"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.created_location.has_virtual_tour
+                                    )
+                                      ? _vm._i(
+                                          _vm.created_location.has_virtual_tour,
+                                          null
+                                        ) > -1
+                                      : _vm.created_location.has_virtual_tour
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a =
+                                          _vm.created_location.has_virtual_tour,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.created_location,
+                                              "has_virtual_tour",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.created_location,
+                                              "has_virtual_tour",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(
+                                          _vm.created_location,
+                                          "has_virtual_tour",
+                                          $$c
+                                        )
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "has_virtual_tour" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Virtual Tour?\n                                "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
@@ -69850,7 +70074,31 @@ var render = function() {
                                   _vm._s(layer.name) +
                                   "\n                                    "
                               )
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "badge badge-success",
+                                class: {
+                                  "badge-success":
+                                    location.has_virtual_tour === 1,
+                                  "badge-danger":
+                                    location.has_virtual_tour === 0
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(
+                                      location.has_virtual_tour === 1
+                                        ? "Virtual Tour"
+                                        : "Tanpa Virtual Tour"
+                                    ) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "text-right mt-3" }, [
@@ -86751,9 +86999,9 @@ module.exports = function (cb, value, meta) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual-tour-gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/atomicbomber/projects/virtual_tour_gis/resources/sass/app-guest.scss */"./resources/sass/app-guest.scss");
 
 
 /***/ })

@@ -21,7 +21,7 @@
                              style="max-height: 30rem; overflow-y: scroll">
                             <div class="card text-dark">
                                 <div class="card-body">
-                                    <h4> {{ selected_location.name }} </h4>
+                                    <h4> {{ selected_location.name }}</h4>
                                     <hr>
                                     <p class="small">
                                         <span class="font-weight-bold"> {{ selected_location.latitude }}, {{ selected_location.longitude }} </span>
@@ -56,7 +56,7 @@
 
                     <div class="card-body"
                          style="height: 30rem; overflow-y: scroll">
-                        <form @submit="onEditFormSubmit"
+                        <form @submit.prevent="onEditFormSubmit"
                               v-if="edited_location">
                             <div class='form-group'>
                                 <label for='edit_name'> Nama:</label>
@@ -69,7 +69,22 @@
                                     placeholder='Nama'>
                                 <div class='invalid-feedback'>{{ get(this.edit_error_data, 'errors.name[0]', false) }}
                                 </div>
+                            </div>
 
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           v-model="edited_location.has_virtual_tour"
+                                           class="custom-control-input"
+                                           id="edit_has_virtual_tour">
+                                    <label class="custom-control-label"
+                                           for="edit_has_virtual_tour">
+                                        Virtual Tour?
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label for='edit_address'> Alamat:</label>
                                 <textarea
                                     v-model='edited_location.address'
@@ -177,7 +192,7 @@
 
                     <div class="card-body"
                          style="height: 30rem; overflow-y: scroll">
-                        <form @submit="onCreateFormSubmit"
+                        <form @submit.prevent="onCreateFormSubmit"
                               v-if="created_location">
                             <div class='form-group'>
                                 <label for='name'> Nama:</label>
@@ -190,6 +205,19 @@
                                     placeholder='Nama'>
                                 <div class='invalid-feedback'>{{ get(this.create_error_data, 'errors.name[0]', false)
                                     }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           v-model="created_location.has_virtual_tour"
+                                           class="custom-control-input"
+                                           id="has_virtual_tour">
+                                    <label class="custom-control-label"
+                                           for="has_virtual_tour">
+                                        Virtual Tour?
+                                    </label>
                                 </div>
                             </div>
 
@@ -397,6 +425,15 @@
                                         <span class="badge badge-info">
                                             {{ layer.name }}
                                         </span>
+
+                                        <span class="badge badge-success"
+                                              :class="{
+                                                'badge-success': location.has_virtual_tour === 1,
+                                                'badge-danger': location.has_virtual_tour === 0,
+                                            }"
+                                        >
+                                            {{ location.has_virtual_tour === 1 ? "Virtual Tour" : 'Tanpa Virtual Tour' }}
+                                        </span>
                                     </div>
 
                                     <div class="text-right mt-3">
@@ -463,6 +500,7 @@
                     latitude: null,
                     longitude: null,
                     layer_id: null,
+                    has_virtual_tour: null,
                 },
                 edit_error_data: null,
                 create_error_data: null
@@ -503,11 +541,9 @@
             },
 
             onEditFormSubmit(e) {
-                e.preventDefault()
-
                 axios.post(`/location/update/${this.edited_location.id}`, this.edited_location)
                     .then(response => {
-                        window.location.reload(true)
+                        window.location.reload()
                     })
                     .catch(error => {
                         this.edit_error_data = error.response.data
@@ -520,11 +556,9 @@
             },
 
             onCreateFormSubmit(e) {
-                e.preventDefault()
-
                 axios.post(`/location/store`, this.created_location)
                     .then(response => {
-                        window.location.reload(true)
+                        window.location.reload()
                     })
                     .catch(error => {
                         this.create_error_data = error.response.data
