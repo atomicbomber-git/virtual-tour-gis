@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Layer;
-use Illuminate\Http\Request;
 
 class GuestVirtualTourController extends Controller
 {

@@ -68180,12 +68180,18 @@ var render = function() {
                                   ? _c(
                                       "button",
                                       {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value:
+                                              _vm.selected_location
+                                                .has_virtual_tour === 1,
+                                            expression:
+                                              "selected_location.has_virtual_tour === 1"
+                                          }
+                                        ],
                                         staticClass: "btn btn-primary",
-                                        attrs: {
-                                          disabled:
-                                            _vm.selected_location
-                                              .has_virtual_tour === 0
-                                        },
                                         on: { click: _vm.showVirtualTour }
                                       },
                                       [_vm._v("Mode Virtual Tour")]
