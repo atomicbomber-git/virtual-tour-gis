@@ -10,11 +10,10 @@ Vue.component('street-view', require('./components/StreetView.vue').default);
 
 // Import vue-js-modal
 import VModal from 'vue-js-modal'
-// Import vue2-google-maps
-import * as VueGoogleMaps from 'vue2-google-maps'
-
 Vue.use(VModal, {dialog: true})
 
+// Import vue2-google-maps
+import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
     load: {
         libraries: ["geometry"],

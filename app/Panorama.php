@@ -12,17 +12,17 @@ class Panorama extends Model implements HasMedia
 {
     use HasMediaTrait;
 
-    const MAX_ZOOM_LEVEL = 2;
-
-    public $fillable = [
-        'location_id', 'name', 'latitude', 'longitude'
+    public $guarded = [
     ];
+
+    const MAX_ZOOM_LEVEL = 2;
+    const IMAGE_COLLECTION_NAME = "panoramas";
 
     public $registerMediaConversionsUsingModelInstance = true;
 
     public function registerMediaConversions(Media $media = null)
     {
-        $image = Image::load($this->getFirstMediaPath("panoramas"));
+        $image = Image::load($this->getFirstMediaPath(self::IMAGE_COLLECTION_NAME));
 
         $max_zoom_level = static::MAX_ZOOM_LEVEL;
 
